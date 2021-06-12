@@ -20,6 +20,6 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::group(['prefix'=>'admin','as' => 'admin.'],function () {
+Route::group(['middleware'=>'admin','prefix'=>'admin','as' => 'admin.'],function () {
     Route::get('/dashbroad', [homeAdminController::class, 'dashbroad'])->name('dashbroad');
 });
