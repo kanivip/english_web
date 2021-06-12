@@ -99,18 +99,25 @@
                                         <a href="#">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}<i
                                                 class="fa fa-angle-down" aria-hidden="true"></i></a>
                                         <ul>
-                                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                            @if(Auth::user()->role_id==1)
+                                            <li><a href="{{route('admin.dashbroad')}}">Admin</a></li>
+                                            @endif
+                                            <li>
+                                                <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
-                                            </a>
+                                                    {{ __('Logout') }}
+                                                </a>
 
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                class="d-none">
-                                                @csrf
-                                            </form>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    class="d-none">
+                                                    @csrf
+                                                </form>
+                                            </li>
 
                                         </ul>
+
                                     </li>
+
                                 </ul>
                             </div>
                             @endguest
