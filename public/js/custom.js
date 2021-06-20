@@ -234,9 +234,22 @@ $(document).ready(function()
     	}	
 	}
 
-	// 
-	function confirm_delete() {
-        return confirm("Are you sure you wish to delete that?");
-    }
+	//MY CUSTOM CODE
 
+
+	//click to pronounce
+	$('.btn-pronounce').on('click',function (){
+		// Initialize new SpeechSynthesisUtterance object
+		let speech = new SpeechSynthesisUtterance();
+		// Set Speech Language
+		speech.lang = "en";
+		var button = $(this).parent();
+		button = $(button).parent();
+		button = $(button).find('.td-name').text();
+		console.log(button);
+		speech.text = button;
+		window.speechSynthesis.speak(speech);
+	});
+
+	//END CUSTOM
 });

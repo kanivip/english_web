@@ -1,7 +1,7 @@
 <div class="nav-left-sidebar sidebar-dark">
     <div class="menu-list">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+            <a class="d-xl-none d-lg-none" href="{{route('admin.dashbroad')}}">Dashboard</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -12,8 +12,8 @@
                         Menu
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false"
-                            data-target="#submenu-1" aria-controls="submenu-1"><i
+                        <a class="nav-link active" href="{{route('admin.dashbroad')}}" data-toggle="collapse"
+                            aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i
                                 class="fa fa-fw fa-user-circle"></i>Dashboard <span
                                 class="badge badge-success">6</span></a>
                         <div id="submenu-1" class="collapse submenu" style="">
@@ -89,26 +89,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-3" aria-controls="submenu-3"><i
-                                class="fas fa-fw fa-chart-pie"></i>Chart</a>
+                                class="fas fa-fw fa-chart-pie"></i>Vocabularies</a>
                         <div id="submenu-3" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pages/chart-c3.html">C3 Charts</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/chart-chartist.html">Chartist Charts</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/chart-charts.html">Chart</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/chart-morris.html">Morris</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/chart-sparkline.html">Sparkline</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/chart-gauge.html">Guage</a>
+                                    <a class="nav-link" href="{{route('admin.vocabularies.index')}}">Data</a>
                                 </li>
                             </ul>
                         </div>

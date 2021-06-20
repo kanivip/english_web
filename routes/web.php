@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\homeAdminController;
 use App\Http\Controllers\adminCategoriesController;
+use App\Http\Controllers\adminVocabulariesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +32,14 @@ Route::group(['middleware'=>'admin','prefix'=>'admin','as' => 'admin.'],function
         Route::get('/edit/{id}', [adminCategoriesController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [adminCategoriesController::class, 'update'])->name('update');
         Route::get('/destroy/{id}', [adminCategoriesController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix'=>'vocabularies','as' => 'vocabularies.'],function () {
+        Route::get('/index', [adminVocabulariesController::class, 'index'])->name('index');
+        Route::get('/create', [adminVocabulariesController::class, 'create'])->name('create');
+        Route::post('/store', [adminVocabulariesController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [adminVocabulariesController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [adminVocabulariesController::class, 'update'])->name('update');
+        Route::get('/destroy/{id}', [adminVocabulariesController::class, 'destroy'])->name('destroy');
     });
 });
