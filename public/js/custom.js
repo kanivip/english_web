@@ -251,5 +251,26 @@ $(document).ready(function()
 		window.speechSynthesis.speak(speech);
 	});
 
+	//show name image
+	$(".custom-file-input").on("change", function() {
+		var fileName = $(this).val().split("\\").pop();
+		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+	  });
+
+	//show image
+	function showImage(src,target) {
+		var fr=new FileReader();
+		// when image is loaded, set the src of the image where you want to display it
+		fr.onload = function(e) { target.src = this.result; };
+		src.addEventListener("change",function() {
+		  // fill fr with image data    
+		  fr.readAsDataURL(src.files[0]);
+		});
+	  }
+	  
+	  var src = document.getElementById("image-src");
+	  var target = document.getElementById("image-target");
+	  showImage(src,target);
+
 	//END CUSTOM
 });

@@ -43,6 +43,8 @@ class adminCategoriesController extends Controller
         return redirect()->route('admin.categories.index')->with('success','You add '.$request->name.' success');
     }
 
+
+
     /**
      * Display the specified resource.
      *

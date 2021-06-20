@@ -95,6 +95,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('admin.vocabularies.index')}}">Data</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('admin.vocabularies.create')}}">Add <span
+                                            class="badge badge-secondary">New</span></a>
+                                </li>
                             </ul>
                         </div>
                     </li>

@@ -127,7 +127,14 @@
                                             <td><button class="btn-pronounce btn btn-primary"><i
                                                         class="fas fa-volume-up "></button></i></td>
                                             <td>{{$vocabulary->content}}</td>
-                                            <td>{{$vocabulary->image}}</td>
+
+                                            <td>
+                                                @if($vocabulary->image !=null)
+                                                <img class="col-sm-12"
+                                                    src="{{'https://drive.google.com/uc?export=view&id='.$vocabulary->image}}">
+                                                @endif
+                                            </td>
+
                                             <td>{{$vocabulary->created_at}}</td>
                                             <td>{{$vocabulary->updated_at}}</td>
                                             <td><a href="{{route('admin.vocabularies.edit',$vocabulary->id)}}"><i

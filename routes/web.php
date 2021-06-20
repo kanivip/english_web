@@ -20,7 +20,34 @@ use App\Http\Controllers\adminVocabulariesController;
 
 Auth::routes();
 
+
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/put', function() {
+    Storage::disk('google')->put('test.txt', 'Hello World123');
+    return 'File was saved to Google Drive';
+});
+
+Route::get('/get', function() {
+    $filename = 'ban chat 2.PNG';
+
+    $dir = '/';
+    $recursive = false; // Get subdirectories also?
+    $contents = collect(Storage::disk('google')->listContents($dir, $recursive));
+
+    $file = $contents
+        ->where('type', '=', 'file')
+        ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
+        ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
+        ->first(); // there can be duplicate file names!
+
+    //return $file; // array with file info
+
+    $rawData = Storage::disk('google')->get($file['path']);
+
+    return view('test',['myFile' =>$rawData]);
+});
 
 Route::group(['middleware'=>'admin','prefix'=>'admin','as' => 'admin.'],function () {
     Route::get('/dashbroad', [homeAdminController::class, 'dashbroad'])->name('dashbroad');
