@@ -45,7 +45,7 @@ class adminVocabulariesController extends Controller
             'image' => 'image|mimes:jpg,png,jpeg|max:1024',
         ]);
         $name = '';
-        if(isset($request->image))
+        if($request->image != null)
         {
             $name = $request->image->getClientOriginalName().time();
             Storage::disk('google')->put($name,  file_get_contents($request->file('image')->getRealPath()));
@@ -94,7 +94,8 @@ class adminVocabulariesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $vocabulary = vocabularies::find($id);
+        return view('admin.vocabularies.edit')->with(compact('vocabulary'));
     }
 
     /**
@@ -106,7 +107,26 @@ class adminVocabulariesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|unique:vocabularies,name,'.$id.'|max:50',
+            'meaning' => 'required|unique:vocabularies,meaning,'.$id.'|max:50',
+            'image' => 'image|mimes:jpg,png,jpeg|max:1024',
+        ]);
+        $name = '';
+        $vocabulary = vocabularies::find($id);
+        if($request->image !=null)
+        {
+            Storage::disk('google')->delete($vocabulary->image);
+            $name = $request->image->getClientOriginalName().time();
+            Storage::disk('google')->put($name,  file_get_contents($request->file('image')->getRealPath()));
+            $name = $this->getImage($name);
+            $vocabulary->image = $name;
+        }
+        $vocabulary->name = $request->name;
+        $vocabulary->meaning = $request->meaning;
+        $vocabulary->content = $request->content;
+        $vocabulary->save();
+        return redirect()->route('admin.vocabularies.index')->with('success','You add '.$request->name.' success');
     }
 
     /**
@@ -117,6 +137,9 @@ class adminVocabulariesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vocabulary = vocabularies::find($id);
+        Storage::disk('google')->delete($vocabulary->image);
+        $vocabulary->delete();
+        return redirect()->back()->with('success','You delete id='.$id.' success');
     }
 }
