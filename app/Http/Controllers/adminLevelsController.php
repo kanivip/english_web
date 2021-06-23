@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\categories;
-class adminCategoriesController extends Controller
+
+class adminLevelsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +13,7 @@ class adminCategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Categories::paginate(5);
-        return view('admin.categories.index')->with(compact('categories'));
+        //
     }
 
     /**
@@ -24,8 +23,7 @@ class adminCategoriesController extends Controller
      */
     public function create()
     {
-        
-        return view('admin.categories.create');
+        //
     }
 
     /**
@@ -36,14 +34,8 @@ class adminCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|unique:categories,name|max:30',
-        ]);
-        Categories::create($request->all());
-        return redirect()->route('admin.categories.index')->with('success','You add '.$request->name.' success');
+        //
     }
-
-
 
     /**
      * Display the specified resource.
@@ -64,8 +56,7 @@ class adminCategoriesController extends Controller
      */
     public function edit($id)
     {
-        $category = Categories::find($id);
-        return view('admin.categories.edit')->with(compact('category'));
+        //
     }
 
     /**
@@ -77,11 +68,7 @@ class adminCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'name' => 'required|unique:categories,name,'.$id.'|max:30',
-        ]);
-        Categories::where('id',$id)->update(['name' => $request->name]);
-        return redirect()->route('admin.categories.index')->with('success','You update '.$request->name.' success');
+        //
     }
 
     /**
@@ -92,8 +79,6 @@ class adminCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        Categories::where('id',$id)->delete();
-        return redirect()->route('admin.categories.index')->with('success','You delete id='.$id.' success');
+        //
     }
-    
 }
