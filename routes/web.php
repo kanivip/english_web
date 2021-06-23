@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\homeAdminController;
 use App\Http\Controllers\adminCategoriesController;
 use App\Http\Controllers\adminVocabulariesController;
+use App\Http\Controllers\adminLevelsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,5 +44,14 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], f
         Route::get('/edit/{id}', [adminVocabulariesController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [adminVocabulariesController::class, 'update'])->name('update');
         Route::get('/destroy/{id}', [adminVocabulariesController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'levels', 'as' => 'levels.'], function () {
+        Route::get('/index', [adminLevelsController::class, 'index'])->name('index');
+        Route::get('/create', [adminLevelsController::class, 'create'])->name('create');
+        Route::post('/store', [adminLevelsController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [adminLevelsController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [adminLevelsController::class, 'update'])->name('update');
+        Route::get('/destroy/{id}', [adminLevelsController::class, 'destroy'])->name('destroy');
     });
 });

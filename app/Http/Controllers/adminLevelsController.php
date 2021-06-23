@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\levels;
 
 class adminLevelsController extends Controller
 {
@@ -13,7 +14,8 @@ class adminLevelsController extends Controller
      */
     public function index()
     {
-        //
+        $levels = levels::paginate(5);
+        return view('admin.levels.index')->with(compact('levels'));
     }
 
     /**
@@ -23,7 +25,7 @@ class adminLevelsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.levels.create');
     }
 
     /**
@@ -34,7 +36,11 @@ class adminLevelsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|unique:levels,name|max:30',
+        ]);
+        levels::create($request->all());
+        return redirect()->route('admin.levels.index')->with('success', 'You add ' . $request->name . ' success');
     }
 
     /**
@@ -56,7 +62,8 @@ class adminLevelsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $level = levels::find($id);
+        return view('admin.levels.edit')->with(compact('level'));
     }
 
     /**
@@ -68,7 +75,11 @@ class adminLevelsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|unique:levels,name,' . $id . '|max:30',
+        ]);
+        levels::where('id', $id)->update(['name' => $request->name]);
+        return redirect()->route('admin.levels.index')->with('success', 'You update ' . $request->name . ' success');
     }
 
     /**
@@ -79,6 +90,7 @@ class adminLevelsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        levels::where('id', $id)->delete();
+        return redirect()->route('admin.levels.index')->with('success', 'You delete id=' . $id . ' success');
     }
 }

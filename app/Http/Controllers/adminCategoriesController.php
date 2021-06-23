@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\categories;
+
 class adminCategoriesController extends Controller
 {
     /**
@@ -24,7 +25,7 @@ class adminCategoriesController extends Controller
      */
     public function create()
     {
-        
+
         return view('admin.categories.create');
     }
 
@@ -40,7 +41,7 @@ class adminCategoriesController extends Controller
             'name' => 'required|unique:categories,name|max:30',
         ]);
         Categories::create($request->all());
-        return redirect()->route('admin.categories.index')->with('success','You add '.$request->name.' success');
+        return redirect()->route('admin.categories.index')->with('success', 'You add ' . $request->name . ' success');
     }
 
 
@@ -78,10 +79,10 @@ class adminCategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:categories,name,'.$id.'|max:30',
+            'name' => 'required|unique:categories,name,' . $id . '|max:30',
         ]);
-        Categories::where('id',$id)->update(['name' => $request->name]);
-        return redirect()->route('admin.categories.index')->with('success','You update '.$request->name.' success');
+        Categories::where('id', $id)->update(['name' => $request->name]);
+        return redirect()->route('admin.categories.index')->with('success', 'You update ' . $request->name . ' success');
     }
 
     /**
@@ -92,8 +93,7 @@ class adminCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        Categories::where('id',$id)->delete();
-        return redirect()->route('admin.categories.index')->with('success','You delete id='.$id.' success');
+        Categories::where('id', $id)->delete();
+        return redirect()->route('admin.categories.index')->with('success', 'You delete id=' . $id . ' success');
     }
-    
 }
