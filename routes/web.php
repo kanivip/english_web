@@ -8,6 +8,7 @@ use App\Http\Controllers\adminVocabulariesController;
 use App\Http\Controllers\adminLevelsController;
 use App\Http\Controllers\questionsAdminController;
 use App\Http\Controllers\vocabulariesController;
+use App\Http\Controllers\adminUsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,5 +68,13 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], f
         Route::get('/edit/{id}', [questionsAdminController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [questionsAdminController::class, 'update'])->name('update');
         Route::get('/destroy/{id}', [questionsAdminController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+        Route::get('/index', [adminUsersController::class, 'index'])->name('index');
+        Route::get('/create', [adminUsersController::class, 'create'])->name('create');
+        Route::post('/store', [adminUsersController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [adminUsersController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [adminUsersController::class, 'update'])->name('update');
     });
 });

@@ -104,6 +104,22 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                            data-target="#submenu-12" aria-controls="submenu-12"><i
+                                class="fas fa-fw fa-chart-pie"></i>Users</a>
+                        <div id="submenu-12" class="collapse submenu">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('admin.users.index')}}">Data</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('admin.users.create')}}">Add <span
+                                            class="badge badge-secondary">New</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-10" aria-controls="submenu-10"><i
                                 class="fas fa-fw fa-chart-pie"></i>Levels Lession</a>
                         <div id="submenu-10" class="collapse submenu">
@@ -134,6 +150,7 @@
                             </ul>
                         </div>
                     </li>
+                    
                     <li class="nav-item ">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-4" aria-controls="submenu-4"><i
