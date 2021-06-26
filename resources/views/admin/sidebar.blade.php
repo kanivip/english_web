@@ -105,7 +105,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-10" aria-controls="submenu-10"><i
-                                class="fas fa-fw fa-chart-pie"></i>Levels Question</a>
+                                class="fas fa-fw fa-chart-pie"></i>Levels Lession</a>
                         <div id="submenu-10" class="collapse submenu">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
@@ -113,6 +113,22 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('admin.levels.create')}}">Add <span
+                                            class="badge badge-secondary">New</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                            data-target="#submenu-11" aria-controls="submenu-11"><i
+                                class="fas fa-fw fa-chart-pie"></i>Questions</a>
+                        <div id="submenu-11" class="collapse submenu">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('admin.questions.index')}}">Data</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('admin.questions.create')}}">Add <span
                                             class="badge badge-secondary">New</span></a>
                                 </li>
                             </ul>

@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class vocabularies extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','meaning','content','image'];
+    protected $fillable = ['name', 'meaning', 'content', 'image'];
+    public function question()
+    {
+        return $this->hasMany(Question::class);
+    }
 }

@@ -1,0 +1,184 @@
+@extends('admin.layout')
+@section('content')
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Question</h2>
+                    <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus
+                        vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="ecommerce-widget">
+
+
+            <!-- basic form  -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Edit</h5>
+                        <div class="card-body">
+                            <form method="post" action="{{route('admin.questions.update',$question->id)}}">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="inputText3" class="col-form-label">Vocabulary</label>
+                                    <input list="datalistVocabulary" id="inputVocabulary"
+                                        value="{{old('vocabulary',$question->vocabulary_id)}}" name="vocabulary_id"
+                                        type="text" class="form-control @error('vocabulary') is-invalid @enderror">
+                                </div>
+                                <datalist id="datalistVocabulary">
+                                </datalist>
+                                @error('vocabulary')
+                                <div class="alert alert-warning alert-danger fade show">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label for="inputText3" class="col-form-label">Category</label>
+                                    <select id="selectCategory" name="category_id" class="custom-select">
+                                        <option value="error" selected>Open this select menu</option>
+                                        @foreach($categories as $category)
+                                        <option value="{{$category->id}}"
+                                            {{ $category->id == $question->category_id ? 'selected' : '' }}>
+                                            {{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('category')
+                                <div class="alert alert-warning alert-danger fade show">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                                <label for="inputText3" class="col-form-label">Questions</label>
+                                <input id="question" value="{{old('question',$question->question)}}" name="question"
+                                    type="text" class="form-control @error('question') is-invalid @enderror">
+                                @error('question')
+                                <div class="alert alert-warning alert-danger fade show">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <div style="display:none" id="multiple-choice" class="form-group">
+
+
+
+                                        <div id="answer_a">
+                                            <label for="inputText3" class="col-form-label">Answer A</label>
+                                            <input value="{{old('a',$question->a)}}" name="a" type="text"
+                                                class="form-control @error('a') is-invalid @enderror">
+                                            <div class="custom-control custom-radio">
+                                                <input {{ ($question->answer=="a")? "checked" : "" }} type="radio"
+                                                    value="a" id="customRadio1" name="correctMuptiple"
+                                                    class="custom-control-input">
+                                                <label class="custom-control-label" for="customRadio1">Correct
+                                                    Answer</label>
+                                            </div>
+                                            @error('a')
+                                            <div class="alert alert-warning alert-danger fade show">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                            @enderror
+                                        </div>
+                                        <div id="answer_b">
+                                            <label for="inputText3" class="col-form-label">Answer B</label>
+                                            <input id="answer_b" value="{{old('b',$question->b)}}" name="b" type="text"
+                                                class="form-control @error('b') is-invalid @enderror">
+                                            <div class="custom-control custom-radio">
+                                                <input {{ ($question->answer=="b")? "checked" : "" }} type="radio"
+                                                    value="b" id="customRadio2" name="correctMuptiple"
+                                                    class="custom-control-input">
+                                                <label class="custom-control-label" for="customRadio2">Correct
+                                                    Answer</label>
+                                            </div>
+                                            @error('b')
+                                            <div class="alert alert-warning alert-danger fade show">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                            @enderror
+                                        </div>
+                                        <div id="answer_c">
+                                            <label for="inputText3" class="col-form-label">Answer C</label>
+                                            <input id="answer_c" value="{{old('c',$question->c)}}" name="c" type="text"
+                                                class="form-control @error('c') is-invalid @enderror">
+                                            <div class="custom-control custom-radio">
+                                                <input {{ ($question->answer=="c")? "checked" : "" }} type="radio"
+                                                    value="c" id="customRadio3" name="correctMuptiple"
+                                                    class="custom-control-input">
+                                                <label class="custom-control-label" for="customRadio3">Correct
+                                                    Answer</label>
+                                            </div>
+                                            @error('c')
+                                            <div class="alert alert-warning alert-danger fade show">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                            @enderror
+                                        </div>
+                                        <div id="answer_d">
+                                            <label for="inputText3" class="col-form-label">Answer D</label>
+                                            <input id="answer_d" value="{{old('d',$question->d)}}" name="d" type="text"
+                                                class="form-control @error('d') is-invalid @enderror">
+                                            <div class="custom-control custom-radio">
+                                                <input {{ ($question->answer=="d")? "checked" : "" }} type="radio"
+                                                    value="d" id="customRadio4" name="correctMuptiple"
+                                                    class="custom-control-input">
+                                                <label class="custom-control-label" for="customRadio4">Correct
+                                                    Answer</label>
+                                            </div>
+                                            @error('d')
+                                            <div class="alert alert-warning alert-danger fade show">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                            @enderror
+                                        </div>
+
+                                    </div>
+                                    <div style="display:none" id="correctAnswer">
+                                        <label for="inputText3" class="col-form-label">Correct Answer</label>
+                                        <input value="{{old('answer',$question->answer)}}" name="answer" type="text"
+                                            class="form-control @error('answer') is-invalid @enderror">
+                                        @error('answer')
+                                        <div class="alert alert-warning alert-danger fade show">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div style="display:none" id="checkbox-auto">
+                                        @error('d')
+                                        <div class="alert alert-warning alert-danger fade show">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    @error('correctMuptiple')
+                                    <div class="alert alert-warning alert-danger fade show">
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                    @enderror
+                                    @if (session('warm'))
+                                    <div class="alert alert-success">
+                                        {{ session('warm') }}
+                                    </div>
+                                    @endif
+                                </div>
+                                <input class="btn btn-primary" type="submit" value="submit">
+                        </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end basic form  -->
+    @endsection
