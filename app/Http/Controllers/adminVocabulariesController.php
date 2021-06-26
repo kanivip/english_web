@@ -45,14 +45,13 @@ class adminVocabulariesController extends Controller
             'image' => 'image|mimes:jpg,png,jpeg|max:1024',
         ]);
         $name = '';
-        if($request->image != null)
-        {
-            $name = $request->image->getClientOriginalName().time();
+        if ($request->image != null) {
+            $name = $request->image->getClientOriginalName() . time();
             Storage::disk('google')->put($name,  file_get_contents($request->file('image')->getRealPath()));
             $name = $this->getImage($name);
         }
-        vocabularies::create(array_merge($request->all(), ['image' =>$name ]));
-        return redirect()->route('admin.vocabularies.index')->with('success','You add '.$request->name.' success');
+        vocabularies::create(array_merge($request->all(), ['image' => $name]));
+        return redirect()->route('admin.vocabularies.index')->with('success', 'You add ' . $request->name . ' success');
     }
 
 
@@ -63,15 +62,15 @@ class adminVocabulariesController extends Controller
         $dir = '/';
         $recursive = false; // Get subdirectories also?
         $contents = collect(Storage::disk('google')->listContents($dir, $recursive));
-    
+
         $file = $contents
             ->where('type', '=', 'file')
             ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
             ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
             ->first(); // there can be duplicate file names!
-    
+
         //return $file; // array with file info
-    
+
         return $file['path'];
     }
 
@@ -108,16 +107,15 @@ class adminVocabulariesController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:vocabularies,name,'.$id.'|max:50',
-            'meaning' => 'required|unique:vocabularies,meaning,'.$id.'|max:50',
+            'name' => 'required|unique:vocabularies,name,' . $id . '|max:50',
+            'meaning' => 'required|unique:vocabularies,meaning,' . $id . '|max:50',
             'image' => 'image|mimes:jpg,png,jpeg|max:1024',
         ]);
         $name = '';
         $vocabulary = vocabularies::find($id);
-        if($request->image !=null)
-        {
+        if ($request->image != null) {
             Storage::disk('google')->delete($vocabulary->image);
-            $name = $request->image->getClientOriginalName().time();
+            $name = $request->image->getClientOriginalName() . time();
             Storage::disk('google')->put($name,  file_get_contents($request->file('image')->getRealPath()));
             $name = $this->getImage($name);
             $vocabulary->image = $name;
@@ -126,7 +124,7 @@ class adminVocabulariesController extends Controller
         $vocabulary->meaning = $request->meaning;
         $vocabulary->content = $request->content;
         $vocabulary->save();
-        return redirect()->route('admin.vocabularies.index')->with('success','You add '.$request->name.' success');
+        return redirect()->route('admin.vocabularies.index')->with('success', 'You add ' . $request->name . ' success');
     }
 
     /**
@@ -140,6 +138,6 @@ class adminVocabulariesController extends Controller
         $vocabulary = vocabularies::find($id);
         Storage::disk('google')->delete($vocabulary->image);
         $vocabulary->delete();
-        return redirect()->back()->with('success','You delete id='.$id.' success');
+        return redirect()->back()->with('success', 'You delete id=' . $id . ' success');
     }
 }

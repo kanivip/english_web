@@ -18,11 +18,11 @@ class CreateQuestionsTable extends Migration
             $table->foreignId('category_id');
             $table->foreignId('vocabulary_id');
             $table->text('question');
-            $table->text('a');
-            $table->text('b');
-            $table->text('c');
-            $table->text('d');
-            $table->text('answer');
+            $table->text('a')->nullable();
+            $table->text('b')->nullable();
+            $table->text('c')->nullable();
+            $table->text('d')->nullable();
+            $table->text('answer')->nullable();
             $table->timestamps();
         });
     }

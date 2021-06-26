@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\categories;
+use App\Models\levels;
 
-class adminCategoriesController extends Controller
+class adminLevelsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class adminCategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Categories::paginate(5);
-        return view('admin.categories.index')->with(compact('categories'));
+        $levels = levels::paginate(5);
+        return view('admin.levels.index')->with(compact('levels'));
     }
 
     /**
@@ -25,8 +25,7 @@ class adminCategoriesController extends Controller
      */
     public function create()
     {
-
-        return view('admin.categories.create');
+        return view('admin.levels.create');
     }
 
     /**
@@ -38,13 +37,11 @@ class adminCategoriesController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:categories,name|max:30',
+            'name' => 'required|unique:levels,name|max:30',
         ]);
-        Categories::create($request->all());
-        return redirect()->route('admin.categories.index')->with('success', 'You add ' . $request->name . ' success');
+        levels::create($request->all());
+        return redirect()->route('admin.levels.index')->with('success', 'You add ' . $request->name . ' success');
     }
-
-
 
     /**
      * Display the specified resource.
@@ -65,8 +62,8 @@ class adminCategoriesController extends Controller
      */
     public function edit($id)
     {
-        $category = Categories::find($id);
-        return view('admin.categories.edit')->with(compact('category'));
+        $level = levels::find($id);
+        return view('admin.levels.edit')->with(compact('level'));
     }
 
     /**
@@ -79,10 +76,10 @@ class adminCategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:categories,name,' . $id . '|max:30',
+            'name' => 'required|unique:levels,name,' . $id . '|max:30',
         ]);
-        Categories::where('id', $id)->update(['name' => $request->name]);
-        return redirect()->route('admin.categories.index')->with('success', 'You update ' . $request->name . ' success');
+        levels::where('id', $id)->update(['name' => $request->name]);
+        return redirect()->route('admin.levels.index')->with('success', 'You update ' . $request->name . ' success');
     }
 
     /**
@@ -93,7 +90,7 @@ class adminCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        Categories::where('id', $id)->delete();
-        return redirect()->route('admin.categories.index')->with('success', 'You delete id=' . $id . ' success');
+        levels::where('id', $id)->delete();
+        return redirect()->route('admin.levels.index')->with('success', 'You delete id=' . $id . ' success');
     }
 }

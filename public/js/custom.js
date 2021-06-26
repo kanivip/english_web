@@ -234,43 +234,83 @@ $(document).ready(function()
     	}	
 	}
 
-	//MY CUSTOM CODE
 
 
-	//click to pronounce
-	$('.btn-pronounce').on('click',function (){
-		// Initialize new SpeechSynthesisUtterance object
-		let speech = new SpeechSynthesisUtterance();
-		// Set Speech Language
-		speech.lang = "en";
-		var button = $(this).parent();
-		button = $(button).parent();
-		button = $(button).find('.td-name').text();
-		console.log(button);
-		speech.text = button;
-		window.speechSynthesis.speak(speech);
+
+});
+	//search field vocabulary
+	document.getElementById("inputVocabulary").addEventListener("keyup", function(){
+		var datalist = document.getElementById('datalistVocabulary')
+		var question = document.getElementById('question')
+		$.ajax({
+            type: 'GET',
+            url: '/vocabulary/searchVocabulary',
+            data: {key:this.value},
+            dataType: 'json',
+            success: function (data) {
+				var dataoption = '';
+				data.forEach(function(currentValue, index){
+					dataoption += '<option value="'+currentValue.id+'">'+currentValue.name+'</option>'
+				});
+				datalist.innerHTML = dataoption;
+            },
+        });
+		$.ajax({
+            type: 'GET',
+            url: '/vocabulary/searchVocabularyById',
+            data: {id:this.value},
+            dataType: 'json',
+            success: function (data) {
+				question.value = data[0].name;
+            },
+        });
+		question.value = this.text();
+	});
+	// show form add to adminquestions
+	
+	setInterval(function(){
+		var answerA = document.getElementById('answer_a');
+		var answerB = document.getElementById('answer_b');
+		var answerC = document.getElementById('answer_c');
+		var answerD = document.getElementById('answer_d');
+		var correctAnswer = document.getElementById('correctAnswer');
+		var multipleChoice = document.getElementById('multiple-choice');
+		var autoCreate = document.getElementById('checkbox-auto');
+		autoCreate.style.display = "none";
+		correctAnswer.style.display = "none";
+		switch(document.getElementById("selectCategory").value) {
+			case "0":
+				multipleChoice.style.display = "block";
+				autoCreate.style.display = "none";
+				correctAnswer.style.display = "none";
+			  break;
+			case "1":
+				multipleChoice.style.display = "none";
+				autoCreate.style.display = "block";
+				correctAnswer.style.display = "block";
+			  break;
+			case "2":
+				multipleChoice.style.display = "none";
+				autoCreate.style.display = "none";
+				correctAnswer.style.display = "none";
+			  break;
+			case "3":
+				multipleChoice.style.display = "none";
+				autoCreate.style.display = "none";
+				correctAnswer.style.display = "none";
+			  break;
+			case "4":
+				multipleChoice.style.display = "none";
+				autoCreate.style.display = "block";
+				correctAnswer.style.display = "block";
+			  break;
+		  }
+	}, 500);
+
+	var formMutiple = document.getElementById("multiple-choice");
+	document.getElementById("selectCategory").addEventListener("change",function() {
+
+		
 	});
 
-	//show name image
-	$(".custom-file-input").on("change", function() {
-		var fileName = $(this).val().split("\\").pop();
-		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-	  });
-
-	//show image
-	function showImage(src,target) {
-		var fr=new FileReader();
-		// when image is loaded, set the src of the image where you want to display it
-		fr.onload = function(e) { target.src = this.result; };
-		src.addEventListener("change",function() {
-		  // fill fr with image data    
-		  fr.readAsDataURL(src.files[0]);
-		});
-	  }
-	  
-	  var src = document.getElementById("image-src");
-	  var target = document.getElementById("image-target");
-	  showImage(src,target);
-
 	//END CUSTOM
-});

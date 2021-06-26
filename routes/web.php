@@ -5,6 +5,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\homeAdminController;
 use App\Http\Controllers\adminCategoriesController;
 use App\Http\Controllers\adminVocabulariesController;
+use App\Http\Controllers\adminLevelsController;
+use App\Http\Controllers\questionsAdminController;
+use App\Http\Controllers\vocabulariesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,36 +26,14 @@ Auth::routes();
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+//using for ajax
+Route::get('/vocabulary/searchVocabulary', [vocabulariesController::class, 'searchVocabulary'])->name('searchVocabulary');
+Route::get('/vocabulary/searchVocabularyById', [vocabulariesController::class, 'searchVocabularyById'])->name('searchVocabularyById');
 
-Route::get('/put', function() {
-    Storage::disk('google')->put('test.txt', 'Hello World123');
-    return 'File was saved to Google Drive';
-});
-
-Route::get('/get', function() {
-    $filename = 'ban chat 2.PNG';
-
-    $dir = '/';
-    $recursive = false; // Get subdirectories also?
-    $contents = collect(Storage::disk('google')->listContents($dir, $recursive));
-
-    $file = $contents
-        ->where('type', '=', 'file')
-        ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
-        ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
-        ->first(); // there can be duplicate file names!
-
-    //return $file; // array with file info
-
-    $rawData = Storage::disk('google')->get($file['path']);
-
-    return view('test',['myFile' =>$rawData]);
-});
-
-Route::group(['middleware'=>'admin','prefix'=>'admin','as' => 'admin.'],function () {
+Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/dashbroad', [homeAdminController::class, 'dashbroad'])->name('dashbroad');
 
-    Route::group(['prefix'=>'categories','as' => 'categories.'],function () {
+    Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
         Route::get('/index', [adminCategoriesController::class, 'index'])->name('index');
         Route::get('/create', [adminCategoriesController::class, 'create'])->name('create');
         Route::post('/store', [adminCategoriesController::class, 'store'])->name('store');
@@ -61,12 +42,30 @@ Route::group(['middleware'=>'admin','prefix'=>'admin','as' => 'admin.'],function
         Route::get('/destroy/{id}', [adminCategoriesController::class, 'destroy'])->name('destroy');
     });
 
-    Route::group(['prefix'=>'vocabularies','as' => 'vocabularies.'],function () {
+    Route::group(['prefix' => 'vocabularies', 'as' => 'vocabularies.'], function () {
         Route::get('/index', [adminVocabulariesController::class, 'index'])->name('index');
         Route::get('/create', [adminVocabulariesController::class, 'create'])->name('create');
         Route::post('/store', [adminVocabulariesController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [adminVocabulariesController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [adminVocabulariesController::class, 'update'])->name('update');
         Route::get('/destroy/{id}', [adminVocabulariesController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'levels', 'as' => 'levels.'], function () {
+        Route::get('/index', [adminLevelsController::class, 'index'])->name('index');
+        Route::get('/create', [adminLevelsController::class, 'create'])->name('create');
+        Route::post('/store', [adminLevelsController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [adminLevelsController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [adminLevelsController::class, 'update'])->name('update');
+        Route::get('/destroy/{id}', [adminLevelsController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'questions', 'as' => 'questions.'], function () {
+        Route::get('/index', [questionsAdminController::class, 'index'])->name('index');
+        Route::get('/create', [questionsAdminController::class, 'create'])->name('create');
+        Route::post('/store', [questionsAdminController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [questionsAdminController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [questionsAdminController::class, 'update'])->name('update');
+        Route::get('/destroy/{id}', [questionsAdminController::class, 'destroy'])->name('destroy');
     });
 });
