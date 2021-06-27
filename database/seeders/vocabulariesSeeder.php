@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\vocabularies;
+use Database\Seeders\Carbon;
+
 class vocabulariesSeeder extends Seeder
 {
     /**
@@ -966,12 +968,17 @@ class vocabulariesSeeder extends Seeder
             "zero" => "không",
             "zone" => "vùng"
         ];
-        foreach($words as $key => $value){
-            $vocabulary = new vocabularies;
-            $vocabulary->name = $key;
-            $vocabulary->meaning = $value;
-            $vocabulary->save();
+        $word_records = [];
+        foreach ($words as $key => $value) {
+            $word_records[] = [
+                'name' => $key,
+                'meaning' => $value,
+                'updated_at' => date('Y-m-d H:i:s'),  // remove if not using timestamps
+                'created_at' => date('Y-m-d H:i:s')   // remove if not using timestamps
+            ];
         }
 
+        // Insert words records
+        vocabularies::insert($word_records);
     }
 }
