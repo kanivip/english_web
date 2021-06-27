@@ -279,20 +279,15 @@ $(document).ready(function()
 		autoCreate.style.display = "none";
 		correctAnswer.style.display = "none";
 		switch(document.getElementById("selectCategory").value) {
-			case "0":
+			case "1":
 				multipleChoice.style.display = "block";
 				autoCreate.style.display = "none";
 				correctAnswer.style.display = "none";
 			  break;
-			case "1":
+			case "2":
 				multipleChoice.style.display = "none";
 				autoCreate.style.display = "block";
 				correctAnswer.style.display = "block";
-			  break;
-			case "2":
-				multipleChoice.style.display = "none";
-				autoCreate.style.display = "none";
-				correctAnswer.style.display = "none";
 			  break;
 			case "3":
 				multipleChoice.style.display = "none";
@@ -300,6 +295,11 @@ $(document).ready(function()
 				correctAnswer.style.display = "none";
 			  break;
 			case "4":
+				multipleChoice.style.display = "none";
+				autoCreate.style.display = "none";
+				correctAnswer.style.display = "none";
+			  break;
+			case "5":
 				multipleChoice.style.display = "none";
 				autoCreate.style.display = "block";
 				correctAnswer.style.display = "block";

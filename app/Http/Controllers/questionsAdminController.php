@@ -44,7 +44,7 @@ class questionsAdminController extends Controller
             'question' => 'required'
         ]);
         switch ($request->category_id) {
-            case '0':
+            case '1':
                 $validated = $request->validate([
                     'a' => 'required',
                     'b' => 'required',
@@ -58,7 +58,7 @@ class questionsAdminController extends Controller
                 questions::create($request->all());
                 return redirect()->back()->with('warm', 'you add success');
                 break;
-            case '1':
+            case '2':
                 $validated = $request->validate([
                     'question' => 'min:30',
                     'answer' => 'required'
@@ -74,15 +74,15 @@ class questionsAdminController extends Controller
                 }
                 return redirect()->back()->with('warm', 'you add success');
                 break;
-            case '2':
-                questions::create($request->all());
-                return redirect()->back()->with('warm', 'you add success');
-                break;
             case '3':
                 questions::create($request->all());
                 return redirect()->back()->with('warm', 'you add success');
                 break;
             case '4':
+                questions::create($request->all());
+                return redirect()->back()->with('warm', 'you add success');
+                break;
+            case '5':
                 $validated = $request->validate([
                     'question' => 'min:30',
                     'answer' => 'required'
