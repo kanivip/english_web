@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,7 +15,7 @@ class adminUsersController extends Controller
      */
     public function index()
     {
-        $users = users::paginate(10);
+        $users = user::paginate(10);
         return view('admin.users.index')->with(compact('users'));
     }
 
@@ -28,7 +27,7 @@ class adminUsersController extends Controller
      */
     public function edit($id)
     {
-        $users = users::find($id);
+        $users = user::find($id);
         return view('admin.users.edit')->with(compact('users'));
     }
 
@@ -48,7 +47,7 @@ class adminUsersController extends Controller
             'phone' => 'required|max:10',
         ]);
         $name = '';
-        $user = users::find($id);
+        $user = user::find($id);
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->address = $request->address;
