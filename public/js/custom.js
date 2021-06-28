@@ -238,6 +238,7 @@ $(document).ready(function()
 
 
 });
+//CUSTOM CODE
 
 	//click to pronounce
 	$('.btn-pronounce').on('click',function (){
@@ -252,7 +253,7 @@ $(document).ready(function()
 		speech.text = button;
 		window.speechSynthesis.speak(speech);
 	});
-	
+
 	//search field vocabulary
 	document.getElementById("inputVocabulary").addEventListener("keyup", function(){
 		var datalist = document.getElementById('datalistVocabulary')

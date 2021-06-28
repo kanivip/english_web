@@ -18,5 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(vocabulariesSeeder::class);
         $this->call(categoriesSeeder::class);
         $this->call(usersSeeder::class);
+        $this->call(levelsSeeder::class);
+        $this->call(questionsSeeder::class);
     }
 }

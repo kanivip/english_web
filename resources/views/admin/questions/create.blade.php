@@ -51,7 +51,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('category')
+                                @error('category_id')
                                 <div class="alert alert-warning alert-danger fade show">
                                     <strong>{{ $message }}</strong>
                                 </div>
