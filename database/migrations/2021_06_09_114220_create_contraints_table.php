@@ -34,12 +34,15 @@ class CreateContraintsTable extends Migration
             $table->foreign('vocabulary_id')->references('id')->on('vocabularies');
         });
         Schema::table('lessons', function (Blueprint $table) {
-            $table->foreign('question_id')->references('id')->on('questions');
             $table->foreign('level_id')->references('id')->on('levels');
         });
         Schema::table('comments', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('lesson_id')->references('id')->on('lessons');
+        });
+        Schema::table('lessons_questions', function (Blueprint $table) {
+            $table->foreign('lesson_id')->references('id')->on('lessons');
+            $table->foreign('question_id')->references('id')->on('questions');
         });
     }
 
@@ -71,13 +74,15 @@ class CreateContraintsTable extends Migration
             $table->dropForeign(['vocabulary_id']);
         });
         Schema::table('lessons', function (Blueprint $table) {
-            $table->dropForeign(['question_id']);
             $table->dropForeign(['level_id']);
         });
         Schema::table('comments', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
             $table->dropForeign(['lesson_id']);
         });
-        
+        Schema::table('lessons_questions', function (Blueprint $table) {
+            $table->dropForeign(['lesson_id']);
+            $table->dropForeign(['question_id']);
+        });
     }
 }
