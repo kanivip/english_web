@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('admin/assets/vendor/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <link href="{{asset('admin/assets/vendor/fonts/circular-std/style.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('admin/assets/libs/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('admin/assets/vendor/fonts/fontawesome/css/fontawesome-all.css')}}">
@@ -16,7 +17,6 @@
     <link rel="stylesheet"
         href="{{asset('admin/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css')}}">
     <link rel="stylesheet" href="{{asset('admin/assets/vendor/charts/c3charts/c3.css')}}">
-    <link rel="stylesheet" href="{{asset('admin/assets/vendor/fonts/flag-icon-css/flag-icon.min.css')}}">
     <title>Concept - Bootstrap 4 Admin Dashboard Template</title>
 </head>
 
@@ -60,8 +60,9 @@
     <!-- end main wrapper  -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
-    <!-- jquery 3.3.1 -->
-    <script src="{{asset('admin/assets/vendor/jquery/jquery-3.3.1.min.js')}}"></script>
+    <!-- jquery 3.5.1 -->
+    <script src="{{asset('admin/assets/vendor/jquery/jquery-3.5.1.min.js')}}"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <!-- bootstap bundle js -->
     <script src="{{asset('admin/assets/vendor/bootstrap/js/bootstrap.bundle.js')}}"></script>
     <!-- slimscroll js -->
@@ -81,6 +82,8 @@
     <script src="{{asset('admin/assets/vendor/charts/c3charts/C3chartjs.js')}}"></script>
     <script src="{{asset('admin/assets/libs/js/dashboard-ecommerce.js')}}"></script>
     <script src="{{asset('js/custom.js')}}"></script>
+    <script src="{{asset('js/app_custom.js')}}"></script>
+
 </body>
 
 </html>

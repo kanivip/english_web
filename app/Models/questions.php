@@ -13,6 +13,10 @@ class questions extends Model
     {
         return $this->belongsTo(vocabularies::class);
     }
+    public function lessons()
+    {
+        return $this->belongsToMany(questions::class);
+    }
     public function category()
     {
         return $this->belongsTo(categories::class);

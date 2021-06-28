@@ -53,51 +53,62 @@
                                     <strong>{{ $message }}</strong>
                                 </div>
                                 @enderror
-                                <div class="card">
-                                    <h5 class="card-header">Questions</h5>
-                                    <div class="card-body p-0">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead class="bg-light">
-                                                    <tr class="border-0">
-                                                        <th class="border-0">#</th>
-                                                        <th class="border-0">{{__('Category')}}</th>
-                                                        <th class="border-0">{{__('Vocabolary')}}</th>
-                                                        <th class="border-0">{{__('Question')}}</th>
-                                                        <th class="border-0">{{__('Answer A')}}</th>
-                                                        <th class="border-0">{{__('Answer B')}}</th>
-                                                        <th class="border-0">{{__('Answer C')}}</th>
-                                                        <th class="border-0">{{__('Answer D')}}</th>
-                                                        <th class="border-0">{{__('Answer')}}</th>
 
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($questions as $question)
-                                                    <tr>
-                                                        <td>{{$question->id}}</td>
-                                                        <td>{{$question->category->name}}</td>
-                                                        <td>{{$question->vocabulary->name}}</td>
-                                                        <td>{{$question->question}}</td>
-                                                        <td>{{$question->a}}</td>
-                                                        <td>{{$question->b}}</td>
-                                                        <td>{{$question->c}}</td>
-                                                        <td>{{$question->d}}</td>
-                                                        <td>{{$question->answer}}</td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                <table id="demo123" class="display" style="width:100%">
+                                    <thead>
+                                        <tr class="border-0">
+                                            <th class="border-0">#</th>
+                                            <th class="border-0">{{__('Category')}}</th>
+                                            <th class="border-0">{{__('Vocabolary')}}</th>
+                                            <th class="border-0">{{__('Question')}}</th>
+                                            <th class="border-0">{{__('Answer A')}}</th>
+                                            <th class="border-0">{{__('Answer B')}}</th>
+                                            <th class="border-0">{{__('Answer C')}}</th>
+                                            <th class="border-0">{{__('Answer D')}}</th>
+                                            <th class="border-0">{{__('Answer')}}</th>
 
-                                        </div>
-                                    </div>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($questions as $question)
+                                        <tr>
+                                            <td>{{$question->id}}</td>
+                                            <td>{{$question->category->name}}</td>
+                                            <td>{{$question->vocabulary->name}}</td>
+                                            <td>{{$question->question}}</td>
+                                            <td>{{$question->a}}</td>
+                                            <td>{{$question->b}}</td>
+                                            <td>{{$question->c}}</td>
+                                            <td>{{$question->d}}</td>
+                                            <td>{{$question->answer}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="border-0">
+                                            <th class="border-0">#</th>
+                                            <th class="border-0">{{__('Category')}}</th>
+                                            <th class="border-0">{{__('Vocabolary')}}</th>
+                                            <th class="border-0">{{__('Question')}}</th>
+                                            <th class="border-0">{{__('Answer A')}}</th>
+                                            <th class="border-0">{{__('Answer B')}}</th>
+                                            <th class="border-0">{{__('Answer C')}}</th>
+                                            <th class="border-0">{{__('Answer D')}}</th>
+                                            <th class="border-0">{{__('Answer')}}</th>
+
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <div class="questions d-none">
                                 </div>
                                 <input class="btn btn-primary" type="submit" value="add">
                             </form>
+
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- ============================================================== -->
             <!-- end basic form  -->
         </div>

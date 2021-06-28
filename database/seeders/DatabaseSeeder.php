@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\questions;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(usersSeeder::class);
         $this->call(levelsSeeder::class);
         $this->call(questionsSeeder::class);
+        //questions::factory(1000)->create();
     }
 }

@@ -28,7 +28,7 @@ class adminLessonsController extends Controller
     public function create()
     {
         $levels = levels::all();
-        $questions = questions::take(5)->get();
+        $questions = questions::with('category', 'vocabulary')->get();
         return view('admin.lessons.create')->with(compact('levels', 'questions'));
     }
 
@@ -40,7 +40,12 @@ class adminLessonsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $lesson = new lessons;
+        $lesson->thread = $request->thread;
+        $lesson->level_id = $request->level_id;
+        $lesson->save();
+        $lesson->questions()->attach($request->questions);
+        return dd($request);
     }
 
     /**

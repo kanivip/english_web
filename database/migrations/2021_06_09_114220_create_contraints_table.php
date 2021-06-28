@@ -41,8 +41,8 @@ class CreateContraintsTable extends Migration
             $table->foreign('lesson_id')->references('id')->on('lessons');
         });
         Schema::table('lessons_questions', function (Blueprint $table) {
-            $table->foreign('lesson_id')->references('id')->on('lessons');
-            $table->foreign('question_id')->references('id')->on('questions');
+            $table->foreign('lessons_id')->references('id')->on('lessons');
+            $table->foreign('questions_id')->references('id')->on('questions');
         });
     }
 
@@ -81,8 +81,8 @@ class CreateContraintsTable extends Migration
             $table->dropForeign(['lesson_id']);
         });
         Schema::table('lessons_questions', function (Blueprint $table) {
-            $table->dropForeign(['lesson_id']);
-            $table->dropForeign(['question_id']);
+            $table->dropForeign(['lessons_id']);
+            $table->dropForeign(['questions_id']);
         });
     }
 }

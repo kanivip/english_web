@@ -25,7 +25,9 @@ use App\Http\Controllers\adminLessonsController;
 
 Auth::routes();
 
-
+Route::get('test', function () {
+    return view('admin.test');
+});
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 //using for ajax

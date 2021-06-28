@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class lessons extends Model
 {
     use HasFactory;
+    protected $fillable = ['level_id', 'thread'];
+    public function questions()
+    {
+        return $this->belongsToMany(questions::class);
+    }
 }
