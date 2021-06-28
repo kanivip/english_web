@@ -238,6 +238,21 @@ $(document).ready(function()
 
 
 });
+
+	//click to pronounce
+	$('.btn-pronounce').on('click',function (){
+		// Initialize new SpeechSynthesisUtterance object
+		let speech = new SpeechSynthesisUtterance();
+		// Set Speech Language
+		speech.lang = "en";
+		var button = $(this).parent();
+		button = $(button).parent();
+		button = $(button).find('.td-name').text();
+		console.log(button);
+		speech.text = button;
+		window.speechSynthesis.speak(speech);
+	});
+	
 	//search field vocabulary
 	document.getElementById("inputVocabulary").addEventListener("keyup", function(){
 		var datalist = document.getElementById('datalistVocabulary')
