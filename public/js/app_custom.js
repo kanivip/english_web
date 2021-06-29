@@ -1,3 +1,12 @@
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+
+
 document.addEventListener("DOMContentLoaded", function (event) {
 
 	//click to pronounce
@@ -46,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }
 
+    var dataQuestionTable = $('#question-index').DataTable();
     var dataTable = $('#demo123').DataTable();
     $('#demo123 tbody').on( 'click', 'tr', function () {
         $(this).toggleClass('selected');
@@ -58,8 +68,51 @@ document.addEventListener("DOMContentLoaded", function (event) {
             questionsInput += '<input name="questions[]" value="'+element+'" type="number"/>';
         });
         $('.questions').html(questionsInput);
-    });
-    
 
+    });
+
+    $('.btn-modalQuestion').on('click',function(){
+        $.ajax({
+            type: 'POST',
+            url: '/questions/getQuestionsByLesson',
+            data: {id:this.value},
+            dataType: 'json',
+            success: function (data) {
+                $('#tableQuestion-show').html(data.view)
+                $('#modal-questions').modal('show')
+            },
+        });
+        
+    });
+
+
+    setInterval(function(){
+        $('.questions').children().each(function(){
+            var $row = dataTable.row(this).nodes().to$();
+            console.log($row.addClass('selected'));
+        });
+    },500);
+
+
+	//show name image
+	$(".custom-file-input").on("change", function() {
+		var fileName = $(this).val().split("\\").pop();
+		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+	  });
+
+	//show image
+	function showImage(src,target) {
+		var fr=new FileReader();
+		// when image is loaded, set the src of the image where you want to display it
+		fr.onload = function(e) { target.src = this.result; };
+		src.addEventListener("change",function() {
+		  // fill fr with image data    
+		  fr.readAsDataURL(src.files[0]);
+		});
+	  }
+
+	  var src = document.getElementById("image-src");
+	  var target = document.getElementById("image-target");
+	  if(src&&target){showImage(src,target);}
     
 });

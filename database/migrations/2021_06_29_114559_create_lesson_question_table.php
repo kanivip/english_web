@@ -13,10 +13,10 @@ class CreateLessonQuestionTable extends Migration
      */
     public function up()
     {
-        Schema::create('lessons_questions', function (Blueprint $table) {
+        Schema::create('lesson_question', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lessons_id');
-            $table->foreignId('questions_id');
+            $table->foreignId('lesson_id');
+            $table->foreignId('question_id');
         });
     }
 
@@ -27,6 +27,6 @@ class CreateLessonQuestionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lessons_questions');
+        Schema::dropIfExists('lesson_question');
     }
 }

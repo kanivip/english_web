@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\vocabularies;
+use App\Models\vocabulary;
 
 class vocabulariesSeeder extends Seeder
 {
@@ -980,7 +980,7 @@ class vocabulariesSeeder extends Seeder
 
         // Insert words records
         if (DB::table('vocabularies')->count() == 0) {
-            vocabularies::insert($word_records);
+            vocabulary::insert($word_records);
         }
     }
 }

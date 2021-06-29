@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class vocabularies extends Model
+class category extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'meaning', 'content', 'image'];
-    public function question()
+    protected $fillable = ['name'];
+    public function questions()
     {
         return $this->hasMany(Question::class);
     }

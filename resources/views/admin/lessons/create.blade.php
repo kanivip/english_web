@@ -41,8 +41,9 @@
                                 @enderror
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Level</label>
-                                    <select id="selectLevel" name="level_id" class="custom-select">
-                                        <option value="error" selected>Open this select menu</option>
+                                    <select id="selectLevel" value="{{old('level_id')}}" name="level_id"
+                                        class="custom-select">
+                                        <option value="0" selected>Open this select menu</option>
                                         @foreach($levels as $level)
                                         <option value="{{$level->id}}">{{$level->name}}</option>
                                         @endforeach
@@ -99,11 +100,20 @@
                                         </tr>
                                     </tfoot>
                                 </table>
+                                @error('questions')
+                                <div class="alert alert-warning alert-danger fade show">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
                                 <div class="questions d-none">
                                 </div>
                                 <input class="btn btn-primary" type="submit" value="add">
                             </form>
-
+                            @if (session('warm'))
+                            <div class="alert alert-success p-1">
+                                {{ session('warm') }}
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -114,4 +124,5 @@
         </div>
     </div>
 </div>
+
 @endsection

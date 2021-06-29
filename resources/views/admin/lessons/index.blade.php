@@ -121,8 +121,10 @@
                                         <tr>
                                             <td>{{$lesson->id}}</td>
                                             <td>{{$lesson->thread}}</td>
-                                            <td>{{$lesson->thread}}</td>
-                                            <td>{{$lesson->created_at}}</td>
+                                            <td>{{$lesson->level->name}}</td>
+                                            <td>{{$lesson->questions_count}} <button value="{{$lesson->id}}"
+                                                    type="button" class="btn-modalQuestion btn btn-primary"><i
+                                                        class="fas fa-eye"></i></button></td>
                                             <td>{{$lesson->created_at}}</td>
                                             <td>{{$lesson->updated_at}}</td>
                                             <td><a href="{{route('admin.lessons.edit',$lesson->id)}}"><i
@@ -147,6 +149,40 @@
                 <!-- end recent orders  -->
 
 
+            </div>
+        </div>
+    </div>
+
+    <!-- Large modal -->
+
+
+    <div id="modal-questions" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 80%;">
+            <div class="modal-content">
+                <div style="padding: 3%;">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="bg-light">
+                                <tr class="border-0">
+                                    <th class="border-0">#</th>
+                                    <th class="border-0">{{__('Category')}}</th>
+                                    <th class="border-0">{{__('Vocabolary')}}</th>
+                                    <th class="border-0">{{__('Question')}}</th>
+                                    <th class="border-0">{{__('Answer A')}}</th>
+                                    <th class="border-0">{{__('Answer B')}}</th>
+                                    <th class="border-0">{{__('Answer C')}}</th>
+                                    <th class="border-0">{{__('Answer D')}}</th>
+                                    <th class="border-0">{{__('Answer')}}</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="tableQuestion-show">
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContraintsTable extends Migration
+class CreateContraintTable extends Migration
 {
     /**
      * Run the migrations.
@@ -40,9 +40,9 @@ class CreateContraintsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('lesson_id')->references('id')->on('lessons');
         });
-        Schema::table('lessons_questions', function (Blueprint $table) {
-            $table->foreign('lessons_id')->references('id')->on('lessons');
-            $table->foreign('questions_id')->references('id')->on('questions');
+        Schema::table('lesson_question', function (Blueprint $table) {
+            $table->foreign('lesson_id')->references('id')->on('lessons');
+            $table->foreign('question_id')->references('id')->on('questions');
         });
     }
 
@@ -80,9 +80,9 @@ class CreateContraintsTable extends Migration
             $table->dropForeign(['user_id']);
             $table->dropForeign(['lesson_id']);
         });
-        Schema::table('lessons_questions', function (Blueprint $table) {
-            $table->dropForeign(['lessons_id']);
-            $table->dropForeign(['questions_id']);
+        Schema::table('lesson_question', function (Blueprint $table) {
+            $table->dropForeign(['lesson_id']);
+            $table->dropForeign(['question_id']);
         });
     }
 }

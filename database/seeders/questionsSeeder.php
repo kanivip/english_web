@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\questions;
-use Symfony\Component\Console\Question\Question;
+use App\Models\question;
+
 
 class questionsSeeder extends Seeder
 {
@@ -342,7 +342,7 @@ class questionsSeeder extends Seeder
 
         ];
         if (DB::table('questions')->count() == 0) {
-            questions::insert($question_records[0]);
+            question::insert($question_records[0]);
         } else {
             echo "Table have data";
         }

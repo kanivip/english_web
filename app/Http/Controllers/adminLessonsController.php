@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\lessons;
-use App\Models\levels;
-use App\Models\questions;
+use App\Models\lesson;
+use App\Models\level;
+use App\Models\question;
 
 class adminLessonsController extends Controller
 {
@@ -16,7 +16,7 @@ class adminLessonsController extends Controller
      */
     public function index()
     {
-        $lessons = lessons::paginate(10);
+        $lessons = lesson::with('level', 'questions')->withCount('questions')->paginate(10);
         return view('admin.lessons.index')->with(compact('lessons'));
     }
 
@@ -27,8 +27,8 @@ class adminLessonsController extends Controller
      */
     public function create()
     {
-        $levels = levels::all();
-        $questions = questions::with('category', 'vocabulary')->get();
+        $levels = level::all();
+        $questions = question::with('category', 'vocabulary')->get();
         return view('admin.lessons.create')->with(compact('levels', 'questions'));
     }
 
@@ -40,12 +40,18 @@ class adminLessonsController extends Controller
      */
     public function store(Request $request)
     {
-        $lesson = new lessons;
+        $validated = $request->validate([
+            'thread' => 'required|unique:lessons,thread|max:80',
+            'level_id' => 'required|exists:levels,id',
+            'questions' => 'required|array|min:10',
+            'questions.*' => 'required|exists:questions,id'
+        ]);
+        $lesson = new lesson;
         $lesson->thread = $request->thread;
         $lesson->level_id = $request->level_id;
         $lesson->save();
         $lesson->questions()->attach($request->questions);
-        return dd($request);
+        return redirect()->back()->with('warm', "you add success");
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\vocabularies;
+use App\Models\vocabulary;
 use Storage;
 
 class adminVocabulariesController extends Controller
@@ -17,7 +17,7 @@ class adminVocabulariesController extends Controller
      */
     public function index()
     {
-        $vocabularies = vocabularies::paginate(10);
+        $vocabularies = vocabulary::paginate(10);
         return view('admin.vocabularies.index')->with(compact('vocabularies'));
     }
 
@@ -50,7 +50,7 @@ class adminVocabulariesController extends Controller
             Storage::disk('google')->put($name,  file_get_contents($request->file('image')->getRealPath()));
             $name = $this->getImage($name);
         }
-        vocabularies::create(array_merge($request->all(), ['image' => $name]));
+        vocabulary::create(array_merge($request->all(), ['image' => $name]));
         return redirect()->route('admin.vocabularies.index')->with('success', 'You add ' . $request->name . ' success');
     }
 
@@ -93,7 +93,7 @@ class adminVocabulariesController extends Controller
      */
     public function edit($id)
     {
-        $vocabulary = vocabularies::find($id);
+        $vocabulary = vocabulary::find($id);
         return view('admin.vocabularies.edit')->with(compact('vocabulary'));
     }
 
@@ -112,7 +112,7 @@ class adminVocabulariesController extends Controller
             'image' => 'image|mimes:jpg,png,jpeg|max:1024',
         ]);
         $name = '';
-        $vocabulary = vocabularies::find($id);
+        $vocabulary = vocabulary::find($id);
         if ($request->image != null) {
             Storage::disk('google')->delete($vocabulary->image);
             $name = $request->image->getClientOriginalName() . time();
@@ -135,7 +135,7 @@ class adminVocabulariesController extends Controller
      */
     public function destroy($id)
     {
-        $vocabulary = vocabularies::find($id);
+        $vocabulary = vocabulary::find($id);
         Storage::disk('google')->delete($vocabulary->image);
         $vocabulary->delete();
         return redirect()->back()->with('success', 'You delete id=' . $id . ' success');
