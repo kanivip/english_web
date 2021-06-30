@@ -19,7 +19,7 @@ class question extends Model
         return $this->belongsTo(category::class);
     }
 
-    public function lesson()
+    public function lessons()
     {
         return $this->belongsToMany(lesson::class);
     }

@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\question;
+use App\Models\lesson;
 use Illuminate\Support\Facades\View;
 
-
-class questionController extends Controller
+class QuestionsController extends Controller
 {
     public function getQuestionByLesson(Request $request)
     {
-        $question = question::with('lessons')->withPivot('lessons_id')->get();
-        dd($question[0]->lessons);
-        return response()->json(['view' => View::make('admin.questions.rowModal', compact('question'))->render()]);
+        $lessons = lesson::with('questions', 'questions.category', 'questions.vocabulary')->where('id', $request->id)->first();
+        return response()->json(['view' => View::make('admin.questions.rowModal', compact('lessons'))->render()]);
     }
 }

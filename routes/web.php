@@ -10,7 +10,7 @@ use App\Http\Controllers\questionsAdminController;
 use App\Http\Controllers\vocabulariesController;
 use App\Http\Controllers\adminUsersController;
 use App\Http\Controllers\adminLessonsController;
-use App\Http\Controllers\questionsController;
+use App\Http\Controllers\QuestionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 //using for ajax
 Route::get('/vocabulary/searchVocabulary', [vocabulariesController::class, 'searchVocabulary'])->name('searchVocabulary');
 Route::get('/vocabulary/searchVocabularyById', [vocabulariesController::class, 'searchVocabularyById'])->name('searchVocabularyById');
-Route::get('/questions/getQuestionsByLesson', [questionsController::class, 'getQuestionsByLesson'])->name('getQuestionsByLesson');
+Route::post('/questions/getQuestionsByLesson', [QuestionsController::class, 'getQuestionByLesson'])->name('getQuestionsByLesson');
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/dashbroad', [homeAdminController::class, 'dashbroad'])->name('dashbroad');
@@ -89,6 +89,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], f
         Route::post('/store', [adminLessonsController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [adminLessonsController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [adminLessonsController::class, 'update'])->name('update');
-        Route::get('/destroy/{id}', [questionsLessonsController::class, 'destroy'])->name('destroy');
+        Route::get('/destroy/{id}', [adminLessonsController::class, 'destroy'])->name('destroy');
     });
 });

@@ -43,7 +43,7 @@ class adminLessonsController extends Controller
         $validated = $request->validate([
             'thread' => 'required|unique:lessons,thread|max:80',
             'level_id' => 'required|exists:levels,id',
-            'questions' => 'required|array|min:10',
+            'questions' => 'required|array|min:10|max:30',
             'questions.*' => 'required|exists:questions,id'
         ]);
         $lesson = new lesson;
@@ -73,7 +73,10 @@ class adminLessonsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lesson = lesson::with('questions')->find($id);
+        $levels = level::all();
+        $questions = question::with('category', 'vocabulary')->get();
+        return view('admin.lessons.edit')->with(compact('levels', 'questions', 'lesson'));
     }
 
     /**
@@ -85,7 +88,18 @@ class adminLessonsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'thread' => 'required|unique:lessons,thread,' . $id . '|max:80',
+            'level_id' => 'required|exists:levels,id',
+            'questions' => 'required|array|min:10|max:30',
+            'questions.*' => 'required|exists:questions,id'
+        ]);
+        $lesson = lesson::find($id);
+        $lesson->thread = $request->thread;
+        $lesson->level_id = $request->level_id;
+        $lesson->save();
+        $lesson->questions()->sync($request->questions);
+        return redirect()->route('admin.lessons.index')->with('success', "you edit success");
     }
 
     /**
@@ -96,6 +110,9 @@ class adminLessonsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $lesson = lesson::find($id);
+        $lesson->questions()->detach();
+        $lesson->delete();
+        return redirect()->route('admin.lessons.index')->with('success', "you delete success");
     }
 }

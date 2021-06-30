@@ -165,7 +165,7 @@
                         <table class="table">
                             <thead class="bg-light">
                                 <tr class="border-0">
-                                    <th class="border-0">#</th>
+                                    <th class="border-0">STT</th>
                                     <th class="border-0">{{__('Category')}}</th>
                                     <th class="border-0">{{__('Vocabolary')}}</th>
                                     <th class="border-0">{{__('Question')}}</th>

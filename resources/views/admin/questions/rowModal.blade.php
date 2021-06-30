@@ -1,9 +1,10 @@
-@foreach($questions->questions as $question)
+{{$stt = 1}}
+@foreach($lessons->questions as $question)
 <tr>
-    <td>{{$question->id}}</td>
+    <td>{{$stt++}}</td>
+    <td>{{$question->question}}</td>
     <td>{{$question->category->name}}</td>
     <td>{{$question->vocabulary->name}}</td>
-    <td>{{$question->question}}</td>
     <td>{{$question->a}}</td>
     <td>{{$question->b}}</td>
     <td>{{$question->c}}</td>

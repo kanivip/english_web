@@ -86,12 +86,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
 
-    setInterval(function(){
-        $('.questions').children().each(function(){
-            var $row = dataTable.row(this).nodes().to$();
-            console.log($row.addClass('selected'));
+        var arr = [];
+        $('.questions').children().each(function () {
+            arr.push($(this).val());
+            console.log(arr);
         });
-    },500);
+        dataTable.rows().every(function (rowIdx, tableLoop, rowLoop) {
+            arr.forEach(element => {
+                if (this.data()[0] == element) {
+                    $(this.node()).addClass('selected');
+                }
+            });
+
+        });
+
+
 
 
 	//show name image
