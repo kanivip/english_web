@@ -93,9 +93,15 @@ class adminCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
-        $category->questions()->delete();
-        $category->delete();
-        return redirect()->route('admin.categories.index')->with('success', 'You delete id=' . $id . ' success');
+        try {
+            $category = Category::find($id);
+            $category->questions()->delete();
+            $category->delete();
+            return redirect()->route('admin.categories.index')->with('success', 'You delete id=' . $id . ' success');
+        } catch (\Exception $exception) {
+            if ($exception->getCode() == 23000) {
+                return redirect()->route('admin.categories.index')->with('success', 'You need delete data have this category ');
+            }
+        }
     }
 }
