@@ -15,9 +15,9 @@ class GoogleDriveServiceProvider extends ServiceProvider
     {
         \Storage::extend('google', function ($app, $config) {
             $client = new \Google_Client();
-            $client->setAccessType("offline");
             $guzzleClient = new \GuzzleHttp\Client(array('curl' => array(CURLOPT_SSL_VERIFYPEER => false,),));
             $client->setHttpClient($guzzleClient);
+            $client->setAccessType("offline");
             $client->setClientId($config['clientId']);
             $client->setClientSecret($config['clientSecret']);
             $client->refreshToken($config['refreshToken']);

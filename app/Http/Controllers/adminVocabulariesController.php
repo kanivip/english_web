@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\vocabulary;
+use App\Helper\Helper;
 use Storage;
 
 class adminVocabulariesController extends Controller
@@ -48,31 +49,14 @@ class adminVocabulariesController extends Controller
         if ($request->image != null) {
             $name = $request->image->getClientOriginalName() . time();
             Storage::disk('google')->put($name,  file_get_contents($request->file('image')->getRealPath()));
-            $name = $this->getImage($name);
+            $helper = new Helper;
+            $name = $helper->getImage($name);
         }
         vocabulary::create(array_merge($request->all(), ['image' => $name]));
         return redirect()->route('admin.vocabularies.index')->with('success', 'You add ' . $request->name . ' success');
     }
 
 
-    private function getImage($name)
-    {
-        $filename = $name;
-
-        $dir = '/';
-        $recursive = false; // Get subdirectories also?
-        $contents = collect(Storage::disk('google')->listContents($dir, $recursive));
-
-        $file = $contents
-            ->where('type', '=', 'file')
-            ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
-            ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
-            ->first(); // there can be duplicate file names!
-
-        //return $file; // array with file info
-
-        return $file['path'];
-    }
 
     /**
      * Display the specified resource.
@@ -117,7 +101,8 @@ class adminVocabulariesController extends Controller
             Storage::disk('google')->delete($vocabulary->image);
             $name = $request->image->getClientOriginalName() . time();
             Storage::disk('google')->put($name,  file_get_contents($request->file('image')->getRealPath()));
-            $name = $this->getImage($name);
+            $helper = new Helper;
+            $name = $helper->getImage($name);
             $vocabulary->image = $name;
         }
         $vocabulary->name = $request->name;
