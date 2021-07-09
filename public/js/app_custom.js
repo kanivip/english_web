@@ -54,22 +54,39 @@ document.addEventListener("DOMContentLoaded", function (event) {
             question.value = this.text();
         });
     }
+    if( $('#question-index').length){
+        var dataQuestionTable = $('#question-index').DataTable();
+    }
+    if( $('#demo123').length){
+        var dataTable = $('#demo123').DataTable();
+        $('#demo123 tbody').on( 'click', 'tr', function () {
+            $(this).toggleClass('selected');
+            console.log( dataTable.rows('.selected').data().length +' row(s) selected' );
+            var questionsInput = '';
+            var ids = $.map(dataTable.rows('.selected').data(), function (item) {
+                return item[0]
+            });
+            ids.forEach(element => {
+                questionsInput += '<input name="questions[]" value="'+element+'" type="number"/>';
+            });
+            $('.questions').html(questionsInput);
 
-    var dataQuestionTable = $('#question-index').DataTable();
-    var dataTable = $('#demo123').DataTable();
-    $('#demo123 tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-        console.log( dataTable.rows('.selected').data().length +' row(s) selected' );
-        var questionsInput = '';
-        var ids = $.map(dataTable.rows('.selected').data(), function (item) {
-            return item[0]
         });
-        ids.forEach(element => {
-            questionsInput += '<input name="questions[]" value="'+element+'" type="number"/>';
+        
+        var arr = [];
+        $('.questions').children().each(function () {
+            arr.push($(this).val());
+            console.log(arr);
         });
-        $('.questions').html(questionsInput);
+        dataTable.rows().every(function (rowIdx, tableLoop, rowLoop) {
+            arr.forEach(element => {
+                if (this.data()[0] == element) {
+                    $(this.node()).addClass('selected');
+                }
+            });
 
-    });
+        });
+    }
 
     $('.btn-modalQuestion').on('click',function(){
         $.ajax({
@@ -86,19 +103,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
 
-        var arr = [];
-        $('.questions').children().each(function () {
-            arr.push($(this).val());
-            console.log(arr);
-        });
-        dataTable.rows().every(function (rowIdx, tableLoop, rowLoop) {
-            arr.forEach(element => {
-                if (this.data()[0] == element) {
-                    $(this.node()).addClass('selected');
-                }
-            });
 
-        });
 
 
 
@@ -123,5 +128,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
 	  var src = document.getElementById("image-src");
 	  var target = document.getElementById("image-target");
 	  if(src&&target){showImage(src,target);}
-    
+
+    //load more ajax lessons
+    if($('.load_more_button').length){
+        var page = $('.load_more_button').data('value');
+        $('.load_more_button').on('click',function(){
+            page++;
+            $.ajax({
+                type: 'GET',
+                url: 'loadMore?page='+page,
+                data: {},
+                dataType: 'json',
+                success: function (data) {
+                    if(data.view == '')
+                    {
+                        $('.load_more_button').hide();
+                    }
+                    $('.courses_row').append(data.view);
+                },
+            });
+        });
+    }
+
 });

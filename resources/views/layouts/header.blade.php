@@ -61,8 +61,8 @@
                         </div>
                         <nav class="main_nav_contaner">
                             <ul class="main_nav">
-                                <li class="active"><a href="index.html">Home</a></li>
-                                <li><a href="courses.html">Courses</a></li>
+                                <li class="active"><a href="{{route('home')}}">Home</a></li>
+                                <li><a href="{{route('lessons.index')}}">Lessons</a></li>
                                 <li><a href="instructors.html">Instructors</a></li>
                                 <li><a href="#">Events</a></li>
                                 <li><a href="blog.html">Blog</a></li>

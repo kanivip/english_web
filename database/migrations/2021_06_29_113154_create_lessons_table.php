@@ -17,6 +17,7 @@ class CreateLessonsTable extends Migration
             $table->id();
             $table->foreignId('level_id');
             $table->string('thread', 100);
+            $table->integer('point_required')->default(0);
             $table->timestamps();
         });
     }

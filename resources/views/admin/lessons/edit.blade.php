@@ -53,7 +53,17 @@
                                     <strong>{{ $message }}</strong>
                                 </div>
                                 @enderror
-
+                                <div class="form-group">
+                                    <label for="inputText3" class="col-form-label">Point_required</label>
+                                    <input id="inputText3" value="{{old('point_required',$lesson->point_required)}}"
+                                        name="point_required" type="number"
+                                        class="form-control @error('point_required') is-invalid @enderror">
+                                </div>
+                                @error('point_required')
+                                <div class="alert alert-warning alert-danger fade show">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
                                 <table id="demo123" class="display" style="width:100%">
                                     <thead>
                                         <tr class="border-0">

@@ -9,7 +9,7 @@ class lesson extends Model
 {
     use HasFactory;
     protected $table = 'lessons';
-    protected $fillable = ['level_id', 'thread'];
+    protected $fillable = ['level_id', 'thread', 'point_required'];
     public function questions()
     {
         return $this->belongsToMany(question::class);

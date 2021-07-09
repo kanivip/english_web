@@ -11,6 +11,7 @@ use App\Http\Controllers\vocabulariesController;
 use App\Http\Controllers\adminUsersController;
 use App\Http\Controllers\adminLessonsController;
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\lessonsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,15 +27,17 @@ use App\Http\Controllers\QuestionsController;
 
 Auth::routes();
 
-Route::get('test', function () {
-    return view('admin.test');
-});
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 //using for ajax
 Route::get('/vocabulary/searchVocabulary', [vocabulariesController::class, 'searchVocabulary'])->name('searchVocabulary');
 Route::get('/vocabulary/searchVocabularyById', [vocabulariesController::class, 'searchVocabularyById'])->name('searchVocabularyById');
 Route::post('/questions/getQuestionsByLesson', [QuestionsController::class, 'getQuestionByLesson'])->name('getQuestionsByLesson');
+
+Route::group(['prefix' => 'lessons', 'as' => 'lessons.'], function () {
+    Route::get('/index', [lessonsController::class, 'index'])->name('index');
+    Route::get('/loadMore', [lessonsController::class, 'loadMore'])->name('loadMore');
+});
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/dashbroad', [homeAdminController::class, 'dashbroad'])->name('dashbroad');
