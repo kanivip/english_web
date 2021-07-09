@@ -186,7 +186,7 @@ class questionsAdminController extends Controller
                 $question->b = '';
                 $question->c = '';
                 $question->d = '';
-                $question->answer = '';
+                $question->answer = $request->question;
                 $question->save();
                 return redirect()->route('admin.questions.index')->with('success', 'you edit success');
                 break;
@@ -198,7 +198,7 @@ class questionsAdminController extends Controller
                 $question->b = '';
                 $question->c = '';
                 $question->d = '';
-                $question->answer = '';
+                $question->answer = $request->question;
                 $question->save();
                 return redirect()->route('admin.questions.index')->with('success', 'you edit success');
                 break;
