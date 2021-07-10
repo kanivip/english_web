@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-class rolesUserSeeder extends Seeder
+class statusUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,24 +13,21 @@ class rolesUserSeeder extends Seeder
      */
     public function run()
     {
-        if(DB::table('roles')->count() == 0){
+        if(DB::table('status')->count() == 0){
 
-            DB::table('roles')->insert([
+            DB::table('status')->insert([
                 [
-                    'name' => 'admin',
-                    'content' => 'người quản trị',
+                    'name' => 'offline',
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
                 [
-                    'name' => 'user',
-                    'content' => 'người dùng',
+                    'name' => 'online',
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
                 [
-                    'name' => 'collaborator',
-                    'content' => 'cộng tác viên',
+                    'name' => 'banned',
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],

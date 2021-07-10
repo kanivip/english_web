@@ -76,5 +76,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], f
         Route::post('/store', [adminUsersController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [adminUsersController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [adminUsersController::class, 'update'])->name('update');
+        Route::get('/ban/{id}', [adminUsersController::class, 'ban'])->name('ban');
+        Route::get('/banned/{id}', [adminUsersController::class, 'banned'])->name('banned');
     });
 });

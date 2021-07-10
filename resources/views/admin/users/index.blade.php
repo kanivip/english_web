@@ -15,6 +15,8 @@
                                                 <th>Last Name</th>
                                                 <th>Address</th>
                                                 <th>Phone</th>
+                                                <th>Role</th>
+                                                <th>Status</th>
                                                 <th class="border-0">Option</th>
                                             </tr>
                                         </thead>
@@ -27,8 +29,12 @@
                                                 <td>{{$user->last_name}}</td>
                                                 <td>{{$user->address}}</td>
                                                 <td>{{$user->phone}}</td>
+                                                <td>{{$user->role_id}}</td>
+                                                <td>{{$user->status_id}}</td>
                                                 <td><a href="{{route('admin.users.edit',$user->id)}}"><i
                                                         class="fas fa-edit"></i></a>
+                                                    <a href="{{route('admin.users.ban',$user->id)}}"><i
+                                                        class="fas fa-ban"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach

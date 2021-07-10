@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\roles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +17,8 @@ class adminUsersController extends Controller
     public function index()
     {
         $users = user::paginate(10);
-        return view('admin.users.index')->with(compact('users'));
+        $roles = roles::all();
+        return view('admin.users.index')->with(compact('users', 'roles'));
     }
 
     /**
@@ -81,5 +83,19 @@ class adminUsersController extends Controller
             'password' => Hash::make($request['password']),
         ]);
         return redirect()->route('admin.users.index')->with('success', 'You add ' . $request->email . ' success');
+    }
+
+    public function ban($id)
+    {
+        $users = user::find($id);
+        return view('admin.users.banned')->with(compact('users'));
+    }
+
+    public function banned($id)
+    {
+        $user = user::find($id);
+        $user->status_id = 3;
+        $user->save();
+        return redirect()->route('admin.users.index')->with('success', 'You banned user ' . $user->email . ' success');
     }
 }
