@@ -23,11 +23,17 @@ class lessonsController extends Controller
             ->groupByRaw('lessons.id')
             ->orderByRaw('lessons.level_id,lessons.point_required');
         $lessons = DB::table(DB::raw('(' . $subQuery->toSql() . ') as user_learn'))
+            ->select('lessons.*', 'name', 'status_learned', 'status_buy')
             ->rightJoin('lessons', 'lessons.id', '=', 'user_learn.id')
             ->join('levels', 'levels.id', '=', 'lessons.level_id')
             ->mergeBindings($subQuery)
             ->paginate(6);
         return view('lessons.index')->with(compact('lessons'));
+    }
+
+    public function study()
+    {
+        return "lesson";
     }
 
     public function loadMore(Request $request)
@@ -42,10 +48,17 @@ class lessonsController extends Controller
             ->groupByRaw('lessons.id')
             ->orderByRaw('lessons.level_id,lessons.point_required');
         $lessons = DB::table(DB::raw('(' . $subQuery->toSql() . ') as user_learn'))
+            ->select('lessons.*', 'name', 'status_learned', 'status_buy')
             ->rightJoin('lessons', 'lessons.id', '=', 'user_learn.id')
             ->join('levels', 'levels.id', '=', 'lessons.level_id')
             ->mergeBindings($subQuery)
             ->paginate(6);
         return response()->json(['view' => View::make('lessons.loadMoreData', compact('lessons'))->render()]);
+    }
+
+    public function checkLesson(Request $request)
+    {
+        $url = route('lessons.checkLesson', [$request->id]);
+        return response()->json($url);
     }
 }

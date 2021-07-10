@@ -153,12 +153,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     
     if($('.learnLesson').length){
             $(document).on("click", '.learnLesson', function(event) { 
-                var thread = $(this).parents('.course').find('.course_title').children().text();
-                var price = $(this).parents('.course').find('.learnLesson').children().text();
-                $('.modal-title').text('Lesson:'+thread)
-                $('.modal-body').text('You will be lost '+price+' coin')
-                $('#learnModal').modal('show');
+                let id = $(this).data('value');
+                let thread = $(this).parents('.course').find('.course_title').children().text();
+                let price = $(this).parents('.course').find('.learnLesson').children().text();
+                $('.modal-title').text('Lesson:'+thread);
+                $('.modal-body').text('You will be lost '+price+' coin'+id);
+                $('#learnModal').modal('show');    
             });
+            $(document).on("click", '#btn-learn', function(event) { 
+                location.href = "www.google.com"; 
+            });
+
     }
 
 });

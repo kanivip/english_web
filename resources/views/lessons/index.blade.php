@@ -30,8 +30,8 @@
                         <div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span>10</span></div>
                         <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>4,5</span>
                         </div>
-                        <div class="learnLesson course_mark trans_200">
-                            <a href="#{{$lesson->id}}">
+                        <div class="learnLesson course_mark trans_200" data-value="{{$lesson->id}}">
+                            <a href="#a">
 
                                 @if($lesson->status_buy==1 || $lesson->point_required == 0)
                                 Free
@@ -73,7 +73,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn-learn btn btn-primary">Learn</button>
+                <button type="button" id="btn-learn" class="btn btn-primary">Learn</button>
             </div>
         </div>
     </div>
