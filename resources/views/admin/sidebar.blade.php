@@ -121,7 +121,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-10" aria-controls="submenu-10"><i
-                                class="fas fa-fw fa-chart-pie"></i>Levels Lession</a>
+                                class="fas fa-fw fa-chart-pie"></i>Levels Lesson</a>
                         <div id="submenu-10" class="collapse submenu">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
@@ -136,9 +136,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
-                            data-target="#submenu-11" aria-controls="submenu-11"><i
+                            data-target="#submenu-15" aria-controls="submenu-15"><i
                                 class="fas fa-fw fa-chart-pie"></i>Questions</a>
-                        <div id="submenu-11" class="collapse submenu">
+                        <div id="submenu-15" class="collapse submenu">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('admin.questions.index')}}">Data</a>
@@ -150,7 +150,24 @@
                             </ul>
                         </div>
                     </li>
-                    
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                            data-target="#submenu-16" aria-controls="submenu-16"><i
+                                class="fas fa-fw fa-chart-pie"></i>Lessons</a>
+                        <div id="submenu-16" class="collapse submenu">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('admin.lessons.index')}}">Data</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('admin.lessons.create')}}">Add <span
+                                            class="badge badge-secondary">New</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
                     <li class="nav-item ">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-4" aria-controls="submenu-4"><i

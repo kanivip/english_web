@@ -9,6 +9,8 @@ use App\Http\Controllers\adminLevelsController;
 use App\Http\Controllers\questionsAdminController;
 use App\Http\Controllers\vocabulariesController;
 use App\Http\Controllers\adminUsersController;
+use App\Http\Controllers\adminLessonsController;
+use App\Http\Controllers\QuestionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +26,15 @@ use App\Http\Controllers\adminUsersController;
 
 Auth::routes();
 
-
+Route::get('test', function () {
+    return view('admin.test');
+});
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 //using for ajax
 Route::get('/vocabulary/searchVocabulary', [vocabulariesController::class, 'searchVocabulary'])->name('searchVocabulary');
 Route::get('/vocabulary/searchVocabularyById', [vocabulariesController::class, 'searchVocabularyById'])->name('searchVocabularyById');
+Route::post('/questions/getQuestionsByLesson', [QuestionsController::class, 'getQuestionByLesson'])->name('getQuestionsByLesson');
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/dashbroad', [homeAdminController::class, 'dashbroad'])->name('dashbroad');
@@ -78,5 +83,14 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], f
         Route::post('/update/{id}', [adminUsersController::class, 'update'])->name('update');
         Route::get('/ban/{id}', [adminUsersController::class, 'ban'])->name('ban');
         Route::get('/banned/{id}', [adminUsersController::class, 'banned'])->name('banned');
+    });
+
+    Route::group(['prefix' => 'lessons', 'as' => 'lessons.'], function () {
+        Route::get('/index', [adminLessonsController::class, 'index'])->name('index');
+        Route::get('/create', [adminLessonsController::class, 'create'])->name('create');
+        Route::post('/store', [adminLessonsController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [adminLessonsController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [adminLessonsController::class, 'update'])->name('update');
+        Route::get('/destroy/{id}', [adminLessonsController::class, 'destroy'])->name('destroy');
     });
 });

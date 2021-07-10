@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\vocabularies;
+use App\Models\vocabulary;
+use App\Helper\Helper;
 use Storage;
 
 class adminVocabulariesController extends Controller
@@ -17,7 +18,7 @@ class adminVocabulariesController extends Controller
      */
     public function index()
     {
-        $vocabularies = vocabularies::paginate(10);
+        $vocabularies = vocabulary::paginate(10);
         return view('admin.vocabularies.index')->with(compact('vocabularies'));
     }
 
@@ -48,31 +49,14 @@ class adminVocabulariesController extends Controller
         if ($request->image != null) {
             $name = $request->image->getClientOriginalName() . time();
             Storage::disk('google')->put($name,  file_get_contents($request->file('image')->getRealPath()));
-            $name = $this->getImage($name);
+            $helper = new Helper;
+            $name = $helper->getImage($name);
         }
-        vocabularies::create(array_merge($request->all(), ['image' => $name]));
+        vocabulary::create(array_merge($request->all(), ['image' => $name]));
         return redirect()->route('admin.vocabularies.index')->with('success', 'You add ' . $request->name . ' success');
     }
 
 
-    private function getImage($name)
-    {
-        $filename = $name;
-
-        $dir = '/';
-        $recursive = false; // Get subdirectories also?
-        $contents = collect(Storage::disk('google')->listContents($dir, $recursive));
-
-        $file = $contents
-            ->where('type', '=', 'file')
-            ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
-            ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
-            ->first(); // there can be duplicate file names!
-
-        //return $file; // array with file info
-
-        return $file['path'];
-    }
 
     /**
      * Display the specified resource.
@@ -93,7 +77,7 @@ class adminVocabulariesController extends Controller
      */
     public function edit($id)
     {
-        $vocabulary = vocabularies::find($id);
+        $vocabulary = vocabulary::find($id);
         return view('admin.vocabularies.edit')->with(compact('vocabulary'));
     }
 
@@ -112,12 +96,13 @@ class adminVocabulariesController extends Controller
             'image' => 'image|mimes:jpg,png,jpeg|max:1024',
         ]);
         $name = '';
-        $vocabulary = vocabularies::find($id);
+        $vocabulary = vocabulary::find($id);
         if ($request->image != null) {
             Storage::disk('google')->delete($vocabulary->image);
             $name = $request->image->getClientOriginalName() . time();
             Storage::disk('google')->put($name,  file_get_contents($request->file('image')->getRealPath()));
-            $name = $this->getImage($name);
+            $helper = new Helper;
+            $name = $helper->getImage($name);
             $vocabulary->image = $name;
         }
         $vocabulary->name = $request->name;
@@ -135,7 +120,7 @@ class adminVocabulariesController extends Controller
      */
     public function destroy($id)
     {
-        $vocabulary = vocabularies::find($id);
+        $vocabulary = vocabulary::find($id);
         Storage::disk('google')->delete($vocabulary->image);
         $vocabulary->delete();
         return redirect()->back()->with('success', 'You delete id=' . $id . ' success');

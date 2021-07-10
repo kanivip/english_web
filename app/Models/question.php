@@ -5,16 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class questions extends Model
+class question extends Model
 {
     use HasFactory;
     protected $fillable = ['category_id', 'vocabulary_id', 'question', 'a', 'b', 'c', 'd', 'answer'];
     public function vocabulary()
     {
-        return $this->belongsTo(vocabularies::class);
+        return $this->belongsTo(vocabulary::class);
     }
+
     public function category()
     {
-        return $this->belongsTo(categories::class);
+        return $this->belongsTo(category::class);
+    }
+
+    public function lessons()
+    {
+        return $this->belongsToMany(lesson::class);
     }
 }

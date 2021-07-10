@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\vocabularies;
+use Illuminate\Support\Facades\DB;
+use App\Models\vocabulary;
+
 class vocabulariesSeeder extends Seeder
 {
     /**
@@ -966,12 +968,19 @@ class vocabulariesSeeder extends Seeder
             "zero" => "không",
             "zone" => "vùng"
         ];
-        foreach($words as $key => $value){
-            $vocabulary = new vocabularies;
-            $vocabulary->name = $key;
-            $vocabulary->meaning = $value;
-            $vocabulary->save();
+        $word_records = [];
+        foreach ($words as $key => $value) {
+            $word_records[] = [
+                'name' => $key,
+                'meaning' => $value,
+                'updated_at' => date('Y-m-d H:i:s'),  // remove if not using timestamps
+                'created_at' => date('Y-m-d H:i:s')   // remove if not using timestamps
+            ];
         }
 
+        // Insert words records
+        if (DB::table('vocabularies')->count() == 0) {
+            vocabulary::insert($word_records);
+        }
     }
 }

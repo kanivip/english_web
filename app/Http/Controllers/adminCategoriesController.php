@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\categories;
+use App\Models\category;
 
 class adminCategoriesController extends Controller
 {
@@ -14,7 +14,7 @@ class adminCategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Categories::paginate(5);
+        $categories = Category::paginate(5);
         return view('admin.categories.index')->with(compact('categories'));
     }
 
@@ -40,7 +40,7 @@ class adminCategoriesController extends Controller
         $validated = $request->validate([
             'name' => 'required|unique:categories,name|max:30',
         ]);
-        Categories::create($request->all());
+        Category::create($request->all());
         return redirect()->route('admin.categories.index')->with('success', 'You add ' . $request->name . ' success');
     }
 
@@ -65,7 +65,7 @@ class adminCategoriesController extends Controller
      */
     public function edit($id)
     {
-        $category = Categories::find($id);
+        $category = Category::find($id);
         return view('admin.categories.edit')->with(compact('category'));
     }
 
@@ -81,7 +81,7 @@ class adminCategoriesController extends Controller
         $validated = $request->validate([
             'name' => 'required|unique:categories,name,' . $id . '|max:30',
         ]);
-        Categories::where('id', $id)->update(['name' => $request->name]);
+        Category::where('id', $id)->update(['name' => $request->name]);
         return redirect()->route('admin.categories.index')->with('success', 'You update ' . $request->name . ' success');
     }
 
@@ -93,7 +93,15 @@ class adminCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        Categories::where('id', $id)->delete();
-        return redirect()->route('admin.categories.index')->with('success', 'You delete id=' . $id . ' success');
+        try {
+            $category = Category::find($id);
+            $category->questions()->delete();
+            $category->delete();
+            return redirect()->route('admin.categories.index')->with('success', 'You delete id=' . $id . ' success');
+        } catch (\Exception $exception) {
+            if ($exception->getCode() == 23000) {
+                return redirect()->route('admin.categories.index')->with('success', 'You need delete data have this category ');
+            }
+        }
     }
 }

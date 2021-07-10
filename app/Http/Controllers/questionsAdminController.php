@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\questions;
-use App\Models\categories;
+use App\Models\question;
+use App\Models\category;
 
 class questionsAdminController extends Controller
 {
@@ -15,7 +15,7 @@ class questionsAdminController extends Controller
      */
     public function index()
     {
-        $questions = questions::with('category', 'vocabulary')->paginate(10);
+        $questions = question::with('category', 'vocabulary')->paginate(10);
         return view('admin.questions.index')->with(compact('questions'));
     }
 
@@ -26,7 +26,7 @@ class questionsAdminController extends Controller
      */
     public function create()
     {
-        $categories =  categories::all();
+        $categories =  category::all();
         return view('admin.questions.create')->with(compact('categories'));
     }
 
@@ -55,7 +55,7 @@ class questionsAdminController extends Controller
                 $request->merge([
                     'answer' => $request->correctMuptiple,
                 ]);
-                questions::create($request->all());
+                question::create($request->all());
                 return redirect()->back()->with('warm', 'you add success');
                 break;
             case '2':
@@ -63,23 +63,23 @@ class questionsAdminController extends Controller
                     'question' => 'min:30',
                     'answer' => 'required'
                 ]);
-                questions::create($request->all());
+                question::create($request->all());
                 if (isset($request->autoCreate) && $request->autoCreate == true) {
                     $question = $request->question;
                     $request->merge([
                         'question' => $request->answer,
                         'answer' => $question
                     ]);
-                    questions::create($request->all());
+                    question::create($request->all());
                 }
                 return redirect()->back()->with('warm', 'you add success');
                 break;
             case '3':
-                questions::create($request->all());
+                question::create($request->all());
                 return redirect()->back()->with('warm', 'you add success');
                 break;
             case '4':
-                questions::create($request->all());
+                question::create($request->all());
                 return redirect()->back()->with('warm', 'you add success');
                 break;
             case '5':
@@ -87,14 +87,14 @@ class questionsAdminController extends Controller
                     'question' => 'min:30',
                     'answer' => 'required'
                 ]);
-                questions::create($request->all());
+                question::create($request->all());
                 if (isset($request->autoCreate) && $request->autoCreate == true) {
                     $question = $request->question;
                     $request->merge([
                         'question' => $request->answer,
                         'answer' => $question
                     ]);
-                    questions::create($request->all());
+                    question::create($request->all());
                 }
                 return redirect()->back()->with('warm', 'you add success');
                 break;
@@ -122,8 +122,8 @@ class questionsAdminController extends Controller
      */
     public function edit($id)
     {
-        $categories =  categories::all();
-        $question = questions::find($id);
+        $categories =  category::all();
+        $question = question::find($id);
         return view('admin.questions.edit')->with(compact('question', 'categories'));
     }
 
@@ -141,9 +141,9 @@ class questionsAdminController extends Controller
             'category_id' => 'required|exists:categories,id|not_in:error',
             'question' => 'required'
         ]);
-        $question = questions::find($id);
+        $question = question::find($id);
         switch ($request->category_id) {
-            case '0':
+            case '1':
                 $validated = $request->validate([
                     'a' => 'required',
                     'b' => 'required',
@@ -162,7 +162,7 @@ class questionsAdminController extends Controller
                 $question->save();
                 return redirect()->route('admin.questions.index')->with('success', 'you edit success');
                 break;
-            case '1':
+            case '2':
                 $validated = $request->validate([
                     'question' => 'min:30',
                     'answer' => 'required'
@@ -178,18 +178,6 @@ class questionsAdminController extends Controller
                 $question->save();
                 return redirect()->route('admin.questions.index')->with('success', 'you edit success');
                 break;
-            case '2':
-                $question->vocabulary_id = $request->vocabulary_id;
-                $question->category_id = $request->category_id;
-                $question->question = $request->question;
-                $question->a = '';
-                $question->b = '';
-                $question->c = '';
-                $question->d = '';
-                $question->answer = '';
-                $question->save();
-                return redirect()->route('admin.questions.index')->with('success', 'you edit success');
-                break;
             case '3':
                 $question->vocabulary_id = $request->vocabulary_id;
                 $question->category_id = $request->category_id;
@@ -198,12 +186,24 @@ class questionsAdminController extends Controller
                 $question->b = '';
                 $question->c = '';
                 $question->d = '';
-                $question->answer = '';
+                $question->answer = $request->question;
+                $question->save();
+                return redirect()->route('admin.questions.index')->with('success', 'you edit success');
+                break;
+            case '4':
+                $question->vocabulary_id = $request->vocabulary_id;
+                $question->category_id = $request->category_id;
+                $question->question = $request->question;
+                $question->a = '';
+                $question->b = '';
+                $question->c = '';
+                $question->d = '';
+                $question->answer = $request->question;
                 $question->save();
                 return redirect()->route('admin.questions.index')->with('success', 'you edit success');
                 break;
                 break;
-            case '4':
+            case '5':
                 $validated = $request->validate([
                     'question' => 'min:30',
                     'answer' => 'required'
@@ -232,7 +232,13 @@ class questionsAdminController extends Controller
      */
     public function destroy($id)
     {
-        questions::where('id', $id)->delete();
-        return redirect()->route('admin.questions.index')->with('success', 'You delete id=' . $id . ' success');
+        try {
+            question::where('id', $id)->delete();
+            return redirect()->route('admin.questions.index')->with('success', 'You delete id=' . $id . ' success');
+        } catch (\Exception $exception) {
+            if ($exception->getCode() == 23000) {
+                return redirect()->route('admin.questions.index')->with('success', 'You need delete data have this question ');
+            }
+        }
     }
 }

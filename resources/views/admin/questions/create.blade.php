@@ -51,7 +51,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('category')
+                                @error('category_id')
                                 <div class="alert alert-warning alert-danger fade show">
                                     <strong>{{ $message }}</strong>
                                 </div>
@@ -179,6 +179,43 @@
             </div>
         </div>
     </div>
+    <script>
+        setInterval(function () {
+            var correctAnswer = document.getElementById('correctAnswer');
+            var multipleChoice = document.getElementById('multiple-choice');
+            var autoCreate = document.getElementById('checkbox-auto');
+            autoCreate.style.display = "none";
+            correctAnswer.style.display = "none";
+            switch (document.getElementById("selectCategory").value) {
+                case "1":
+                    multipleChoice.style.display = "block";
+                    autoCreate.style.display = "none";
+                    correctAnswer.style.display = "none";
+                    break;
+                case "2":
+                    multipleChoice.style.display = "none";
+                    autoCreate.style.display = "block";
+                    correctAnswer.style.display = "block";
+                    break;
+                case "3":
+                    multipleChoice.style.display = "none";
+                    autoCreate.style.display = "none";
+                    correctAnswer.style.display = "none";
+                    break;
+                case "4":
+                    multipleChoice.style.display = "none";
+                    autoCreate.style.display = "none";
+                    correctAnswer.style.display = "none";
+                    break;
+                case "5":
+                    multipleChoice.style.display = "none";
+                    autoCreate.style.display = "block";
+                    correctAnswer.style.display = "block";
+                    break;
+            }
+        }, 500);
+
+    </script>
     <!-- ============================================================== -->
     <!-- end basic form  -->
     @endsection
