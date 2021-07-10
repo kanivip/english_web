@@ -17,7 +17,8 @@ class CreateLearnedsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('lesson_id');
-            $table->boolean('status')->default(0);
+            $table->boolean('status_learned')->default(0);
+            $table->boolean('status_buy')->default(0);
             $table->timestamps();
         });
     }

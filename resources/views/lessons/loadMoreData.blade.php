@@ -16,8 +16,14 @@
             <div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span>10</span></div>
             <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>4,5</span>
             </div>
-            <div class="learnLesson course_mark trans_200"><a
-                    href="#{{$lesson->id}}">{{$lesson->point_required!=0?$lesson->point_required:'Free'}}</a>
+            <div class="learnLesson course_mark trans_200"> <a href="#{{$lesson->id}}">
+
+                    @if($lesson->status_buy==1 || $lesson->point_required == 0)
+                    Free
+                    @else
+                    {{$lesson->point_required}}
+                    @endif
+                </a>
             </div>
         </div>
     </div>
