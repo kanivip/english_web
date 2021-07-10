@@ -50,4 +50,9 @@ class User extends Authenticatable
         // Your your own implementation.
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    public function lessons()
+    {
+        return $this->belongsToMany(lesson::class, 'learneds', 'user_id', 'lesson_id')->withPivot('status');
+    }
 }

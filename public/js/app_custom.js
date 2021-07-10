@@ -1,4 +1,5 @@
 
+
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -148,6 +149,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 },
             });
         });
+    }
+    
+    if($('.learnLesson').length){
+            $(document).on("click", '.learnLesson', function(event) { 
+                var thread = $(this).parents('.course').find('.course_title').children().text();
+                var price = $(this).parents('.course').find('.learnLesson').children().text();
+                $('.modal-title').text('Lesson:'+thread)
+                $('.modal-body').text('You will be lost '+price+' coin')
+                $('#learnModal').modal('show');
+            });
     }
 
 });

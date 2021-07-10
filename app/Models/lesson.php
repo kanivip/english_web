@@ -10,10 +10,17 @@ class lesson extends Model
     use HasFactory;
     protected $table = 'lessons';
     protected $fillable = ['level_id', 'thread', 'point_required'];
+
     public function questions()
     {
         return $this->belongsToMany(question::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(user::class, 'learneds', 'user_id', 'lesson_id')->withPivot('status');
+    }
+
     public function level()
     {
         return $this->belongsTo(level::class);
