@@ -13,10 +13,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('role_id')->default(2);
+            $table->foreignId('status_id')->default(1);
             $table->string('phone', 10)->nullable();
             $table->text('address')->nullable();
             $table->integer('point')->nullable()->default(0);
@@ -25,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('status')->default(2);
             $table->rememberToken();
             $table->timestamps();
         });

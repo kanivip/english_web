@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\roles;
+use App\Models\role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,8 +16,8 @@ class adminUsersController extends Controller
      */
     public function index()
     {
-        $users = user::paginate(10);
-        $roles = roles::all();
+        $users = user::with('role')->paginate(10);
+        $roles = role::all();
         return view('admin.users.index')->with(compact('users', 'roles'));
     }
 

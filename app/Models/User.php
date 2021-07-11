@@ -50,4 +50,14 @@ class User extends Authenticatable
         // Your your own implementation.
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    public function role()
+    {
+        return $this->belongsTo(role::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(status::class);
+    }
 }
