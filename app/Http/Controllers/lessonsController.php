@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\history;
 use Illuminate\Http\Request;
 use App\Models\lesson;
+use App\Models\level;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
