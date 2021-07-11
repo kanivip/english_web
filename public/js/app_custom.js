@@ -157,11 +157,28 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 let thread = $(this).parents('.course').find('.course_title').children().text();
                 let price = $(this).parents('.course').find('.learnLesson').children().text();
                 $('.modal-title').text('Lesson:'+thread);
-                $('.modal-body').text('You will be lost '+price+' coin'+id);
+                $('.modal-body').text('You will be lost '+price+' coin');
+                $('#btn-learn').data('learn',id);
                 $('#learnModal').modal('show');    
             });
             $(document).on("click", '#btn-learn', function(event) { 
-                location.href = "www.google.com"; 
+                let lesson_id = $(this).data('learn');
+                $.ajax({
+                    type: 'GET',
+                    url: './checkcoinlesson',
+                    data: {id:lesson_id},
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.flag == true)
+                        {
+                            window.location.href = data.message;
+                        }else
+                        {
+                            $('.modal-body').text(data.message);
+                            $('#learnModal').modal('show');  
+                        }
+                    },
+                });
             });
 
     }

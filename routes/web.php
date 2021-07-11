@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/index', [lessonsController::class, 'index'])->name('index');
         Route::get('/study/{id}', [lessonsController::class, 'study'])->name('study');
         //using for ajax
-        Route::get('/checksesson', [lessonsController::class, 'checkLesson'])->name('checkLesson');
+        Route::get('/checkcoinlesson', [lessonsController::class, 'checkCoinLesson'])->name('checkCoinLesson');
         Route::get('/loadMore', [lessonsController::class, 'loadMore'])->name('loadMore');
     });
 

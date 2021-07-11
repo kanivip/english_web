@@ -73,7 +73,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="btn-learn" class="btn btn-primary">Learn</button>
+                <button type="button" data-learn="0" id="btn-learn" class="btn btn-primary">Learn</button>
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\history;
 use Illuminate\Http\Request;
 use App\Models\lesson;
 use App\Models\User;
@@ -56,9 +57,45 @@ class lessonsController extends Controller
         return response()->json(['view' => View::make('lessons.loadMoreData', compact('lessons'))->render()]);
     }
 
-    public function checkLesson(Request $request)
+    public function checkCoinLesson(Request $request)
     {
-        $url = route('lessons.checkLesson', [$request->id]);
-        return response()->json($url);
+        $flag = false;
+        $message = '';
+        $lesson_id = $request->id;
+        $user = Auth::user();
+        $lesson = lesson::find(1);
+        $user = user::with(array('lessons' => function ($query) use ($lesson_id) {
+            $query->where('lessons.id', $lesson_id);
+        }))->find($user->id);
+        if ($user->lessons->count() <= 0) {
+            if ($lesson->point_required <= $user->point) {
+                $user->point -= $lesson->point_required;
+                $user->save();
+                $history = new history([
+                    'name' => 'used',
+                    'point' => $lesson->point_required
+                ]);
+                $user->histories()->save($history);
+                $user->lessons()->attach($lesson_id, [
+                    'status_buy' => true,
+                ]);
+                $flag = true;
+                $message = route('lessons.study', [$lesson_id]);
+            } else if ($lesson->point_required > $user->point) {
+                $message = 'Your coin not enough.';
+            } else if ($lesson->point_required == 0) {
+                $flag = true;
+                $message = route('lessons.study', [$lesson_id]);
+            } else {
+                $message = "Have error";
+            }
+        } else {
+            $flag = true;
+            $message = route('lessons.study', [$lesson_id]);
+        }
+        return response()->json([
+            'message' => $message,
+            'flag' => $flag,
+        ]);
     }
 }
