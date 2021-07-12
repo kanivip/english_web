@@ -64,9 +64,9 @@ class lessonsController extends Controller
         $message = '';
         $lesson_id = $request->id;
         $user = Auth::user();
-        $lesson = lesson::find(1);
+        $lesson = lesson::find($lesson_id);
         $user = user::with(array('lessons' => function ($query) use ($lesson_id) {
-            $query->where('lessons.id', $lesson_id);
+            $query->where('lessons.id', '=', $lesson_id);
         }))->find($user->id);
         if ($user->lessons->count() <= 0) {
             if ($lesson->point_required <= $user->point) {
