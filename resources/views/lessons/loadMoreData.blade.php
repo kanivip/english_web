@@ -18,8 +18,9 @@
             </div>
             <div class="learnLesson course_mark trans_200" data-value="{{$lesson->id}}">
                 <a href="#a">
-
-                    @if($lesson->status_buy==1 || $lesson->point_required == 0)
+                    @if($lesson->status_learned==1)
+                    Learned
+                    @elseif($lesson->status_buy==1 || $lesson->point_required == 0)
                     Free
                     @else
                     {{$lesson->point_required}}

@@ -33,6 +33,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/vocabulary/searchVocabulary', [vocabulariesController::class, 'searchVocabulary'])->name('searchVocabulary');
 Route::get('/vocabulary/searchVocabularyById', [vocabulariesController::class, 'searchVocabularyById'])->name('searchVocabularyById');
 Route::post('/questions/getQuestionsByLesson', [QuestionsController::class, 'getQuestionByLesson'])->name('getQuestionsByLesson');
+Route::get('/questions/getAndCheckQuestion', [QuestionsController::class, 'getAndCheckQuestion'])->name('getAndCheckQuestion');
 
 Route::group(['middleware' => 'auth'], function () {
 

@@ -150,14 +150,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
             });
         });
     }
-    
+    // check coin user for learn
     if($('.learnLesson').length){
             $(document).on("click", '.learnLesson', function(event) { 
                 let id = $(this).data('value');
                 let thread = $(this).parents('.course').find('.course_title').children().text();
                 let price = $(this).parents('.course').find('.learnLesson').children().text();
                 $('.modal-title').text('Lesson:'+thread);
+                price = price.trim();
+                if(price == 'Learned')
+                {
+                    $('.modal-body').text('You want to revise');
+                }else{
                 $('.modal-body').text('You will be lost '+price+' coin');
+                }
                 $('#btn-learn').data('learn',id);
                 $('#learnModal').modal('show');    
             });
@@ -180,6 +186,138 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     },
                 });
             });
+
+    }
+    //process study lesson
+    if($('#answer').length)
+    {
+        function shuffle(array) {
+            var currentIndex = array.length,  randomIndex;
+          
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+          
+              // Pick a remaining element...
+              randomIndex = Math.floor(Math.random() * currentIndex);
+              currentIndex--;
+          
+              // And swap it with the current element.
+              [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+            }
+          
+            return array;
+          }
+
+        let answer = $('#answer').text().trim();
+        let arrAnswer = shuffle(answer.split(" "));
+        let contentAnswer = '';
+        arrAnswer.forEach(element => {
+            contentAnswer +='<button type="button" class="btn-word m-2 btn btn-outline-primary btn-sm">'+element+'</button>';
+        });
+        $('#answer').html(contentAnswer);
+
+
+    }
+
+    if($('#lesson').length){
+        $('#lesson').children().eq(0).show();
+        
+        $(document).on("click", '.btn-word', function(event) {
+            if($(this).parent().attr('id')=='answer')
+            {
+                $('#yourAnswer').append($(this));
+            }else if($(this).parent().attr('id')=='yourAnswer')
+            {
+                $('#answer').append($(this));
+            }
+        });
+
+        $(document).on("click", '#checkQuestion', function(event) { 
+
+            let lesson_id = $('#lesson').data('value');
+            let question_id = $('#question').data('value');
+            let category = $('#category').data('value')
+            var yourAnswer = '';
+            switch(category) {
+                case 1:
+                    yourAnswer = $("#category input[type='radio']:checked").val();
+                  break;
+                case 2:
+                  $('#yourAnswer').children().each(function(){
+                    yourAnswer = yourAnswer+" "+$(this).text();
+                  });
+                  yourAnswer = yourAnswer.trim();
+                  console.log(yourAnswer);
+                  break;
+                default:
+                  // code block
+              }
+              $.ajax({
+                type: 'GET',
+                url: '/questions/getAndCheckQuestion',
+                data: {lesson_id:lesson_id,question_id:question_id,answer:yourAnswer},
+                dataType: 'json',
+                success: function (data) {
+                    $('#lesson').html(data.view);
+                    
+                    console.log(data[0].questionNow);
+                    if(data[0].message == true)
+                    {
+                        $('#message-question').text('Congratulations. Your answer is correct')
+                    }
+                    else if(data[0].message == 'finish'){
+                        $('#message-question').text('Congratulations. You finsih this lesson. Keep up')
+                        window.setTimeout(function(){
+                            window.location.href = data[0].url;
+                        }, 3000);
+                    }
+                    else{
+                        $('#message-question').html('Opp. Your answer is incorrect </br> Correct answer is: '+ data[0].questionNow.answer)
+                    }
+                    $('#messageQuestion').modal('show');
+                // shuffle answer
+                if($('#answer').length)
+                {
+                    function shuffle(array) {
+                        var currentIndex = array.length,  randomIndex;
+                    
+                        // While there remain elements to shuffle...
+                        while (0 !== currentIndex) {
+                    
+                        // Pick a remaining element...
+                        randomIndex = Math.floor(Math.random() * currentIndex);
+                        currentIndex--;
+                    
+                        // And swap it with the current element.
+                        [array[currentIndex], array[randomIndex]] = [
+                            array[randomIndex], array[currentIndex]];
+                        }
+                    
+                        return array;
+                    }
+            
+                    let answer = $('#answer').text().trim();
+                    let arrAnswer = shuffle(answer.split(" "));
+                    let contentAnswer = '';
+                    arrAnswer.forEach(element => {
+                        contentAnswer +='<button type="button" class="btn-word m-2 btn btn-outline-primary btn-sm">'+element+'</button>';
+                    });
+                    $('#answer').html(contentAnswer);
+                }
+                //process bar
+                    console.log(data[0].process);
+                    let process = data[0].process+'%';
+                    $("#process-bar").text(process)
+                    $("#process-bar").css("width", process);
+                
+                
+                },
+            });
+            
+        });
+
+
 
     }
 

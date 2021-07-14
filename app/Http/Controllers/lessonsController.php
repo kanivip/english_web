@@ -33,9 +33,17 @@ class lessonsController extends Controller
         return view('lessons.index')->with(compact('lessons'));
     }
 
-    public function study()
+    public function study($id, Request $request)
     {
-        return "lesson";
+        if ($request->session()->has('incorrect')) {
+            $lesson = lesson::with('questions')->find($id);
+            $incorrect = $request->session()->get('incorrect');
+            $question = $incorrect->random();
+        } else {
+            $lesson = lesson::with('questions')->find($id);
+            $question = $lesson->questions->random();
+        }
+        return view('lessons.study')->with(compact('question', 'lesson'));
     }
 
     public function loadMore(Request $request)
