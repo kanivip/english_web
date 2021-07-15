@@ -35,14 +35,11 @@ class lessonsController extends Controller
 
     public function study($id, Request $request)
     {
-        if ($request->session()->has('incorrect')) {
-            $lesson = lesson::with('questions')->find($id);
-            $incorrect = $request->session()->get('incorrect');
-            $question = $incorrect->random();
-        } else {
-            $lesson = lesson::with('questions')->find($id);
-            $question = $lesson->questions->random();
-        }
+        $lesson = lesson::with('questions')->find($id);
+        $request->session()->put('incorrect_' . $id, $lesson->questions);
+        $request->session()->put('correct_' . $id, collect());
+        $incorrect = $request->session()->get('incorrect_' . $id)->shuffle();
+        $question = $incorrect->random();
         return view('lessons.study')->with(compact('question', 'lesson'));
     }
 

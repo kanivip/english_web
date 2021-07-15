@@ -233,6 +233,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         });
 
+
+        $(document).on("keyup", function(event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.key === 'Enter') {
+              // Cancel the default action, if needed
+              event.preventDefault();
+              // Trigger the button element with a click
+              document.getElementById("checkQuestion").click();
+                
+            }
+          });
+
+        //call ajax for get question and process study lesson
         $(document).on("click", '#checkQuestion', function(event) { 
 
             let lesson_id = $('#lesson').data('value');

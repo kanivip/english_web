@@ -27,17 +27,18 @@ class QuestionsController extends Controller
         $url = '';
         $lesson = lesson::with('questions')->find($request->lesson_id);
         $answerUser = $request->answer;
-        if ($request->session()->has('incorrect')) {
-            $incorrect = $request->session()->get('incorrect');
+        //create session by lesson id
+        if ($request->session()->has('incorrect_' . $request->lesson_id)) {
+            $incorrect = $request->session()->get('incorrect_' . $request->lesson_id);
         } else {
-            $request->session()->put('incorrect', $lesson->questions);
+            $request->session()->put('incorrect_' . $request->lesson_id, $lesson->questions);
         }
-        if ($request->session()->has('correct')) {
-            $correct = $request->session()->get('correct');
+        if ($request->session()->has('correct_' . $request->lesson_id)) {
+            $correct = $request->session()->get('correct_' . $request->lesson_id);
         } else {
-            $request->session()->put('correct', collect());
+            $request->session()->put('correct_' . $request->lesson_id, collect());
         }
-        $question = $incorrect->random();
+        //check question'answer
         foreach ($incorrect as $key => $value) {
             if ($value->id == $request->question_id && $value->answer == $request->answer) {
                 $correct->push($value);
@@ -45,17 +46,25 @@ class QuestionsController extends Controller
                 $message = true;
             }
         }
+        if (!$incorrect->isEmpty()) {
+            $question = $incorrect->random();
+        }
+
+        $request->session()->put('process_' . $request->lesson_id, ceil($correct->count() / $lesson->questions->count() * 100));
+        $process =  $request->session()->get('process_' . $request->lesson_id);
+
         if ($correct->count() == $lesson->questions->count()) {
-            $request->session()->forget(['incorrect', 'correct', 'process']);
-            $user = user::find(Auth::user()->id);
+            $request->session()->forget(['incorrect_' . $request->id, 'correct' . $request->id, 'process']);
+            $user = user::with('lessons')->find(Auth::user()->id);
             $user->lessons()->updateExistingPivot($request->lesson_id, [
                 'status_learned' => true,
             ]);
             $message = "finish";
             $url = route('lessons.index');
+            return response()->json(['view' => '', compact('questionNow', 'process', 'message', 'url')]);
         }
-        $request->session()->put('process', ceil($correct->count() / $lesson->questions->count() * 100));
-        $process =  $request->session()->get('process');
+
+
         return response()->json(['view' => View::make('questions.question', compact('question'))->render(), compact('questionNow', 'process', 'message', 'url')]);
     }
 }
