@@ -66,17 +66,15 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/destroy/{id}', [adminVocabulariesController::class, 'destroy'])->name('destroy');
         });
 
-<<<<<<< HEAD
-    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
-        Route::get('/index', [adminUsersController::class, 'index'])->name('index');
-        Route::get('/create', [adminUsersController::class, 'create'])->name('create');
-        Route::post('/store', [adminUsersController::class, 'store'])->name('store');
-        Route::get('/edit/{id}', [adminUsersController::class, 'edit'])->name('edit');
-        Route::post('/update/{id}', [adminUsersController::class, 'update'])->name('update');
-        Route::get('/ban/{id}', [adminUsersController::class, 'ban'])->name('ban');
-        Route::get('/banned/{id}', [adminUsersController::class, 'banned'])->name('banned');
-    });
-=======
+        Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+            Route::get('/index', [adminUsersController::class, 'index'])->name('index');
+            Route::get('/create', [adminUsersController::class, 'create'])->name('create');
+            Route::post('/store', [adminUsersController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [adminUsersController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [adminUsersController::class, 'update'])->name('update');
+            Route::get('/ban/{id}', [adminUsersController::class, 'ban'])->name('ban');
+            Route::get('/banned/{id}', [adminUsersController::class, 'banned'])->name('banned');
+        });
         Route::group(['prefix' => 'levels', 'as' => 'levels.'], function () {
             Route::get('/index', [adminLevelsController::class, 'index'])->name('index');
             Route::get('/create', [adminLevelsController::class, 'create'])->name('create');
@@ -85,7 +83,6 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/update/{id}', [adminLevelsController::class, 'update'])->name('update');
             Route::get('/destroy/{id}', [adminLevelsController::class, 'destroy'])->name('destroy');
         });
->>>>>>> dev
 
         Route::group(['prefix' => 'questions', 'as' => 'questions.'], function () {
             Route::get('/index', [questionsAdminController::class, 'index'])->name('index');
@@ -94,14 +91,6 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/edit/{id}', [questionsAdminController::class, 'edit'])->name('edit');
             Route::post('/update/{id}', [questionsAdminController::class, 'update'])->name('update');
             Route::get('/destroy/{id}', [questionsAdminController::class, 'destroy'])->name('destroy');
-        });
-
-        Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
-            Route::get('/index', [adminUsersController::class, 'index'])->name('index');
-            Route::get('/create', [adminUsersController::class, 'create'])->name('create');
-            Route::post('/store', [adminUsersController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [adminUsersController::class, 'edit'])->name('edit');
-            Route::post('/update/{id}', [adminUsersController::class, 'update'])->name('update');
         });
 
         Route::group(['prefix' => 'lessons', 'as' => 'lessons.'], function () {

@@ -51,7 +51,6 @@ class User extends Authenticatable
         $this->notify(new ResetPasswordNotification($token));
     }
 
-<<<<<<< HEAD
     public function role()
     {
         return $this->belongsTo(role::class);
@@ -60,7 +59,7 @@ class User extends Authenticatable
     public function status()
     {
         return $this->belongsTo(status::class);
-=======
+    }
     public function lessons()
     {
         return $this->belongsToMany(lesson::class, 'learneds', 'user_id', 'lesson_id')->withPivot('status_learned', 'status_buy');
@@ -69,6 +68,5 @@ class User extends Authenticatable
     public function histories()
     {
         return $this->hasMany(history::class);
->>>>>>> dev
     }
 }
