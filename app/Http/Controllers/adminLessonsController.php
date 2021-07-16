@@ -43,15 +43,17 @@ class adminLessonsController extends Controller
         $validated = $request->validate([
             'thread' => 'required|unique:lessons,thread|max:80',
             'level_id' => 'required|exists:levels,id',
+            'point_required' => 'integer',
             'questions' => 'required|array|min:10|max:30',
             'questions.*' => 'required|exists:questions,id'
         ]);
         $lesson = new lesson;
         $lesson->thread = $request->thread;
+        $lesson->point_required = $request->point_required;
         $lesson->level_id = $request->level_id;
         $lesson->save();
         $lesson->questions()->attach($request->questions);
-        return redirect()->back()->with('warm', "you add success");
+        return redirect()->back()->with('warm', "You add success");
     }
 
     /**
@@ -91,11 +93,13 @@ class adminLessonsController extends Controller
         $validated = $request->validate([
             'thread' => 'required|unique:lessons,thread,' . $id . '|max:80',
             'level_id' => 'required|exists:levels,id',
+            'point_required' => 'integer',
             'questions' => 'required|array|min:10|max:30',
             'questions.*' => 'required|exists:questions,id'
         ]);
         $lesson = lesson::find($id);
         $lesson->thread = $request->thread;
+        $lesson->point_required = $request->point_required;
         $lesson->level_id = $request->level_id;
         $lesson->save();
         $lesson->questions()->sync($request->questions);

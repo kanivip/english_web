@@ -61,8 +61,8 @@
                         </div>
                         <nav class="main_nav_contaner">
                             <ul class="main_nav">
-                                <li class="active"><a href="index.html">Home</a></li>
-                                <li><a href="courses.html">Courses</a></li>
+                                <li class="active"><a href="{{route('home')}}">Home</a></li>
+                                <li><a href="{{route('lessons.index')}}">Lessons</a></li>
                                 <li><a href="instructors.html">Instructors</a></li>
                                 <li><a href="#">Events</a></li>
                                 <li><a href="blog.html">Blog</a></li>
@@ -86,10 +86,12 @@
                             <!-- Hamburger -->
                             @guest
                             @if(Route::has('login'))
-                            <div class="user">
-                                <a href="{{ route('login') }}"><i class="fa fa-user" aria-hidden="true">
-                                    </i></a>
-                            </div>
+                            <a href="{{ route('login') }}">
+                                <div class="user">
+                                    <i class="fa fa-user" aria-hidden="true">
+                                    </i>
+                                </div>
+                            </a>
                             @endif
                             @else
                             <div class="top_bar_lang">
@@ -99,9 +101,12 @@
                                         <a href="#">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}<i
                                                 class="fa fa-angle-down" aria-hidden="true"></i></a>
                                         <ul>
+                                            <li>{{Auth::user()->point}} <span style="color: yellow;"><i
+                                                        class="fas fa-coins"></i></span></li>
                                             @if(Auth::user()->role_id==1)
                                             <li><a href="{{route('admin.dashbroad')}}">Admin</a></li>
                                             @endif
+
                                             <li>
                                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">

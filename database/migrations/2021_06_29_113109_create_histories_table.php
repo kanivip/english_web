@@ -17,6 +17,7 @@ class CreateHistoriesTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('name', 100)->nullable();
+            $table->integer('point');
             $table->timestamps();
         });
     }
