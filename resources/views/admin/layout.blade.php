@@ -61,7 +61,7 @@
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
     <!-- jquery 3.5.1 -->
-    <script src="{{asset('admin/assets/vendor/jquery/jquery-3.3.1.min.js')}}"></script>
+    <script src="{{asset('admin/assets/vendor/jquery/jquery-3.5.1.min.js')}}"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <!-- bootstap bundle js -->
     <script src="{{asset('admin/assets/vendor/bootstrap/js/bootstrap.bundle.js')}}"></script>
