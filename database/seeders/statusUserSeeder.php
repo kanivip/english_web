@@ -17,6 +17,11 @@ class statusUserSeeder extends Seeder
 
             DB::table('status')->insert([
                 [
+                    'name' => 'active',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
                     'name' => 'banned',
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
