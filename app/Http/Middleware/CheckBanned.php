@@ -17,7 +17,7 @@ class CheckBanned
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->check() && (auth::user()->status_id == 3)){
+        if(auth()->check() && (auth::user()->status_id == 2)){
             Auth::logout();
 
             $request->session()->invalidate();
