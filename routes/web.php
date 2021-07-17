@@ -11,6 +11,7 @@ use App\Http\Controllers\vocabulariesController;
 use App\Http\Controllers\adminUsersController;
 use App\Http\Controllers\adminLessonsController;
 use App\Http\Controllers\QuestionsController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], f
         Route::post('/update/{id}', [adminUsersController::class, 'update'])->name('update');
         Route::get('/ban/{id}', [adminUsersController::class, 'ban'])->name('ban');
         Route::get('/banned/{id}', [adminUsersController::class, 'banned'])->name('banned');
+        Route::get('/unban/{id}', [adminUsersController::class, 'unban'])->name('unban');
+        Route::get('/unbanned/{id}', [adminUsersController::class, 'unbanned'])->name('unbanned');
     });
 
     Route::group(['prefix' => 'lessons', 'as' => 'lessons.'], function () {

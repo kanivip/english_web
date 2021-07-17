@@ -17,16 +17,6 @@ class statusUserSeeder extends Seeder
 
             DB::table('status')->insert([
                 [
-                    'name' => 'offline',
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s'),
-                ],
-                [
-                    'name' => 'online',
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s'),
-                ],
-                [
                     'name' => 'banned',
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth;
 use App\Models\role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,8 +18,7 @@ class adminUsersController extends Controller
     public function index()
     {
         $users = user::with('role')->paginate(10);
-        $roles = role::all();
-        return view('admin.users.index')->with(compact('users', 'roles'));
+        return view('admin.users.index')->with(compact('users'));
     }
 
     /**
@@ -94,8 +94,22 @@ class adminUsersController extends Controller
     public function banned($id)
     {
         $user = user::find($id);
-        $user->status_id = 3;
+        $user->status_id = 2;
         $user->save();
         return redirect()->route('admin.users.index')->with('success', 'You banned user ' . $user->email . ' success');
+    }
+
+    public function unban($id)
+    {
+        $users = user::find($id);
+        return view('admin.users.unban')->with(compact('users'));
+    }
+
+    public function unbanned($id)
+    {
+        $user = user::find($id);
+        $user->status_id = 1;
+        $user->save();
+        return redirect()->route('admin.users.index')->with('success', 'You unbanned user ' . $user->email . ' success');
     }
 }
