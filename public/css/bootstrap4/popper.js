@@ -2445,4 +2445,8 @@ Popper.Defaults = Defaults;
 return Popper;
 
 })));
+<<<<<<< .merge_file_a16084
 //# sourceMappingURL=popper.js.map
+=======
+
+>>>>>>> .merge_file_a01192
