@@ -12,6 +12,7 @@ use App\Http\Controllers\adminUsersController;
 use App\Http\Controllers\adminLessonsController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\lessonsController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/update/{id}', [adminUsersController::class, 'update'])->name('update');
             Route::get('/ban/{id}', [adminUsersController::class, 'ban'])->name('ban');
             Route::get('/banned/{id}', [adminUsersController::class, 'banned'])->name('banned');
+            Route::get('/unban/{id}', [adminUsersController::class, 'unban'])->name('unban');
+            Route::get('/unbanned/{id}', [adminUsersController::class, 'unbanned'])->name('unbanned');
         });
         Route::group(['prefix' => 'levels', 'as' => 'levels.'], function () {
             Route::get('/index', [adminLevelsController::class, 'index'])->name('index');

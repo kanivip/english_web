@@ -30,9 +30,20 @@
                                 <td>{{$user->address}}</td>
                                 <td>{{$user->phone}}</td>
                                 <td>{{$user->role->name}}</td>
-                                <td>{{$user->status->name}}</td>
+                                @if(Cache::has('user-is-online-' . $user->id))
+                                <td style="color: #00f">Online</td>
+                                @elseif($user->status_id == 2)
+                                <td style="color: #f00">{{$user->status->name}}</td>
+                                @else
+                                <td>Offline</td>
+                                @endif
+                                
                                 <td><a href="{{route('admin.users.edit',$user->id)}}"><i class="fas fa-edit"></i></a>
+                                @if($user->status_id == 2)
+                                    <a href="{{route('admin.users.unban',$user->id)}}"><i class="fas fa-check"></i></a>
+                                @else
                                     <a href="{{route('admin.users.ban',$user->id)}}"><i class="fas fa-ban"></i></a>
+                                @endif
                                 </td>
                             </tr>
                             @endforeach
