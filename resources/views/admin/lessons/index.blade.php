@@ -109,6 +109,7 @@
                                             <th class="border-0">#</th>
                                             <th class="border-0">Thread</th>
                                             <th class="border-0">levels</th>
+                                            <th class="border-0">Point_required</th>
                                             <th class="border-0">Total question</th>
                                             <th class="border-0">Created_at</th>
                                             <th class="border-0">Updated_at</th>
@@ -122,6 +123,7 @@
                                             <td>{{$lesson->id}}</td>
                                             <td>{{$lesson->thread}}</td>
                                             <td>{{$lesson->level->name}}</td>
+                                            <td>{{$lesson->point_required}}</td>
                                             <td>{{$lesson->questions_count}} <button value="{{$lesson->id}}"
                                                     type="button" class="btn-modalQuestion btn btn-primary"><i
                                                         class="fas fa-eye"></i></button></td>

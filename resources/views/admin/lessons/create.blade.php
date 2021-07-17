@@ -14,6 +14,11 @@
                 </div>
             </div>
         </div>
+        @if (session('warm'))
+        <div class="alert alert-success p-1">
+            {{ session('warm') }}
+        </div>
+        @endif
         <!-- ============================================================== -->
         <!-- end pageheader  -->
         <!-- ============================================================== -->
@@ -54,7 +59,17 @@
                                     <strong>{{ $message }}</strong>
                                 </div>
                                 @enderror
-
+                                <div class="form-group">
+                                    <label for="inputText3" class="col-form-label">Point_required</label>
+                                    <input id="inputText3" value="{{old('point_required',0)}}" name="point_required"
+                                        type="number"
+                                        class="form-control @error('point_required') is-invalid @enderror">
+                                </div>
+                                @error('point_required')
+                                <div class="alert alert-warning alert-danger fade show">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
                                 <table id="demo123" class="display" style="width:100%">
                                     <thead>
                                         <tr class="border-0">
@@ -109,11 +124,7 @@
                                 </div>
                                 <input class="btn btn-primary" type="submit" value="add">
                             </form>
-                            @if (session('warm'))
-                            <div class="alert alert-success p-1">
-                                {{ session('warm') }}
-                            </div>
-                            @endif
+
                         </div>
                     </div>
                 </div>
