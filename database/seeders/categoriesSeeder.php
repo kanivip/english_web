@@ -31,7 +31,7 @@ class categoriesSeeder extends Seeder
                 ],
                 [
                     'id' => '3',
-                    'name' => 'reading',
+                    'name' => 'speaking',
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],

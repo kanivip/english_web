@@ -6,11 +6,12 @@ $.ajaxSetup({
     }
 });
 
-
-
 document.addEventListener("DOMContentLoaded", function (event) {
+    
 
-	//click to pronounce
+    
+
+	//click to pronounce page admin
 	$('.btn-pronounce').on('click',function (){
 		// Initialize new SpeechSynthesisUtterance object
 		let speech = new SpeechSynthesisUtterance();
@@ -191,6 +192,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //process study lesson
     if($('#answer').length)
     {
+
+        
+
+
         function shuffle(array) {
             var currentIndex = array.length,  randomIndex;
           
@@ -234,6 +239,31 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
 
 
+            	//click to pronounce page studying
+	$('#btn-pronounce').on('click',function (){
+		// Initialize new SpeechSynthesisUtterance object
+        let speech = new SpeechSynthesisUtterance();
+		// Set Speech Language
+		speech.lang = "en";
+        let word = $(this).data('value');
+        console.log(word);
+		speech.text = word;
+		window.speechSynthesis.speak(speech);
+	});
+
+    $('#btn-pronounce-low').on('click',function (){
+		// Initialize new SpeechSynthesisUtterance object
+        let speech = new SpeechSynthesisUtterance();
+        speech.rate = "0.4";
+		// Set Speech Language
+		speech.lang = "en";
+
+        let word = $(this).data('value');
+        console.log(word);
+		speech.text = word;
+		window.speechSynthesis.speak(speech);
+	});
+
         $(document).on("keyup", function(event) {
             // Number 13 is the "Enter" key on the keyboard
             if (event.key === 'Enter') {
@@ -252,6 +282,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let question_id = $('#question').data('value');
             let category = $('#category').data('value')
             var yourAnswer = '';
+            console.log('category' +category);
             switch(category) {
                 case 1:
                     yourAnswer = $("#category input[type='radio']:checked").val();
@@ -261,8 +292,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     yourAnswer = yourAnswer+" "+$(this).text();
                   });
                   yourAnswer = yourAnswer.trim();
-                  console.log(yourAnswer);
                   break;
+                case 3:
+                    $('#yourAnswer').children().each(function(){
+                        yourAnswer = yourAnswer+" "+$(this).text();
+                      });
+                      yourAnswer = yourAnswer.trim();
+                      break;
+                case 5:
+                        yourAnswer = $('#yourAnswerText').val();
+                        yourAnswer = yourAnswer.trim();
+                        console.log($('#yourAnswerText'));
+                    break;
                 default:
                   // code block
               }
@@ -274,6 +315,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 success: function (data) {
                     $('#lesson').html(data.view);
                     
+
                     console.log(data[0].questionNow);
                     if(data[0].message == true)
                     {
@@ -327,6 +369,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 
                 },
             });
+
             
         });
 
