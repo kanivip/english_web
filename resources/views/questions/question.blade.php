@@ -47,8 +47,8 @@
 <!-- listening -->
 <div data-value="{{$question->id}}" id="question" class=" col p-2">
     <div class="row">
-        <div class="col mini-box">Questions: {{$question->question}} <button id="btn-pronounce"
-                data-value="{{$question->question}}" class="btn btn-primary"><i class="fas fa-volume-up "></i></button>
+        <div class="col mini-box"><button id="btn-pronounce" data-value="{{$question->question}}"
+                class="btn btn-primary"><i class="fas fa-volume-up "></i></button>
             <button id="btn-pronounce-low" data-value="{{$question->question}}" class="btn btn-primary"><i
                     class="fas fa-otter"></i></button>
         </div>
@@ -68,8 +68,8 @@
 <!-- writing -->
 <div data-value="{{$question->id}}" id="question" class=" col p-2">
     <div class="row">
-        <div class="col mini-box">Questions: {{$question->question}} <button id="btn-pronounce"
-                data-value="{{$question->question}}" class="btn btn-primary"><i class="fas fa-volume-up "></i></button>
+        <div class="col mini-box"><button id="btn-pronounce" data-value="{{$question->question}}"
+                class="btn btn-primary"><i class="fas fa-volume-up "></i></button>
             <button id="btn-pronounce-low" data-value="{{$question->question}}" class="btn btn-primary"><i
                     class="fas fa-otter"></i></button>
         </div>

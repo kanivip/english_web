@@ -17,13 +17,13 @@
                                     <ul class="lang_list">
                                         <li class="hassubs">
                                             <a href="#">English<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                            <ul>
+                                            <!--                                             <ul>
                                                 <li><a href="#">Ukrainian</a></li>
                                                 <li><a href="#">Japanese</a></li>
                                                 <li><a href="#">Lithuanian</a></li>
                                                 <li><a href="#">Swedish</a></li>
                                                 <li><a href="#">Italian</a></li>
-                                            </ul>
+                                            </ul> -->
                                         </li>
                                     </ul>
                                 </div>
@@ -55,7 +55,7 @@
                 <div class="col">
                     <div class="header_content d-flex flex-row align-items-center justify-content-start">
                         <div class="logo_container mr-auto">
-                            <a href="#">
+                            <a href="{{route('home')}}">
                                 <div class="logo_text">Lingua</div>
                             </a>
                         </div>
