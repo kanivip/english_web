@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\lesson;
 use App\Models\level;
 use App\Models\User;
 use Closure;
@@ -22,6 +23,7 @@ class checkStuding
     {
         \DB::statement("SET SQL_MODE=''");
         $lesson_id = $request->route()->parameter('id');
+        $lesson = lesson::find($lesson_id);
         $user = User::with(['lessons' => function ($q) use ($lesson_id) {
             $q->where('lessons.id', '=', $lesson_id)->wherePivot('status_buy', '=', 1)->count();
         }])->find(Auth::user()->id);
@@ -38,6 +40,12 @@ class checkStuding
             return redirect()->route('lessons.index')->with('message', 'You need buy this Lesson ' . $lesson_id);;
         } else {
             //check user
+            if ($lesson->level_id == 1) {
+                return $next($request);
+            }
+            if ($userLearned->lessons->count() <= 0) {
+                return redirect()->route('lessons.index')->with('message', 'You need to finish Lesson ' . $levelAll[0]->name);
+            }
             for ($i = 0; $i < $levelAll->count(); $i++) {
                 if ($levelAll[$i]->lessons->count() != $userLearned->lessons[$i]->total) {
                     return redirect()->route('lessons.index')->with('message', 'You need to finish Lesson ' . $levelAll[$i]->name);

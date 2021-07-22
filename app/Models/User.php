@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->belongsToMany(lesson::class, 'learneds', 'user_id', 'lesson_id')->withPivot('status_learned', 'status_buy');
     }
 
+    public function learneds()
+    {
+        return $this->belongsToMany(lesson::class, 'learneds', 'user_id', 'lesson_id')->wherePivot('status_learned', 1);
+    }
+
     public function histories()
     {
         return $this->hasMany(history::class);

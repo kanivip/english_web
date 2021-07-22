@@ -10,7 +10,7 @@ class vocabulariesController extends Controller
     public function searchVocabulary(Request $request)
     {
         $vocabulary = vocabulary::where('name', $request->key)
-            ->orWhere('name', 'like', '%' . $request->key . '%')->orderBy('name', 'asc')->limit(5)->get();
+            ->orWhere('name', 'like', '%' . $request->key . '%')->orderBy('name', 'asc')->limit(10)->get();
         return response()->json($vocabulary);
     }
 

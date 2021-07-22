@@ -61,12 +61,12 @@
                         </div>
                         <nav class="main_nav_contaner">
                             <ul class="main_nav">
-                                <li class="active"><a href="{{route('home')}}">Home</a></li>
-                                <li><a href="{{route('lessons.index')}}">Lessons</a></li>
-                                <li><a href="instructors.html">Instructors</a></li>
-                                <li><a href="#">Events</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li class="{{ Route::is('home') ? 'active' : '' }}"><a href="{{route('home')}}">Home</a>
+                                </li>
+                                <li class="{{ Route::is('lessons.*') ? 'active' : '' }}"><a
+                                        href="{{route('lessons.index')}}">Lessons</a></li>
+                                <li class="{{ Route::is('events.*') ? 'active' : '' }}"><a
+                                        href="{{route('events.index')}}">Events</a></li>
                             </ul>
                         </nav>
                         <div class="header_content_right ml-auto text-right w-auto">

@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
     }
-
+    //study lesson
     if($('#lesson').length){
         $('#lesson').children().eq(0).show();
         
@@ -240,29 +240,30 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
             	//click to pronounce page studying
-	$('#btn-pronounce').on('click',function (){
-		// Initialize new SpeechSynthesisUtterance object
-        let speech = new SpeechSynthesisUtterance();
-		// Set Speech Language
-		speech.lang = "en";
-        let word = $(this).data('value');
-        console.log(word);
-		speech.text = word;
-		window.speechSynthesis.speak(speech);
-	});
-
-    $('#btn-pronounce-low').on('click',function (){
-		// Initialize new SpeechSynthesisUtterance object
-        let speech = new SpeechSynthesisUtterance();
-        speech.rate = "0.4";
-		// Set Speech Language
-		speech.lang = "en";
-
-        let word = $(this).data('value');
-        console.log(word);
-		speech.text = word;
-		window.speechSynthesis.speak(speech);
-	});
+                $(document).on("click", '#btn-pronounce', function(event) { 
+                    // Initialize new SpeechSynthesisUtterance object
+                    let speech = new SpeechSynthesisUtterance();
+                    // Set Speech Language
+                    speech.lang = "en";
+                    let word = $(this).data('value');
+                    console.log(word);
+                    speech.text = word;
+                    window.speechSynthesis.speak(speech);
+                });
+            
+                    $(document).on("click", '#btn-pronounce-low', function(event) { 
+                    // Initialize new SpeechSynthesisUtterance object
+                    let speech = new SpeechSynthesisUtterance();
+                    speech.rate = "0.4";
+                    // Set Speech Language
+                    speech.lang = "en";
+            
+                    let word = $(this).data('value');
+                    console.log(word);
+                    speech.text = word;
+                    window.speechSynthesis.speak(speech);
+                });
+            
 
         $(document).on("keyup", function(event) {
             // Number 13 is the "Enter" key on the keyboard
@@ -362,6 +363,155 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
                 //process bar
                     console.log(data[0].process);
+                    let process = data[0].process+'%';
+                    $("#process-bar").text(process)
+                    $("#process-bar").css("width", process);
+                
+                
+                },
+            });
+
+            
+        });
+    }
+
+    //revise lesson
+    if($('#revise').length){
+        $('#revise').children().eq(0).show();
+        
+        $(document).on("click", '.btn-word', function(event) {
+            if($(this).parent().attr('id')=='answer')
+            {
+                $('#yourAnswer').append($(this));
+            }else if($(this).parent().attr('id')=='yourAnswer')
+            {
+                $('#answer').append($(this));
+            }
+        });
+
+
+            	//click to pronounce page studying
+        $(document).on("click", '#btn-pronounce', function(event) { 
+		// Initialize new SpeechSynthesisUtterance object
+        let speech = new SpeechSynthesisUtterance();
+		// Set Speech Language
+		speech.lang = "en";
+        let word = $(this).data('value');
+        console.log(word);
+		speech.text = word;
+		window.speechSynthesis.speak(speech);
+	});
+
+        $(document).on("click", '#btn-pronounce-low', function(event) { 
+		// Initialize new SpeechSynthesisUtterance object
+        let speech = new SpeechSynthesisUtterance();
+        speech.rate = "0.4";
+		// Set Speech Language
+		speech.lang = "en";
+
+        let word = $(this).data('value');
+        console.log(word);
+		speech.text = word;
+		window.speechSynthesis.speak(speech);
+	});
+
+        $(document).on("keyup", function(event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.key === 'Enter') {
+              // Cancel the default action, if needed
+              event.preventDefault();
+              // Trigger the button element with a click
+              document.getElementById("checkQuestion").click();
+                
+            }
+          });
+
+        //call ajax for get question and process study lesson
+        $(document).on("click", '#checkQuestion', function(event) { 
+
+            let question_id = $('#question').data('value');
+            let category = $('#category').data('value')
+            var yourAnswer = '';
+            console.log('category' +category);
+            switch(category) {
+                case 1:
+                    yourAnswer = $("#category input[type='radio']:checked").val();
+                  break;
+                case 2:
+                  $('#yourAnswer').children().each(function(){
+                    yourAnswer = yourAnswer+" "+$(this).text();
+                  });
+                  yourAnswer = yourAnswer.trim();
+                  break;
+                case 3:
+                    $('#yourAnswer').children().each(function(){
+                        yourAnswer = yourAnswer+" "+$(this).text();
+                      });
+                      yourAnswer = yourAnswer.trim();
+                      break;
+                case 5:
+                        yourAnswer = $('#yourAnswerText').val();
+                        yourAnswer = yourAnswer.trim();
+                        console.log($('#yourAnswerText'));
+                    break;
+                default:
+                  // code block
+              }
+              $.ajax({
+                type: 'GET',
+                url: '/questions/getAndCheckQuestionRevise',
+                data: {question_id:question_id,answer:yourAnswer},
+                dataType: 'json',
+                success: function (data) {
+                    $('#revise').html(data.view);
+                    
+                    console.log(data[0].message);
+                    console.log(data);
+                    if(data[0].message == true)
+                    {
+                        $('#message-question').text('Congratulations. Your answer is correct')
+                    }
+                    else if(data[0].message == 'finish'){
+                        $('#message-question').text('Congratulations. You finsih this lesson. Keep up')
+                        window.setTimeout(function(){
+                            window.location.href = data[0].url;
+                        }, 3000);
+                    }
+                    else{
+                        $('#message-question').html('Opp. Your answer is incorrect </br> Correct answer is: '+ data[0].questionNow.answer)
+                    }
+                    $('#messageQuestion').modal('show');
+                // shuffle answer
+                if($('#answer').length)
+                {
+                    function shuffle(array) {
+                        var currentIndex = array.length,  randomIndex;
+                    
+                        // While there remain elements to shuffle...
+                        while (0 !== currentIndex) {
+                    
+                        // Pick a remaining element...
+                        randomIndex = Math.floor(Math.random() * currentIndex);
+                        currentIndex--;
+                    
+                        // And swap it with the current element.
+                        [array[currentIndex], array[randomIndex]] = [
+                            array[randomIndex], array[currentIndex]];
+                        }
+                    
+                        return array;
+                    }
+            
+                    let answer = $('#answer').text().trim();
+                    let arrAnswer = shuffle(answer.split(" "));
+                    let contentAnswer = '';
+                    arrAnswer.forEach(element => {
+                        contentAnswer +='<button type="button" class="btn-word m-2 btn btn-outline-primary btn-sm">'+element+'</button>';
+                    });
+                    $('#answer').html(contentAnswer);
+                }
+                //process bar
+                    
                     let process = data[0].process+'%';
                     $("#process-bar").text(process)
                     $("#process-bar").css("width", process);

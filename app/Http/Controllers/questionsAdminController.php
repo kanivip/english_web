@@ -52,9 +52,29 @@ class questionsAdminController extends Controller
                     'd' => 'required',
                     'correctMuptiple' => 'required'
                 ]);
-                $request->merge([
-                    'answer' => $request->correctMuptiple,
-                ]);
+                switch ($request->correctMuptiple) {
+                    case 'a':
+                        $request->merge([
+                            'answer' => $request->a,
+                        ]);
+                        break;
+                    case 'b':
+                        $request->merge([
+                            'answer' => $request->b,
+                        ]);
+                        break;
+                    case 'c':
+                        $request->merge([
+                            'answer' => $request->c,
+                        ]);
+                        break;
+                    case 'd':
+                        $request->merge([
+                            'answer' => $request->d,
+                        ]);
+                        break;
+                }
+
                 question::create($request->all());
                 return redirect()->back()->with('warm', 'you add success');
                 break;
@@ -158,7 +178,21 @@ class questionsAdminController extends Controller
                 $question->b = $request->b;
                 $question->c = $request->c;
                 $question->d = $request->d;
-                $question->answer = $request->correctMuptiple;
+                switch ($request->correctMuptiple) {
+                    case 'a':
+                        $question->answer = $request->a;
+                        break;
+                    case 'b':
+                        $question->answer = $request->b;
+                        break;
+                    case 'c':
+                        $question->answer = $request->c;
+                        break;
+                    case 'd':
+                        $question->answer = $request->d;
+                        break;
+                }
+
                 $question->save();
                 return redirect()->route('admin.questions.index')->with('success', 'you edit success');
                 break;
