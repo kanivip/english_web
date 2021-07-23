@@ -49,11 +49,6 @@
                                     <input id="inputText3" value="{{old('first_name',$users->first_name)}}" name="first_name"
                                         type="text" class="form-control @error('first_name') is-invalid @enderror" disabled>
                                 </div>
-                                @error('first_name')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Last Name</label>
@@ -61,11 +56,6 @@
                                         name="last_name" type="text"
                                         class="form-control @error('last_name') is-invalid @enderror" disabled>
                                 </div>
-                                @error('last_name')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Address</label>
@@ -73,11 +63,6 @@
                                         name="address" type="text"
                                         class="form-control @error('address') is-invalid @enderror" disabled>
                                 </div>
-                                @error('address')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Phone</label>
@@ -85,11 +70,6 @@
                                         name="phone" type="number"
                                         class="form-control @error('phone') is-invalid @enderror" disabled>
                                 </div>
-                                @error('phone')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
                                 Are you sure unban this account?
                                 <br>
                                 <span><input class="btn btn-primary" type="submit" value="Yes">

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@include('sweetalert::alert')
 <div class="home">
     <div class="home_background" style="background-image: url(images/index_background.jpg);"></div>
     <div class="home_content">

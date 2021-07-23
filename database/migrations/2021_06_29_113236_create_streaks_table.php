@@ -17,6 +17,7 @@ class CreateStreaksTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->integer('num_streak')->nullable()->default(0);
+            $table->integer('daily_reward')->nullable()->default(0);
             $table->timestamps();
         });
     }

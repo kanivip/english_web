@@ -55,7 +55,7 @@
                 <div class="col">
                     <div class="header_content d-flex flex-row align-items-center justify-content-start">
                         <div class="logo_container mr-auto">
-                            <a href="#">
+                            <a href="{{route('home')}}">
                                 <div class="logo_text">Lingua</div>
                             </a>
                         </div>
