@@ -28,13 +28,13 @@ class CheckDailyReward
             if(date('Y-m-d') > $user->daily_reward){
                 $user->daily_reward = date('Y-m-d');
                 $user->point += 5;
-                if($user->save()){
-                    $history = new history;
-                    $history->user_id = Auth::user()->id;
-                    $history->name = 'Daily Reward';
-                    $history->point = 10;
-                    $history->save();
 
+                $history = new history;
+                $history->user_id = Auth::user()->id;
+                $history->name = 'Daily Reward';
+                $history->point = 10;
+                
+                if($user->save() && $history->save()){
                     alert()->success('Daily Reward', 'Your reward today is 5 coin');
                 }
             }
