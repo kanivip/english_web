@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Alert;
 use App\Models\User;
+use App\Models\history;
 
 use function PHPUnit\Framework\isNull;
 
@@ -27,9 +28,15 @@ class CheckDailyReward
             if(date('Y-m-d') > $user->daily_reward){
                 $user->daily_reward = date('Y-m-d');
                 $user->point += 5;
-                $user->save();
+                if($user->save()){
+                    $history = new history;
+                    $history->user_id = Auth::user()->id;
+                    $history->name = 'Daily Reward';
+                    $history->point = 10;
+                    $history->save();
 
-                alert()->success('Daily Reward', 'Your reward today is 5 coin');
+                    alert()->success('Daily Reward', 'Your reward today is 5 coin');
+                }
             }
             
         }
