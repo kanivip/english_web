@@ -39,6 +39,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\CheckBanned::class,
             \App\Http\Middleware\LastUserActivity::class,
+            \App\Http\Middleware\CheckDailyReward::class,
         ],
 
         'api' => [

@@ -29,19 +29,22 @@
                         <div class="card-body">
                             <form method="post" action="{{route('admin.users.update',$users->id)}}"
                                 enctype="multipart/form-data">
+                                
                                 @csrf
+                                
+                                @include('component.error')
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Id</label>
                                     <input id="inputText3" value="{{old('id',$users->id)}}" name="id"
-                                        type="text" class="form-control @error('id') is-invalid @enderror" disabled>
+                                        type="text" class="form-control" disabled>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Email</label>
                                     <input id="inputText3" value="{{old('email',$users->email)}}"
                                         name="email" type="text"
-                                        class="form-control @error('email') is-invalid @enderror" disabled>
+                                        class="form-control" disabled>
                                 </div>
                                 
                                 <div class="form-group">
@@ -49,11 +52,6 @@
                                     <input id="inputText3" value="{{old('first_name',$users->first_name)}}" name="first_name"
                                         type="text" class="form-control @error('first_name') is-invalid @enderror">
                                 </div>
-                                @error('first_name')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Last Name</label>
@@ -61,11 +59,6 @@
                                         name="last_name" type="text"
                                         class="form-control @error('last_name') is-invalid @enderror">
                                 </div>
-                                @error('last_name')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Address</label>
@@ -73,11 +66,6 @@
                                         name="address" type="text"
                                         class="form-control @error('address') is-invalid @enderror">
                                 </div>
-                                @error('address')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Phone</label>
@@ -85,13 +73,8 @@
                                         name="phone" type="number"
                                         class="form-control @error('phone') is-invalid @enderror">
                                 </div>
-                                @error('phone')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
 
-                                <input class="btn btn-primary" type="submit" value="edit">
+                                <input class="btn btn-primary" type="submit" value="Save">
                             </form>
                         </div>
                     </div>

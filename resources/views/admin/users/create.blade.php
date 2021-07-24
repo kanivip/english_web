@@ -30,17 +30,12 @@
                             <form method="post" action="{{route('admin.users.store')}}"
                                 enctype="multipart/form-data">
                                 @csrf
-                                
+                                @include('component.error')
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">First Name</label>
                                     <input id="inputText3" value="{{old('first_name')}}" name="first_name"
                                         type="text" class="form-control @error('first_name') is-invalid @enderror">
                                 </div>
-                                @error('first_name')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Last Name</label>
@@ -48,11 +43,6 @@
                                         name="last_name" type="text"
                                         class="form-control @error('last_name') is-invalid @enderror">
                                 </div>
-                                @error('last_name')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Phonenumber</label>
@@ -60,11 +50,6 @@
                                         name="phone" type="number"
                                         class="form-control @error('phone') is-invalid @enderror">
                                 </div>
-                                @error('phone')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Address</label>
@@ -72,11 +57,6 @@
                                         name="address" type="text"
                                         class="form-control @error('address') is-invalid @enderror">
                                 </div>
-                                @error('address')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Email</label>
@@ -84,11 +64,6 @@
                                         name="email" type="text"
                                         class="form-control @error('email') is-invalid @enderror">
                                 </div>
-                                @error('email')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Password</label>
@@ -96,11 +71,6 @@
                                         name="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" autocomplete="new-password">
                                 </div>
-                                @error('password')
-                                <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Confirm Password</label>

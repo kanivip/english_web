@@ -20,12 +20,13 @@ class CreateUsersTable extends Migration
             $table->foreignId('status_id')->default(1);
             $table->string('phone', 10)->nullable();
             $table->text('address')->nullable();
-            $table->integer('point')->nullable()->default(0);
+            $table->integer('point')->nullable()->default(10);
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->date('daily_reward')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
