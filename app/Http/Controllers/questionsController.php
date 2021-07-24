@@ -27,7 +27,7 @@ class QuestionsController extends Controller
         $url = '';
         $lesson = lesson::with('questions')->find($request->lesson_id);
         $answerUser = $request->answer;
-        //create session by lesson id
+        //create or get session by lesson id
         if ($request->session()->has('incorrect_' . $request->lesson_id)) {
             $incorrect = $request->session()->get('incorrect_' . $request->lesson_id);
         } else {
@@ -52,7 +52,7 @@ class QuestionsController extends Controller
 
         $request->session()->put('process_' . $request->lesson_id, ceil($correct->count() / $lesson->questions->count() * 100));
         $process =  $request->session()->get('process_' . $request->lesson_id);
-
+        //update table learned 
         if ($correct->count() == $lesson->questions->count()) {
             $request->session()->forget(['incorrect_' . $request->id, 'correct' . $request->id, 'process']);
             $user = user::with('lessons')->find(Auth::user()->id);
@@ -66,5 +66,53 @@ class QuestionsController extends Controller
 
 
         return response()->json(['view' => View::make('questions.question', compact('question'))->render(), compact('questionNow', 'process', 'message', 'url')]);
+    }
+
+    public function getAndCheckQuestionRevise(Request $request)
+    {
+        $message = false;
+        $questionNow = question::find($request->question_id);
+        $question = "";
+        $incorrect = '';
+        $questionRandom = '';
+        $correct = '';
+        $answerUser = $request->answer;
+        //create or get session by lesson id
+        if ($request->session()->has('incorrect_random')) {
+            $incorrect = $request->session()->get('incorrect_random');
+        }
+        if ($request->session()->has('correct_random')) {
+            $correct = $request->session()->get('correct_random');
+        }
+        if ($request->session()->has('questions_random')) {
+            $questionRandom = $request->session()->get('questions_random');
+        }
+
+        //check question'answer
+        foreach ($questionRandom as $key => $value) {
+            if ($value->id == $request->question_id && $value->answer == $request->answer) {
+                $correct->push([$value, $request->answer]);
+                $questionRandom->forget($key);
+                $message = true;
+                break;
+            } else if ($value->id == $request->question_id && $value->answer != $request->answer) {
+                $incorrect->push([$value, $request->answer]);
+                $questionRandom->forget($key);
+                $message = false;
+            }
+        }
+        if (!$questionRandom->isEmpty()) {
+            $question = $questionRandom->random();
+        } else {
+            $request->session()->put('process_random', ceil($correct->count() / 10 * 100));
+            $process =  $request->session()->get('process_random');
+            $message = "finish";
+            $url = route('events.reviseResult');
+            return response()->json(['view' => '', compact('questionNow', 'process', 'message', 'url')]);
+        }
+
+        $request->session()->put('process_random', ceil($correct->count() / 10 * 100));
+        $process =  $request->session()->get('process_random');
+        return response()->json(['view' => View::make('questions.question', compact('question'))->render(), compact('questionNow', 'process', 'message')]);
     }
 }

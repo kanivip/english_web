@@ -11,6 +11,11 @@
 
 <div class="courses">
     <div class="container">
+        @if (session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+        @endif
         <div class="row courses_row">
             @foreach($lessons as $lesson)
             <!-- Course -->

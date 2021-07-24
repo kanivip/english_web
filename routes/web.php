@@ -11,6 +11,7 @@ use App\Http\Controllers\vocabulariesController;
 use App\Http\Controllers\adminUsersController;
 use App\Http\Controllers\adminLessonsController;
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\eventsController;
 use App\Http\Controllers\lessonsController;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,15 +36,22 @@ Route::get('/vocabulary/searchVocabulary', [vocabulariesController::class, 'sear
 Route::get('/vocabulary/searchVocabularyById', [vocabulariesController::class, 'searchVocabularyById'])->name('searchVocabularyById');
 Route::post('/questions/getQuestionsByLesson', [QuestionsController::class, 'getQuestionByLesson'])->name('getQuestionsByLesson');
 Route::get('/questions/getAndCheckQuestion', [QuestionsController::class, 'getAndCheckQuestion'])->name('getAndCheckQuestion');
+Route::get('/questions/getAndCheckQuestionRevise', [QuestionsController::class, 'getAndCheckQuestionRevise'])->name('getAndCheckQuestionRevise');
 
 Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'lessons', 'as' => 'lessons.'], function () {
         Route::get('/index', [lessonsController::class, 'index'])->name('index');
-        Route::get('/study/{id}', [lessonsController::class, 'study'])->name('study');
+        Route::get('/study/{id}', [lessonsController::class, 'study'])->middleware('checkStuding')->name('study');
         //using for ajax
         Route::get('/checkcoinlesson', [lessonsController::class, 'checkCoinLesson'])->name('checkCoinLesson');
         Route::get('/loadMore', [lessonsController::class, 'loadMore'])->name('loadMore');
+    });
+
+    Route::group(['prefix' => 'events', 'as' => 'events.'], function () {
+        Route::get('/index', [eventsController::class, 'index'])->name('index');
+        Route::get('/revise', [eventsController::class, 'revise'])->name('revise');
+        Route::get('/reviseResult', [eventsController::class, 'reviseResult'])->name('reviseResult');
     });
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {

@@ -2,7 +2,7 @@
 @section('content')
 <!-- Home -->
 
-<div class="home">
+<div class="home" style="height: 30%;">
 </div>
 <div class="container" style="width: 100%">
     <div class="progress mt-2">
@@ -10,9 +10,10 @@
             aria-valuemin="0" aria-valuemax="100">
             0
         </div>
+
     </div>
 
-    <div data-value="{{$lesson->id}}" id="lesson" class="row p-4">
+    <div id="revise" class="row p-4">
         @switch($question->category_id)
         @case(1)
         <!-- multiple choice -->
