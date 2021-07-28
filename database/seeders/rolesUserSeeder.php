@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\role;
+
 class rolesUserSeeder extends Seeder
 {
     /**
@@ -13,7 +15,7 @@ class rolesUserSeeder extends Seeder
      */
     public function run()
     {
-        if(DB::table('roles')->count() == 0){
+        if (DB::table('roles')->count() == 0) {
 
             DB::table('roles')->insert([
                 [
@@ -34,9 +36,9 @@ class rolesUserSeeder extends Seeder
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
-
             ]);
-            
-        } else { echo "Table have data"; }
+        } else {
+            echo "Table have data";
+        }
     }
 }

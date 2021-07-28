@@ -527,4 +527,38 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     }
 
+    //chart
+
+    //chart for new users.
+    if($('#chart-user').length){ 
+        $.ajax({
+            type: 'GET',
+            url: '/api/users/getDataResultMonth',
+            dataType: 'json',
+            success: function (data) {
+                let arrMonth = [];
+                let arrDataTotalUser = ["new user"];
+                data.forEach(element => {
+                    arrMonth.push(element.month+"-"+element.year);
+                    arrDataTotalUser.push(element.total_month);
+                });
+                var chartUser = c3.generate({
+                    bindto: '#chart-user',
+                    data: {
+                      columns: [
+                        arrDataTotalUser,
+                      ],
+                    },
+                    axis: {
+                        x: {
+                            type: 'category',
+                            categories: arrMonth,
+                        }
+                    }
+                });
+            },
+        });
+
+    }   
+    //end chart
 });
