@@ -16,6 +16,7 @@ class lesson extends Model
         return $this->belongsToMany(question::class);
     }
 
+
     public function users()
     {
         return $this->belongsToMany(user::class, 'learneds', 'user_id', 'lesson_id')->withPivot('status_buy', 'status_learned');

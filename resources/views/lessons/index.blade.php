@@ -26,7 +26,7 @@
                         <div class="course_title"><a href="course.html">{{$lesson->thread}}</a></div>
                         <div class="course_info">
                             <ul>
-                                <li><a href="instructors.html">{{$lesson->name}}</a></li>
+                                <li><a href="#">{{$lesson->name}}</a></li>
                                 <li><a href="#">English</a></li>
                             </ul>
                         </div>

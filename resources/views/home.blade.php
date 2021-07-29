@@ -7,7 +7,14 @@
             <div class="row">
                 <div class="col text-center">
                     <h1 class="home_title">Learn Languages Easily</h1>
-                    <div class="home_button trans_200"><a href="#">get started</a></div>
+                    <div class="home_button trans_200">
+                        @if($nextLesson != '')
+                        <a href="{{route('lessons.study',$nextLesson->id)}}">get
+                            started</a>
+                        @else
+                        <a href="{{route('lessons.index')}}">get
+                            started</a>
+                        @endif </div>
                 </div>
             </div>
         </div>
@@ -119,291 +126,153 @@
             </div>
         </div>
         <div class="row courses_row">
-
+            @foreach($lessons as $lesson)
             <!-- Course -->
             <div class="col-lg-4 course_col">
                 <div class="course">
-                    <div class="course_image"><img src="images/course_1.jpg" alt=""></div>
+                    <div class="course_image"><img src="images/course_4.jpg" alt=""></div>
                     <div class="course_body">
-                        <div class="course_title"><a href="course.html">Vocabulary</a></div>
+                        <div class="course_title"><a href="course.html">{{$lesson->thread}}</a></div>
                         <div class="course_info">
                             <ul>
-                                <li><a href="instructors.html">Sarah Parker</a></li>
+                                <li><a href="instructors.html">{{$lesson->level->name}}</a></li>
                                 <li><a href="#">English</a></li>
                             </ul>
                         </div>
-                        <div class="course_text">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla.</p>
-                        </div>
                     </div>
                     <div class="course_footer d-flex flex-row align-items-center justify-content-start">
                         <div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span>10</span></div>
                         <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>4,5</span>
                         </div>
-                        <div class="course_mark course_free trans_200"><a href="#">Free</a></div>
+                        <div class="learnLesson course_mark trans_200" data-value="{{$lesson->id}}">
+                            <a href="#a">
+
+                                {{$lesson->point_required}}
+
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+            @endforeach
 
-            <!-- Course -->
-            <div class="col-lg-4 course_col">
-                <div class="course">
-                    <div class="course_image"><img src="images/course_2.jpg" alt=""></div>
-                    <div class="course_body">
-                        <div class="course_title"><a href="course.html">Vocabulary</a></div>
-                        <div class="course_info">
+        </div>
+    </div>
+
+    <!-- Instructors -->
+
+    <div class="instructors">
+        <div class="instructors_background" style="background-image:url(images/instructors_background.png)"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2 class="section_title text-center">The Best Tutors in Town</h2>
+                </div>
+            </div>
+            <div class="row instructors_row">
+
+                <!-- Instructor -->
+                <div class="col-lg-4 instructor_col">
+                    <div class="instructor text-center">
+                        <div class="instructor_image_container">
+                            <div class="instructor_image"><img src="images/instructor_1.jpg" alt=""></div>
+                        </div>
+                        <div class="instructor_name"><a href="instructors.html">Sarah Parker</a></div>
+                        <div class="instructor_title">Teacher</div>
+                        <div class="instructor_text">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu
+                                metus in, sagittis fringilla tortor.</p>
+                        </div>
+                        <div class="instructor_social">
                             <ul>
-                                <li><a href="instructors.html">Sarah Parker</a></li>
-                                <li><a href="#">Spanish</a></li>
+                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                             </ul>
                         </div>
-                        <div class="course_text">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla.</p>
-                        </div>
-                    </div>
-                    <div class="course_footer d-flex flex-row align-items-center justify-content-start">
-                        <div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span>10</span></div>
-                        <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>4,5</span>
-                        </div>
-                        <div class="course_mark course_free trans_200"><a href="#">Free</a></div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Course -->
-            <div class="col-lg-4 course_col">
-                <div class="course">
-                    <div class="course_image"><img src="images/course_3.jpg" alt=""></div>
-                    <div class="course_body">
-                        <div class="course_title"><a href="course.html">Vocabulary</a></div>
-                        <div class="course_info">
+                <!-- Instructor -->
+                <div class="col-lg-4 instructor_col">
+                    <div class="instructor text-center">
+                        <div class="instructor_image_container">
+                            <div class="instructor_image"><img src="images/instructor_2.jpg" alt=""></div>
+                        </div>
+                        <div class="instructor_name"><a href="instructors.html">Sarah Parker</a></div>
+                        <div class="instructor_title">Teacher</div>
+                        <div class="instructor_text">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu
+                                metus in, sagittis fringilla tortor.</p>
+                        </div>
+                        <div class="instructor_social">
                             <ul>
-                                <li><a href="instructors.html">Sarah Parker</a></li>
-                                <li><a href="#">English</a></li>
+                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                             </ul>
                         </div>
-                        <div class="course_text">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla.</p>
+                    </div>
+                </div>
+
+                <!-- Instructor -->
+                <div class="col-lg-4 instructor_col">
+                    <div class="instructor text-center">
+                        <div class="instructor_image_container">
+                            <div class="instructor_image"><img src="images/instructor_3.jpg" alt=""></div>
+                        </div>
+                        <div class="instructor_name"><a href="instructors.html">Sarah Parker</a></div>
+                        <div class="instructor_title">Teacher</div>
+                        <div class="instructor_text">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu
+                                metus in, sagittis fringilla tortor.</p>
+                        </div>
+                        <div class="instructor_social">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="course_footer d-flex flex-row align-items-center justify-content-start">
-                        <div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span>10</span></div>
-                        <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>4,5</span>
-                        </div>
-                        <div class="course_mark trans_200"><a href="#">$45</a></div>
-                    </div>
                 </div>
-            </div>
 
-        </div>
-    </div>
-</div>
-
-<!-- Instructors -->
-
-<div class="instructors">
-    <div class="instructors_background" style="background-image:url(images/instructors_background.png)"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2 class="section_title text-center">The Best Tutors in Town</h2>
-            </div>
-        </div>
-        <div class="row instructors_row">
-
-            <!-- Instructor -->
-            <div class="col-lg-4 instructor_col">
-                <div class="instructor text-center">
-                    <div class="instructor_image_container">
-                        <div class="instructor_image"><img src="images/instructor_1.jpg" alt=""></div>
-                    </div>
-                    <div class="instructor_name"><a href="instructors.html">Sarah Parker</a></div>
-                    <div class="instructor_title">Teacher</div>
-                    <div class="instructor_text">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu
-                            metus in, sagittis fringilla tortor.</p>
-                    </div>
-                    <div class="instructor_social">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Instructor -->
-            <div class="col-lg-4 instructor_col">
-                <div class="instructor text-center">
-                    <div class="instructor_image_container">
-                        <div class="instructor_image"><img src="images/instructor_2.jpg" alt=""></div>
-                    </div>
-                    <div class="instructor_name"><a href="instructors.html">Sarah Parker</a></div>
-                    <div class="instructor_title">Teacher</div>
-                    <div class="instructor_text">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu
-                            metus in, sagittis fringilla tortor.</p>
-                    </div>
-                    <div class="instructor_social">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Instructor -->
-            <div class="col-lg-4 instructor_col">
-                <div class="instructor text-center">
-                    <div class="instructor_image_container">
-                        <div class="instructor_image"><img src="images/instructor_3.jpg" alt=""></div>
-                    </div>
-                    <div class="instructor_name"><a href="instructors.html">Sarah Parker</a></div>
-                    <div class="instructor_title">Teacher</div>
-                    <div class="instructor_text">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu
-                            metus in, sagittis fringilla tortor.</p>
-                    </div>
-                    <div class="instructor_social">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- Register -->
-
-<div class="register">
-    <div class="container">
-        <div class="row">
-
-            <!-- Register Form -->
-
-            <div class="col-lg-6">
-                <div class="register_form_container">
-                    <div class="register_form_title">Courses For Free</div>
-                    <form action="#" id="register_form" class="register_form">
-                        <div class="row register_row">
-                            <div class="col-lg-6 register_col">
-                                <input type="text" class="form_input" placeholder="Name" required="required">
-                            </div>
-                            <div class="col-lg-6 register_col">
-                                <input type="email" class="form_input" placeholder="Email" required="required">
-                            </div>
-                            <div class="col-lg-6 register_col">
-                                <input type="tel" class="form_input" placeholder="Phone">
-                            </div>
-                            <div class="col-lg-6 register_col">
-                                <input type="url" class="form_input" placeholder="Site">
-                            </div>
-                            <div class="col">
-                                <button type="submit" class="form_button trans_200">get it now</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Register Timer -->
-
-            <div class="col-lg-6">
-                <div class="register_timer_container">
-                    <div class="register_timer_title">Register Now</div>
-                    <div class="register_timer_text">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu
-                            metus in, sagittis fringilla tortor.</p>
-                    </div>
-                    <div class="timer_container">
-                        <ul class="timer_list">
-                            <li>
-                                <div id="day" class="timer_num">00</div>
-                                <div class="timer_ss">days</div>
-                            </li>
-                            <li>
-                                <div id="hour" class="timer_num">00</div>
-                                <div class="timer_ss">hours</div>
-                            </li>
-                            <li>
-                                <div id="minute" class="timer_num">00</div>
-                                <div class="timer_ss">minutes</div>
-                            </li>
-                            <li>
-                                <div id="second" class="timer_num">00</div>
-                                <div class="timer_ss">seconds</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Events -->
 
-<div class="events">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2 class="section_title text-center">Upcoming Events</h2>
-            </div>
-        </div>
-        <div class="row events_row">
 
-            <!-- Event -->
-            <div class="col-lg-4 event_col">
-                <div class="event">
-                    <div class="event_image"><img src="images/event_1.jpg" alt=""></div>
-                    <div class="event_date d-flex flex-column align-items-center justify-content-center">
-                        <div class="event_day">26</div>
-                        <div class="event_month">aug</div>
-                    </div>
-                    <div class="event_body d-flex flex-row align-items-center justify-content-start">
-                        <div class="event_title"><a href="#">Networking Day</a></div>
-                        <div class="event_tag ml-auto">Free</div>
-                    </div>
+    <!-- Events -->
+
+    <div class="events">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2 class="section_title text-center">Upcoming Events</h2>
                 </div>
             </div>
+            <<div class="row events_row">
 
-            <!-- Event -->
-            <div class="col-lg-4 event_col">
-                <div class="event">
-                    <div class="event_image"><img src="images/event_2.jpg" alt=""></div>
-                    <div class="event_date d-flex flex-column align-items-center justify-content-center">
-                        <div class="event_day">26</div>
-                        <div class="event_month">aug</div>
-                    </div>
-                    <div class="event_body d-flex flex-row align-items-center justify-content-start">
-                        <div class="event_title"><a href="#">Networking Day</a></div>
-                        <div class="event_tag ml-auto">Free</div>
+                <!-- Event -->
+                <div class="col-lg-4 event_col">
+                    <div class="event">
+                        <div class="event_image"><img src="{{asset('images/event_1.jpg')}}" alt=""></div>
+                        <div class="event_date d-flex flex-column align-items-center justify-content-center">
+                            <div class="event_day">{{date('d')}}</div>
+                            <div class="event_month">{{date('m')}}</div>
+                        </div>
+                        <div class="event_body d-flex flex-row align-items-center justify-content-start">
+                            <div class="event_title"><a href="#">Revise</a></div>
+                            <a href="{{route('events.revise')}}" class="event_tag ml-auto">
+                                <div>Go</div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Event -->
-            <div class="col-lg-4 event_col">
-                <div class="event">
-                    <div class="event_image"><img src="images/event_3.jpg" alt=""></div>
-                    <div class="event_date d-flex flex-column align-items-center justify-content-center">
-                        <div class="event_day">26</div>
-                        <div class="event_month">aug</div>
-                    </div>
-                    <div class="event_body d-flex flex-row align-items-center justify-content-start">
-                        <div class="event_title"><a href="#">Networking Day</a></div>
-                        <div class="event_tag ml-auto">Free</div>
-                    </div>
-                </div>
-            </div>
+
+
 
         </div>
     </div>
@@ -518,4 +387,27 @@
         </div>
     </div>
 </div>
+</div>
+
 @endsection
+<!-- Modal confirm learn -->
+<div class="modal fade" id="learnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Hello</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" data-learn="0" id="btn-learn" class="btn btn-primary">Learn</button>
+            </div>
+        </div>
+    </div>
+</div>

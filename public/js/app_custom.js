@@ -172,12 +172,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 let lesson_id = $(this).data('learn');
                 $.ajax({
                     type: 'GET',
-                    url: './checkcoinlesson',
+                    url: '/lessons/checkcoinlesson',
                     data: {id:lesson_id},
                     dataType: 'json',
                     success: function (data) {
                         if(data.flag == true)
                         {
+                            window.location.href = data.message;
+                        }else if(data.flag == 'no user'){
                             window.location.href = data.message;
                         }else
                         {

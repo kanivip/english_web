@@ -36,6 +36,7 @@ Route::get('/vocabulary/searchVocabularyById', [vocabulariesController::class, '
 Route::post('/questions/getQuestionsByLesson', [QuestionsController::class, 'getQuestionByLesson'])->name('getQuestionsByLesson');
 Route::get('/questions/getAndCheckQuestion', [QuestionsController::class, 'getAndCheckQuestion'])->name('getAndCheckQuestion');
 Route::get('/questions/getAndCheckQuestionRevise', [QuestionsController::class, 'getAndCheckQuestionRevise'])->name('getAndCheckQuestionRevise');
+Route::get('lessons/checkcoinlesson', [lessonsController::class, 'checkCoinLesson'])->name('checkCoinLesson');
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -43,7 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/index', [lessonsController::class, 'index'])->name('index');
         Route::get('/study/{id}', [lessonsController::class, 'study'])->middleware('checkStuding')->name('study');
         //using for ajax
-        Route::get('/checkcoinlesson', [lessonsController::class, 'checkCoinLesson'])->name('checkCoinLesson');
+
         Route::get('/loadMore', [lessonsController::class, 'loadMore'])->name('loadMore');
     });
 

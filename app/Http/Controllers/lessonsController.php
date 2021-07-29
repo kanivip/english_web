@@ -68,6 +68,14 @@ class lessonsController extends Controller
         $flag = false;
         $message = '';
         $lesson_id = $request->id;
+        if (Auth::check() == false) {
+            $flag = 'no user';
+            $message = route('login');
+            return response()->json([
+                'message' => $message,
+                'flag' => $flag,
+            ]);
+        }
         $user = Auth::user();
         $lesson = lesson::find($lesson_id);
         $user = user::with(array('lessons' => function ($query) use ($lesson_id) {
