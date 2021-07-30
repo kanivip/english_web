@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\history;
 use Illuminate\Http\Request;
 use App\Models\lesson;
-use App\Models\level;
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -111,5 +111,13 @@ class lessonsController extends Controller
             'message' => $message,
             'flag' => $flag,
         ]);
+    }
+
+    public function showComments($id)
+    {
+        $lesson = lesson::with(['users' => function ($q) {
+            $q->where('users.id', Auth::user()->id);
+        }])->where('id', $id)->first();
+        return view('lessons.comment')->with(compact('lesson'));
     }
 }

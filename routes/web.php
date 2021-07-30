@@ -43,8 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'lessons', 'as' => 'lessons.'], function () {
         Route::get('/index', [lessonsController::class, 'index'])->name('index');
         Route::get('/study/{id}', [lessonsController::class, 'study'])->middleware('checkStuding')->name('study');
+        Route::get('/comments/{id}', [lessonsController::class, 'showComments'])->name('showComments');
         //using for ajax
-
         Route::get('/loadMore', [lessonsController::class, 'loadMore'])->name('loadMore');
     });
 

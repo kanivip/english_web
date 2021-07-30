@@ -17,9 +17,8 @@
         </div>
         @endif
         <div class="row courses_row">
-            @foreach($lessons as $lesson)
             <!-- Course -->
-            <div class="col-lg-4 course_col">
+            <div class="col-lg-6 course_col mx-auto">
                 <div class="course">
                     <div class="course_image"><img src="images/course_4.jpg" alt=""></div>
                     <div class="course_body">
@@ -32,7 +31,7 @@
                         </div>
                     </div>
                     <div class="course_footer d-flex flex-row align-items-center justify-content-start">
-                        <a href="{{route('lessons.showComments',$lesson->id)}}">
+                        <a href="#">
                             <div class="course_students"><i class="fas fa-comments"></i><span>10</span></div>
                         </a>
                         <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>4,5</span>
@@ -51,9 +50,41 @@
                     </div>
                 </div>
             </div>
-            @endforeach
 
-
+            <div class="row">
+                <div class="col-lg-6 course_col mx-auto">
+                    <div class="d-flex flex-row add-comment-section mt-4 mb-4"><input type="text"
+                            class="form-control mr-3" placeholder="Add comment"><button class="btn btn-primary"
+                            type="button">Comment</button></div>
+                    <div class="commented-section mt-2">
+                        <div class="d-flex flex-row align-items-center commented-user">
+                            <h5 class="mr-2">Corey oates</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4
+                                hours
+                                ago</span>
+                        </div>
+                        <div class="comment-text-sm"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                                do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis
+                                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="commented-section mt-2">
+                        <div class="d-flex flex-row align-items-center commented-user">
+                            <h5 class="mr-2">Corey oates</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4
+                                hours
+                                ago</span>
+                        </div>
+                        <div class="comment-text-sm"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                                do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis
+                                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
