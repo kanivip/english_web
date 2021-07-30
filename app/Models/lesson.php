@@ -19,7 +19,7 @@ class lesson extends Model
 
     public function users()
     {
-        return $this->belongsToMany(user::class, 'learneds', 'user_id', 'lesson_id')->withPivot('status_buy', 'status_learned');
+        return $this->belongsToMany(user::class, 'learneds', 'lesson_id', 'user_id')->withPivot('status_buy', 'status_learned');
     }
 
     public function level()
