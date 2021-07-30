@@ -98,7 +98,7 @@
 
                                 <ul class="lang_list">
                                     <li class="hassubs">
-                                        <a href="#">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}<i
+                                        <a href="{{route('profile.index',Auth::user()->id)}}">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}<i
                                                 class="fa fa-angle-down" aria-hidden="true"></i></a>
                                         <ul>
                                             <li>{{Auth::user()->point}} <span style="color: yellow;"><i

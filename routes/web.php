@@ -12,6 +12,8 @@ use App\Http\Controllers\adminUsersController;
 use App\Http\Controllers\adminLessonsController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\lessonsController;
+use App\Http\Controllers\profileController;
+use App\Http\Controllers\vipsController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -46,6 +48,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/loadMore', [lessonsController::class, 'loadMore'])->name('loadMore');
     });
 
+    Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+        Route::get('/index/{id}', [profileController::class, 'index'])->name('index');
+    });
+
     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/dashbroad', [homeAdminController::class, 'dashbroad'])->name('dashbroad');
 
@@ -77,6 +83,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/banned/{id}', [adminUsersController::class, 'banned'])->name('banned');
             Route::get('/unban/{id}', [adminUsersController::class, 'unban'])->name('unban');
             Route::get('/unbanned/{id}', [adminUsersController::class, 'unbanned'])->name('unbanned');
+            Route::get('/vip/{id}', [vipsController::class, 'vip'])->name('vip');
+            Route::get('/upgradeVip/{id}', [vipsController::class, 'upgradeVip'])->name('upgradeVip');
         });
         Route::group(['prefix' => 'levels', 'as' => 'levels.'], function () {
             Route::get('/index', [adminLevelsController::class, 'index'])->name('index');

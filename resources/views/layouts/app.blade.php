@@ -13,10 +13,14 @@
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/OwlCarousel2-2.2.1/animate.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/main_styles.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/responsive.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/profile.css')}}">
+
 
     @if(Request::is('lessons/*'))
     <link rel="stylesheet" type="text/css" href="{{asset('css/courses.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/courses_responsive.css')}}">
+    @elseif(Request::is('profile/*'))
+    <link rel="stylesheet" type="text/css" href="{{asset('css/profile.css')}}">
     @endif
     
 

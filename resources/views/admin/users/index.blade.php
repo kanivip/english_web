@@ -6,6 +6,11 @@
             <h5 class="card-header">Basic Table</h5>
             <div class="card-body">
                 <div class="table-responsive">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                    @endif
                     <table class="table table-striped table-bordered first">
                         <thead>
                             <tr>
@@ -45,12 +50,16 @@
                                     @else
                                     <a href="{{route('admin.users.ban',$user->id)}}"><i class="fas fa-ban"></i></a>
                                     @endif
+                                    <a href="{{route('admin.users.vip',$user->id)}}"><i class="fas fa-gem"></i></a>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
+                <div class="d-flex justify-content-center">
+                                {{$users->links()}}
+                            </div>
             </div>
         </div>
     </div>
