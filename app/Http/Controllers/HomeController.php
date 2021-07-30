@@ -43,6 +43,7 @@ class HomeController extends Controller
         } else {
             $lessons = lesson::with('level')->where('level_id', '=', '1')->take(3)->get();
         }
+
         $lessons->load('users');
         return view('home')->with(compact('lessons', 'nextLesson'));
     }

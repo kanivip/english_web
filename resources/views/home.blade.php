@@ -146,8 +146,10 @@
                         </div>
                         <div class="learnLesson course_mark trans_200" data-value="{{$lesson->id}}">
                             <a href="#a">
-                                @if($lesson->users[0]->pivot->status_buy==1 || $lesson->users[0]->pivot->point_required
-                                == 0)
+                                @if( $lesson->point_required == 0)
+                                Free
+                                @elseif(isset($lesson->users[0]->pivot->status_buy)==1 &&
+                                $lesson->users[0]->pivot->status_buy==1)
                                 Free
                                 @else
                                 {{$lesson->point_required}}
