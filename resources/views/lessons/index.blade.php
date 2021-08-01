@@ -59,7 +59,8 @@
 
         <div class="row">
             <div class="col">
-                <div class="load_more_button" data-value="1"><a href="javascript:void(0)">load more</a></div>
+                <div id="load_more_lesson" class="load_more_button" data-value="1"><a href="javascript:void(0)">load
+                        more</a></div>
             </div>
         </div>
     </div>

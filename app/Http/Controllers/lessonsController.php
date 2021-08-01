@@ -115,9 +115,83 @@ class lessonsController extends Controller
 
     public function showComments($id)
     {
-        $lesson = lesson::with(['users' => function ($q) {
-            $q->where('users.id', Auth::user()->id);
-        }])->where('id', $id)->first();
-        return view('lessons.comment')->with(compact('lesson'));
+        $lesson = lesson::with([
+            'users' => function ($q) {
+                $q->where('users.id', Auth::user()->id);
+            }, 'usersComment' => function ($q) {
+                $q->orderBy('comments.updated_at', 'DESC')
+                    ->take(5)->get();
+            }
+        ])->where('id', $id)->first();
+        $user = $lesson->usersComment->find(Auth::user()->id);
+        return view('lessons.comment')->with(compact('lesson', 'user'));
+    }
+
+    public function addComment(Request $request)
+    {
+
+        $message = '';
+        if (Auth::check()) {
+            $lesson_id = $request->lesson_id;
+            $content = $request->content ? $request->content : '';
+            $lesson = lesson::find($lesson_id);
+            if ($lesson->usersComment->contains(Auth::user()->id)) {
+                $lesson->usersComment()->updateExistingPivot(Auth::user()->id, [
+                    'content' => $content,
+                ]);
+                $message = "update";
+            } else {
+                $lesson->usersComment()->attach(Auth::user()->id, ['content' => $content]);
+                $message = "add";
+            }
+        } else {
+            $message = "You need to login";
+        }
+        return response()->json($message);
+    }
+    public function removeComment(Request $request)
+    {
+        $message = '';
+        if (Auth::check()) {
+            $lesson_id = $request->lesson_id;
+            $lesson = lesson::find($lesson_id);
+            $lesson->usersComment()->detach(Auth::user()->id);
+            $message = "success";
+        } else {
+            $message = "You need to login";
+        }
+        return response()->json($message);
+    }
+
+    public function loadMoreComment(Request $request)
+    {
+        $lesson = lesson::with([
+            'users' => function ($q) {
+                $q->where('users.id', Auth::user()->id);
+            }, 'usersComment' => function ($q) use ($request) {
+                $q->orderBy('comments.updated_at', 'DESC')->skip($request->skip)
+                    ->take(5)->get();
+            }
+        ])->where('id', $request->lesson_id)->first();
+        $user = $lesson->usersComment->find(Auth::user()->id);
+        return response()->json([
+            'view' => View::make('lessons.loadMoreComment', compact('lesson'))->render()
+        ]);
+    }
+
+    public function loadUserComment(Request $request)
+    {
+        $lesson = lesson::with([
+            'users' => function ($q) {
+                $q->where('users.id', Auth::user()->id);
+            }, 'usersComment' => function ($q) {
+                $q->orderBy('comments.updated_at', 'DESC')
+                    ->take(5)->get();
+            }
+        ])->where('id', $request->lesson_id)->first();
+        $user = $lesson->usersComment->find(Auth::user()->id);
+        return response()->json([
+            'view' => View::make('lessons.loadUserComment', compact('user'))->render()
+        ]);
     }
 }

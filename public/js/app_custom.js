@@ -1,10 +1,11 @@
 
-
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-});
+})
+
+var token = $('meta[name="csrf-token"]').attr('content');
 
 document.addEventListener("DOMContentLoaded", function (event) {
     
@@ -132,9 +133,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 	  if(src&&target){showImage(src,target);}
 
     //load more ajax lessons
-    if($('.load_more_button').length){
-        var page = $('.load_more_button').data('value');
-        $('.load_more_button').on('click',function(){
+    if($('#load_more_lesson').length){
+        var page = $('#load_more_lesson').data('value');
+        $('#load_more_lesson').on('click',function(){
             page++;
             $.ajax({
                 type: 'GET',
@@ -144,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 success: function (data) {
                     if(data.view == '')
                     {
-                        $('.load_more_button').hide();
+                        $('#load_more_lesson').hide();
                     }
                     $('.courses_row').append(data.view);
                 },
@@ -527,6 +528,109 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+    }
+    $('.spinner-border').hide();
+    //add comment lesson
+    if($('#comment-add').length){
+        /* $("#comment-update").removeClass("d-flex").addClass("d-none");
+        //click show and hide
+        $("#btn-comment-update").on('click',function(){
+            if($("#comment-update").hasClass("d-none"))
+            {
+            $("#comment-update").removeClass("d-none").addClass("d-flex");
+            }else{
+                $("#comment-update").removeClass("d-flex").addClass("d-none");
+            }
+        }) */
+        //click add to comment
+        $('#comment-add').on('click',function(){
+            let lesson_id = $('.learnLesson').data('value');
+            let content = $('#comment-input').val();
+            
+            $.ajax({
+                type: "POST",
+                url: '/lessons/addComment',
+                data: {_token:token,lesson_id:lesson_id,content:content},
+                dataType: 'json',
+                beforeSend: function(){
+                    $('.spinner-border').show();
+                },
+                complete: function(){
+                    $('.spinner-border').hide();
+                },
+                success: function (data) {
+                    
+                    $.ajax({
+                        type: "Get",
+                        url: '/lessons/loadMoreComment',
+                        data: {_token:token,lesson_id:lesson_id,skip:0},
+                        dataType: 'json',
+                        success: function (data) {
+                            $("#comments").html(data.view);
+                        },
+                    })
+                    if(data == 'update'){
+                        $('#your-comment').find('.comment-text-sm').children().text(content)
+                        $('#your-comment').find('.datetime').text('Updated')
+                        }else{
+                            $.ajax({
+                                type: "Get",
+                                url: '/lessons/loadUserComment',
+                                data: {_token:token,lesson_id:lesson_id,skip:0},
+                                dataType: 'json',
+                                success: function (data) {
+                                    $('#your-comment').html(data.view);
+                                },
+                            })
+                        }
+                },
+            })
+
+        })
+        $(document).on('click','#comment-remove',function(){
+            let lesson_id = $('.learnLesson').data('value');
+            let content = $('#comment-input').val();
+            $.ajax({
+                type: "DELETE",
+                url: '/lessons/removeComment',
+                beforeSend:function(){
+                    return confirm("Are you sure delete your comment?");
+                },
+                data: {_token:token,lesson_id:lesson_id,content:content},
+                dataType: 'json',
+                success: function (data) {
+                    $('#your-comment').empty();
+                    $.ajax({
+                        type: "Get",
+                        url: '/lessons/loadMoreComment',
+                        data: {_token:token,lesson_id:lesson_id,skip:0},
+                        dataType: 'json',
+                        success: function (data) {
+                            $("#comments").html(data.view);
+                        },
+                    })
+                },
+            })
+
+        })
+        var skip = 5;
+        $('#load_more_comment').on('click',function(){
+            let lesson_id = $('.learnLesson').data('value');
+            $.ajax({
+                type: "Get",
+                url: '/lessons/loadMoreComment',
+                data: {_token:token,lesson_id:lesson_id,skip:skip},
+                dataType: 'json',
+                success: function (data) {
+                    skip+=5;
+                    $("#comment-main").append(data.view);
+                    if(data.view == ''){
+                        $("#load_more_comment").hide();
+                    }
+                },
+            })
+
+        })
     }
 
     //chart

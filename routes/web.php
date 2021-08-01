@@ -29,6 +29,7 @@ use App\Http\Controllers\lessonsController;
 Auth::routes();
 
 
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 //using for ajax
 Route::get('/vocabulary/searchVocabulary', [vocabulariesController::class, 'searchVocabulary'])->name('searchVocabulary');
@@ -37,6 +38,11 @@ Route::post('/questions/getQuestionsByLesson', [QuestionsController::class, 'get
 Route::get('/questions/getAndCheckQuestion', [QuestionsController::class, 'getAndCheckQuestion'])->name('getAndCheckQuestion');
 Route::get('/questions/getAndCheckQuestionRevise', [QuestionsController::class, 'getAndCheckQuestionRevise'])->name('getAndCheckQuestionRevise');
 Route::get('lessons/checkcoinlesson', [lessonsController::class, 'checkCoinLesson'])->name('checkCoinLesson');
+Route::post('lessons/addComment', [lessonsController::class, 'addComment'])->name('addComment');
+Route::delete('lessons/removeComment', [lessonsController::class, 'removeComment'])->name('removeComment');
+Route::get('lessons/loadMoreComment', [lessonsController::class, 'loadMoreComment'])->name('loadMoreComment');
+Route::get('lessons/loadUserComment', [lessonsController::class, 'loadUserComment'])->name('loadUserComment');
+
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -45,6 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/study/{id}', [lessonsController::class, 'study'])->middleware('checkStuding')->name('study');
         Route::get('/comments/{id}', [lessonsController::class, 'showComments'])->name('showComments');
         //using for ajax
+
         Route::get('/loadMore', [lessonsController::class, 'loadMore'])->name('loadMore');
     });
 
