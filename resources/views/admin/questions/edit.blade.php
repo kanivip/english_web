@@ -76,9 +76,9 @@
                                             <input value="{{old('a',$question->a)}}" name="a" type="text"
                                                 class="form-control @error('a') is-invalid @enderror">
                                             <div class="custom-control custom-radio">
-                                                <input {{ ($question->answer=="a")? "checked" : "" }} type="radio"
-                                                    value="a" id="customRadio1" name="correctMuptiple"
-                                                    class="custom-control-input">
+                                                <input {{ ($question->answer==$question->a)? "checked" : "" }}
+                                                    type="radio" value="{{$question->a}}" id="customRadio1"
+                                                    name="correctMuptiple" class="custom-control-input">
                                                 <label class="custom-control-label" for="customRadio1">Correct
                                                     Answer</label>
                                             </div>
@@ -93,9 +93,9 @@
                                             <input id="answer_b" value="{{old('b',$question->b)}}" name="b" type="text"
                                                 class="form-control @error('b') is-invalid @enderror">
                                             <div class="custom-control custom-radio">
-                                                <input {{ ($question->answer=="b")? "checked" : "" }} type="radio"
-                                                    value="b" id="customRadio2" name="correctMuptiple"
-                                                    class="custom-control-input">
+                                                <input {{ ($question->answer==$question->b)? "checked" : "" }}
+                                                    type="radio" value="{{$question->b}}" id="customRadio2"
+                                                    name="correctMuptiple" class="custom-control-input">
                                                 <label class="custom-control-label" for="customRadio2">Correct
                                                     Answer</label>
                                             </div>
@@ -110,9 +110,9 @@
                                             <input id="answer_c" value="{{old('c',$question->c)}}" name="c" type="text"
                                                 class="form-control @error('c') is-invalid @enderror">
                                             <div class="custom-control custom-radio">
-                                                <input {{ ($question->answer=="c")? "checked" : "" }} type="radio"
-                                                    value="c" id="customRadio3" name="correctMuptiple"
-                                                    class="custom-control-input">
+                                                <input {{ ($question->answer==$question->c)? "checked" : "" }}
+                                                    type="radio" value="{{$question->c}}" id="customRadio3"
+                                                    name="correctMuptiple" class="custom-control-input">
                                                 <label class="custom-control-label" for="customRadio3">Correct
                                                     Answer</label>
                                             </div>
@@ -127,9 +127,9 @@
                                             <input id="answer_d" value="{{old('d',$question->d)}}" name="d" type="text"
                                                 class="form-control @error('d') is-invalid @enderror">
                                             <div class="custom-control custom-radio">
-                                                <input {{ ($question->answer=="d")? "checked" : "" }} type="radio"
-                                                    value="d" id="customRadio4" name="correctMuptiple"
-                                                    class="custom-control-input">
+                                                <input {{ ($question->answer==$question->d)? "checked" : "" }}
+                                                    type="radio" value="{{$question->d}}" id="customRadio4"
+                                                    name="correctMuptiple" class="custom-control-input">
                                                 <label class="custom-control-label" for="customRadio4">Correct
                                                     Answer</label>
                                             </div>

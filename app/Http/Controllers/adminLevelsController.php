@@ -90,7 +90,13 @@ class adminLevelsController extends Controller
      */
     public function destroy($id)
     {
-        level::where('id', $id)->delete();
-        return redirect()->route('admin.levels.index')->with('success', 'You delete id=' . $id . ' success');
+        try {
+            level::where('id', $id)->delete();
+            return redirect()->route('admin.levels.index')->with('success', 'You delete id=' . $id . ' success');
+        } catch (\Exception $exception) {
+            if ($exception->getCode() == 23000) {
+                return redirect()->route('admin.levels.index')->with('success', 'You need delete data have this category ');
+            }
+        }
     }
 }

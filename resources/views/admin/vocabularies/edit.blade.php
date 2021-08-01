@@ -52,11 +52,10 @@
                                     <strong>{{ $message }}</strong>
                                 </div>
                                 @enderror
-
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Content</label>
                                     <textarea name="content" class="form-control" id="exampleFormControlTextarea1"
-                                        rows="3"></textarea>
+                                        rows="3">{{old('content',$vocabulary->content)}}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-file">

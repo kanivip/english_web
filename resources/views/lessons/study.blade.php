@@ -25,17 +25,18 @@
                 <div class="btn-group btn-group-toggle row" data-toggle="buttons">
 
                     <label class="text-left btn btn-secondary m-2 col">{{$question->a}}
-                        <input type="radio" name="options" id="option1" value="a" autocomplete="off">
+                        <input type="radio" name="options" id="option1" value="{{$question->a}}" autocomplete="off">
                     </label>
                     <label class="text-left btn btn-secondary m-2 col">{{$question->b}}
-                        <input type="radio" name="options" id="option2" value="b" autocomplete="off" checked>
+                        <input type="radio" name="options" id="option2" value="{{$question->b}}" autocomplete="off"
+                            checked>
                     </label>
                     <label class="text-left btn btn-secondary col m-2">{{$question->c}}
-                        <input type="radio" name="options" id="option3" value="c" autocomplete="off">
+                        <input type="radio" name="options" id="option3" value="{{$question->c}}" autocomplete="off">
 
                     </label>
                     <label class="text-left btn btn-secondary col m-2">{{$question->d}}
-                        <input type="radio" name="options" id="option3" value="d" autocomplete="off">
+                        <input type="radio" name="options" id="option3" value="{{$question->d}}" autocomplete="off">
                     </label>
 
                 </div>

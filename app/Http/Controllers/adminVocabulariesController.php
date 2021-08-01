@@ -109,7 +109,7 @@ class adminVocabulariesController extends Controller
         $vocabulary->meaning = $request->meaning;
         $vocabulary->content = $request->content;
         $vocabulary->save();
-        return redirect()->route('admin.vocabularies.index')->with('success', 'You add ' . $request->name . ' success');
+        return redirect()->route('admin.vocabularies.index')->with('success', 'You update ' . $request->name . ' success');
     }
 
     /**
