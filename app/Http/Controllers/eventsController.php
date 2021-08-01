@@ -27,7 +27,7 @@ class eventsController extends Controller
             });
         };
         if ($allQuestions->count() < 10) {
-            return redirect()->back()->with('message', "You need to finish lessson before revise");
+            return redirect()->route('events.index')->with('message', "You need to finish lessson before revise");
         }
         $request->session()->put('questions_random', $allQuestions->random(10));
         $request->session()->put('incorrect_random', collect());

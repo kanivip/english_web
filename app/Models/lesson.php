@@ -16,9 +16,15 @@ class lesson extends Model
         return $this->belongsToMany(question::class);
     }
 
+
     public function users()
     {
-        return $this->belongsToMany(user::class, 'learneds', 'user_id', 'lesson_id')->withPivot('status_buy', 'status_learned');
+        return $this->belongsToMany(user::class, 'learneds', 'lesson_id', 'user_id')->withPivot('status_buy', 'status_learned')->withTimestamps();
+    }
+
+    public function usersComment()
+    {
+        return $this->belongsToMany(user::class, 'comments', 'lesson_id', 'user_id')->withPivot('content')->withTimestamps();
     }
 
     public function level()

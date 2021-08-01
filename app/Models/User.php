@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -62,7 +64,12 @@ class User extends Authenticatable
     }
     public function lessons()
     {
-        return $this->belongsToMany(lesson::class, 'learneds', 'user_id', 'lesson_id')->withPivot('status_learned', 'status_buy');
+        return $this->belongsToMany(lesson::class, 'learneds', 'user_id', 'lesson_id')->withPivot('status_learned', 'status_buy')->withTimestamps();
+    }
+
+    public function lessonsComment()
+    {
+        return $this->belongsToMany(lesson::class, 'comments', 'user_id', 'lesson_id')->withPivot('content')->withTimestamps();
     }
 
     public function learneds()

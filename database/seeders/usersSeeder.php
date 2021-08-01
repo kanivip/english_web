@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\role;
+use App\Models\status;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -37,6 +40,9 @@ class usersSeeder extends Seeder
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
             ]);
+            User::factory()
+                ->count(200)
+                ->create();
         } else {
             echo "Table have data";
         }

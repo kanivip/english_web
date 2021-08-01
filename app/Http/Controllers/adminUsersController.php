@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\role;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Auth;
+
+use Illuminate\Support\Facades\DB;
 
 class adminUsersController extends Controller
 {
@@ -111,5 +112,13 @@ class adminUsersController extends Controller
         $user->status_id = 1;
         $user->save();
         return redirect()->route('admin.users.index')->with('success', 'You unbanned user ' . $user->email . ' success');
+    }
+    public function getDataResultMonth()
+    {
+        $user = user::select(DB::raw('count(id) as `total_month`'), DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
+            ->groupBy('year', 'month')
+            ->having('year', '=', date('Y'))
+            ->get();
+        return response()->json($user, 200);
     }
 }
