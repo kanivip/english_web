@@ -17,7 +17,7 @@
         </div>
         @endif
         <div class="row courses_row">
-            @foreach($lessons as $lesson)
+            @foreach($lessons as $key => $lesson)
             <!-- Course -->
             <div class="col-lg-4 course_col">
                 <div class="course">
@@ -33,7 +33,8 @@
                     </div>
                     <div class="course_footer d-flex flex-row align-items-center justify-content-start">
                         <a href="{{route('lessons.showComments',$lesson->id)}}">
-                            <div class="course_students"><i class="fas fa-comments"></i><span>10</span></div>
+                            <div class="course_students"><i
+                                    class="fas fa-comments"></i><span>{{$comment[$key]->comments_count}}</span></div>
                         </a>
                         <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>4,5</span>
                         </div>

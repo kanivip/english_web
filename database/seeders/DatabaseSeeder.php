@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(usersSeeder::class);
         $this->call(levelsSeeder::class);
         $this->call(questionsSeeder::class);
+        $this->call(CommentSeeder::class);
 
         //questions::factory(1000)->create();
     }

@@ -30,7 +30,11 @@ class lessonsController extends Controller
             ->join('levels', 'levels.id', '=', 'lessons.level_id')
             ->mergeBindings($subQuery)
             ->paginate(6);
-        return view('lessons.index')->with(compact('lessons'));
+        $comment = lesson::withCount('comments')
+            ->orderBy('level_id')
+            ->take(6)
+            ->get();
+        return view('lessons.index')->with(compact('lessons', 'comment'));
     }
 
     public function study($id, Request $request)
@@ -60,7 +64,12 @@ class lessonsController extends Controller
             ->join('levels', 'levels.id', '=', 'lessons.level_id')
             ->mergeBindings($subQuery)
             ->paginate(6);
-        return response()->json(['view' => View::make('lessons.loadMoreData', compact('lessons'))->render()]);
+        $comment = lesson::withCount('comments')
+            ->orderBy('level_id')
+            ->skip(($request->page - 1) * 6)
+            ->take(6)
+            ->get();
+        return response()->json(['view' => View::make('lessons.loadMoreData', compact('lessons', 'comment'))->render()]);
     }
 
     public function checkCoinLesson(Request $request)
@@ -122,7 +131,7 @@ class lessonsController extends Controller
                 $q->orderBy('comments.updated_at', 'DESC')
                     ->take(5)->get();
             }
-        ])->where('id', $id)->first();
+        ])->withCount('usersComment')->where('id', $id)->first();
         $user = $lesson->usersComment->find(Auth::user()->id);
         return view('lessons.comment')->with(compact('lesson', 'user'));
     }

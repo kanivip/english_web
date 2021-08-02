@@ -25,6 +25,7 @@ class usersSeeder extends Seeder
                     'role_id' => '1',
                     'first_name' => 'admin',
                     'last_name' => 'english',
+                    'point' => 500,
                     'email' => 'kanivip284@gmail.com',
                     'password' => Hash::make('admin12345'),
                     'created_at' => date('Y-m-d H:i:s'),
@@ -33,6 +34,7 @@ class usersSeeder extends Seeder
                 [
                     'role_id' => '2',
                     'first_name' => 'user',
+                    'point' => 500,
                     'last_name' => 'english',
                     'email' => 'shoppet2k@gmail.com',
                     'password' => Hash::make('user12345'),

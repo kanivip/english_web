@@ -31,8 +31,9 @@
                         </div>
                     </div>
                     <div class="course_footer d-flex flex-row align-items-center justify-content-start">
-                        <a href="#">
-                            <div class="course_students"><i class="fas fa-comments"></i><span>10</span></div>
+                        <a href="{{route('lessons.showComments',$lesson->id)}}">
+                            <div class="course_students"><i
+                                    class="fas fa-comments"></i><span>{{$lesson->users_comment_count}}</span></div>
                         </a>
                         <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>4,5</span>
                         </div>

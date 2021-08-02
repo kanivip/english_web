@@ -31,4 +31,9 @@ class lesson extends Model
     {
         return $this->belongsTo(level::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

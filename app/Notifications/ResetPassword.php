@@ -43,9 +43,9 @@ class ResetPassword extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Bấm vào nút dưới để đổi mật khẩu.')
-                    ->action('Notification Action', url('password/reset', $this->token))
-                    ->line('Thank you for using our application!');
+            ->line('Click button make reset password.')
+            ->action('Reset Password', url('password/reset', $this->token))
+            ->line('Thank you for using our application!');
     }
 
     /**
