@@ -31,7 +31,8 @@ class lessonsController extends Controller
             ->mergeBindings($subQuery)
             ->paginate(6);
         $comment = lesson::withCount('comments')
-            ->orderBy('level_id')
+            ->orderBy('level_id', 'ASC')
+            ->orderBy('id')
             ->take(6)
             ->get();
         return view('lessons.index')->with(compact('lessons', 'comment'));
@@ -65,7 +66,8 @@ class lessonsController extends Controller
             ->mergeBindings($subQuery)
             ->paginate(6);
         $comment = lesson::withCount('comments')
-            ->orderBy('level_id')
+            ->orderBy('level_id', 'ASC')
+            ->orderBy('id')
             ->skip(($request->page - 1) * 6)
             ->take(6)
             ->get();
