@@ -74,8 +74,6 @@ class questionsAdminController extends Controller
                         ]);
                         break;
                 }
-
-                question::create($request->all());
                 return redirect()->back()->with('warm', 'you add success');
                 break;
             case '2':

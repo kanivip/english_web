@@ -39,15 +39,18 @@
                                 </datalist>
                                 @error('vocabulary')
                                 <div class="alert alert-warning alert-danger fade show">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>{{ dd($message) }}</strong>
                                 </div>
                                 @enderror
                                 <div class="form-group">
                                     <label for="inputText3" class="col-form-label">Category</label>
-                                    <select id="selectCategory" name="category_id" class="custom-select">
-                                        <option value="error" selected>Open this select menu</option>
+                                    <select id="selectCategory" value="{{old('category_id')}}" name="category_id"
+                                        class="custom-select">
                                         @foreach($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                        <option {{ old('category_id') == $category->id ? "selected" : "" }}
+                                            value="{{$category->id}}">
+                                            {{$category->name}}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
