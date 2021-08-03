@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVipsTable extends Migration
+class CreateBanReasonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateVipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vips', function (Blueprint $table) {
+        Schema::create('ban_reasons', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->date('start_day')->nullable();
-            $table->date('end_day')->nullable();
-            $table->integer('required_point')->nullable();
+            $table->string('name', 100);
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateVipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vips');
+        Schema::dropIfExists('ban_reasons');
     }
 }

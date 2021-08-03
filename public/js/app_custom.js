@@ -1,4 +1,3 @@
-
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -7,40 +6,37 @@ $.ajaxSetup({
 
 var token = $('meta[name="csrf-token"]').attr('content');
 
-document.addEventListener("DOMContentLoaded", function (event) {
-    
+document.addEventListener("DOMContentLoaded", function(event) {
 
-    
+    //click to pronounce
+    $('.btn-pronounce').on('click', function() {
+        // Initialize new SpeechSynthesisUtterance object
+        let speech = new SpeechSynthesisUtterance();
+        // Set Speech Language
+        speech.lang = "en";
+        var button = $(this).parent();
+        button = $(button).parent();
+        button = $(button).find('.td-name').text();
+        console.log(button);
+        speech.text = button;
+        window.speechSynthesis.speak(speech);
+    });
 
-	//click to pronounce page admin
-	$('.btn-pronounce').on('click',function (){
-		// Initialize new SpeechSynthesisUtterance object
-		let speech = new SpeechSynthesisUtterance();
-		// Set Speech Language
-		speech.lang = "en";
-		var button = $(this).parent();
-		button = $(button).parent();
-		button = $(button).find('.td-name').text();
-		console.log(button);
-		speech.text = button;
-		window.speechSynthesis.speak(speech);
-	});
-
-	//search field vocabulary
+    //search field vocabulary
     var inputVocabulary = document.getElementById("inputVocabulary");
-    if(inputVocabulary){
-        inputVocabulary.addEventListener("keyup", function(){
+    if (inputVocabulary) {
+        inputVocabulary.addEventListener("keyup", function() {
             var datalist = document.getElementById('datalistVocabulary')
             var question = document.getElementById('question')
             $.ajax({
                 type: 'GET',
                 url: '/vocabulary/searchVocabulary',
-                data: {key:this.value},
+                data: { key: this.value },
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     var dataoption = '';
-                    data.forEach(function(currentValue, index){
-                        dataoption += '<option value="'+currentValue.id+'">'+currentValue.name+'</option>'
+                    data.forEach(function(currentValue, index) {
+                        dataoption += '<option value="' + currentValue.id + '">' + currentValue.name + '</option>'
                     });
                     datalist.innerHTML = dataoption;
                 },
@@ -48,40 +44,40 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $.ajax({
                 type: 'GET',
                 url: '/vocabulary/searchVocabularyById',
-                data: {id:this.value},
+                data: { id: this.value },
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     question.value = data[0].name;
                 },
             });
             question.value = this.text();
         });
     }
-    if( $('#question-index').length){
+    if ($('#question-index').length) {
         var dataQuestionTable = $('#question-index').DataTable();
     }
-    if( $('#demo123').length){
+    if ($('#demo123').length) {
         var dataTable = $('#demo123').DataTable();
-        $('#demo123 tbody').on( 'click', 'tr', function () {
+        $('#demo123 tbody').on('click', 'tr', function() {
             $(this).toggleClass('selected');
-            console.log( dataTable.rows('.selected').data().length +' row(s) selected' );
+            console.log(dataTable.rows('.selected').data().length + ' row(s) selected');
             var questionsInput = '';
-            var ids = $.map(dataTable.rows('.selected').data(), function (item) {
+            var ids = $.map(dataTable.rows('.selected').data(), function(item) {
                 return item[0]
             });
             ids.forEach(element => {
-                questionsInput += '<input name="questions[]" value="'+element+'" type="number"/>';
+                questionsInput += '<input name="questions[]" value="' + element + '" type="number"/>';
             });
             $('.questions').html(questionsInput);
 
         });
-        
+
         var arr = [];
-        $('.questions').children().each(function () {
+        $('.questions').children().each(function() {
             arr.push($(this).val());
             console.log(arr);
         });
-        dataTable.rows().every(function (rowIdx, tableLoop, rowLoop) {
+        dataTable.rows().every(function(rowIdx, tableLoop, rowLoop) {
             arr.forEach(element => {
                 if (this.data()[0] == element) {
                     $(this.node()).addClass('selected');
@@ -91,18 +87,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }
 
-    $('.btn-modalQuestion').on('click',function(){
+    $('.btn-modalQuestion').on('click', function() {
         $.ajax({
             type: 'POST',
             url: '/questions/getQuestionsByLesson',
-            data: {id:this.value},
+            data: { id: this.value },
             dataType: 'json',
-            success: function (data) {
+            success: function(data) {
                 $('#tableQuestion-show').html(data.view)
                 $('#modal-questions').modal('show')
             },
         });
-        
+
     });
 
 
@@ -111,26 +107,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-	//show name image
-	$(".custom-file-input").on("change", function() {
-		var fileName = $(this).val().split("\\").pop();
-		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-	  });
+    //show name image
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
 
-	//show image
-	function showImage(src,target) {
-		var fr=new FileReader();
-		// when image is loaded, set the src of the image where you want to display it
-		fr.onload = function(e) { target.src = this.result; };
-		src.addEventListener("change",function() {
-		  // fill fr with image data    
-		  fr.readAsDataURL(src.files[0]);
-		});
-	  }
+    //show image
+    function showImage(src, target) {
+        var fr = new FileReader();
+        // when image is loaded, set the src of the image where you want to display it
+        fr.onload = function(e) { target.src = this.result; };
+        src.addEventListener("change", function() {
+            // fill fr with image data    
+            fr.readAsDataURL(src.files[0]);
+        });
+    }
 
-	  var src = document.getElementById("image-src");
-	  var target = document.getElementById("image-target");
-	  if(src&&target){showImage(src,target);}
+    var src = document.getElementById("image-src");
+    var target = document.getElementById("image-target");
+    if (src && target) { showImage(src, target); }
 
     //load more ajax lessons
     if($('#load_more_lesson').length){
@@ -139,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             page++;
             $.ajax({
                 type: 'GET',
-                url: 'loadMore?page='+page,
+                url: 'loadMore?page=' + page,
                 data: {},
                 dataType: 'json',
                 success: function (data) {
@@ -190,38 +186,36 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     },
                 });
             });
+        
 
     }
     //process study lesson
-    if($('#answer').length)
-    {
-
-        
-
-
+    if ($('#answer').length) {
         function shuffle(array) {
-            var currentIndex = array.length,  randomIndex;
-          
+            var currentIndex = array.length,
+                randomIndex;
+
             // While there remain elements to shuffle...
             while (0 !== currentIndex) {
-          
-              // Pick a remaining element...
-              randomIndex = Math.floor(Math.random() * currentIndex);
-              currentIndex--;
-          
-              // And swap it with the current element.
-              [array[currentIndex], array[randomIndex]] = [
-                array[randomIndex], array[currentIndex]];
+
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+
+                // And swap it with the current element.
+                [array[currentIndex], array[randomIndex]] = [
+                    array[randomIndex], array[currentIndex]
+                ];
             }
-          
+
             return array;
-          }
+        }
 
         let answer = $('#answer').text().trim();
         let arrAnswer = shuffle(answer.split(" "));
         let contentAnswer = '';
         arrAnswer.forEach(element => {
-            contentAnswer +='<button type="button" class="btn-word m-2 btn btn-outline-primary btn-sm">'+element+'</button>';
+            contentAnswer += '<button type="button" class="btn-word m-2 btn btn-outline-primary btn-sm">' + element + '</button>';
         });
         $('#answer').html(contentAnswer);
 
@@ -230,13 +224,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //study lesson
     if($('#lesson').length){
         $('#lesson').children().eq(0).show();
-        
+
         $(document).on("click", '.btn-word', function(event) {
-            if($(this).parent().attr('id')=='answer')
-            {
+            if ($(this).parent().attr('id') == 'answer') {
                 $('#yourAnswer').append($(this));
-            }else if($(this).parent().attr('id')=='yourAnswer')
-            {
+            } else if ($(this).parent().attr('id') == 'yourAnswer') {
                 $('#answer').append($(this));
             }
         });
@@ -271,26 +263,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $(document).on("keyup", function(event) {
             // Number 13 is the "Enter" key on the keyboard
             if (event.key === 'Enter') {
-              // Cancel the default action, if needed
-              event.preventDefault();
-              // Trigger the button element with a click
-              document.getElementById("checkQuestion").click();
-                
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("checkQuestion").click();
+
             }
-          });
+        });
 
         //call ajax for get question and process study lesson
-        $(document).on("click", '#checkQuestion', function(event) { 
+        $(document).on("click", '#checkQuestion', function(event) {
 
             let lesson_id = $('#lesson').data('value');
             let question_id = $('#question').data('value');
             let category = $('#category').data('value')
             var yourAnswer = '';
-            console.log('category' +category);
-            switch(category) {
+            switch (category) {
                 case 1:
                     yourAnswer = $("#category input[type='radio']:checked").val();
-                  break;
+                    break;
                 case 2:
                   $('#yourAnswer').children().each(function(){
                     yourAnswer = yourAnswer+" "+$(this).text();
@@ -309,68 +300,66 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         console.log($('#yourAnswerText'));
                     break;
                 default:
-                  // code block
-              }
-              $.ajax({
+                    // code block
+            }
+            $.ajax({
                 type: 'GET',
                 url: '/questions/getAndCheckQuestion',
-                data: {lesson_id:lesson_id,question_id:question_id,answer:yourAnswer},
+                data: { lesson_id: lesson_id, question_id: question_id, answer: yourAnswer },
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     $('#lesson').html(data.view);
                     
 
                     console.log(data[0].questionNow);
-                    if(data[0].message == true)
-                    {
+                    if (data[0].message == true) {
                         $('#message-question').text('Congratulations. Your answer is correct')
-                    }
-                    else if(data[0].message == 'finish'){
+                    } else if (data[0].message == 'finish') {
                         $('#message-question').text('Congratulations. You finsih this lesson. Keep up')
-                        window.setTimeout(function(){
+                        window.setTimeout(function() {
                             window.location.href = data[0].url;
                         }, 3000);
-                    }
-                    else{
-                        $('#message-question').html('Opp. Your answer is incorrect </br> Correct answer is: '+ data[0].questionNow.answer)
+                    } else {
+                        $('#message-question').html('Opp. Your answer is incorrect </br> Correct answer is: ' + data[0].questionNow.answer)
                     }
                     $('#messageQuestion').modal('show');
-                // shuffle answer
-                if($('#answer').length)
-                {
-                    function shuffle(array) {
-                        var currentIndex = array.length,  randomIndex;
-                    
-                        // While there remain elements to shuffle...
-                        while (0 !== currentIndex) {
-                    
-                        // Pick a remaining element...
-                        randomIndex = Math.floor(Math.random() * currentIndex);
-                        currentIndex--;
-                    
-                        // And swap it with the current element.
-                        [array[currentIndex], array[randomIndex]] = [
-                            array[randomIndex], array[currentIndex]];
+                    // shuffle answer
+                    if ($('#answer').length) {
+                        function shuffle(array) {
+                            var currentIndex = array.length,
+                                randomIndex;
+
+                            // While there remain elements to shuffle...
+                            while (0 !== currentIndex) {
+
+                                // Pick a remaining element...
+                                randomIndex = Math.floor(Math.random() * currentIndex);
+                                currentIndex--;
+
+                                // And swap it with the current element.
+                                [array[currentIndex], array[randomIndex]] = [
+                                    array[randomIndex], array[currentIndex]
+                                ];
+                            }
+
+                            return array;
                         }
-                    
-                        return array;
+
+                        let answer = $('#answer').text().trim();
+                        let arrAnswer = shuffle(answer.split(" "));
+                        let contentAnswer = '';
+                        arrAnswer.forEach(element => {
+                            contentAnswer += '<button type="button" class="btn-word m-2 btn btn-outline-primary btn-sm">' + element + '</button>';
+                        });
+                        $('#answer').html(contentAnswer);
                     }
-            
-                    let answer = $('#answer').text().trim();
-                    let arrAnswer = shuffle(answer.split(" "));
-                    let contentAnswer = '';
-                    arrAnswer.forEach(element => {
-                        contentAnswer +='<button type="button" class="btn-word m-2 btn btn-outline-primary btn-sm">'+element+'</button>';
-                    });
-                    $('#answer').html(contentAnswer);
-                }
-                //process bar
+                    //process bar
                     console.log(data[0].process);
-                    let process = data[0].process+'%';
+                    let process = data[0].process + '%';
                     $("#process-bar").text(process)
                     $("#process-bar").css("width", process);
-                
-                
+
+
                 },
             });
 
@@ -667,4 +656,4 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     }   
     //end chart
-});
+})

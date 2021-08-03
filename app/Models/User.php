@@ -81,4 +81,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(history::class);
     }
+
+    public function vip()
+    {
+        return $this->hasOne(vip::class);
+    }
+
+    public function reason()
+    {
+        return $this->belongsTo(ban_reasons::class, 'ban_reason_id', 'id');
+    }
 }

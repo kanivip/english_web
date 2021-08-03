@@ -6,8 +6,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Auth;
+use App\Models\role;
+use App\Models\ban_reasons;
 
 class adminUsersController extends Controller
 {
@@ -18,7 +20,8 @@ class adminUsersController extends Controller
      */
     public function index()
     {
-        $users = user::with('role')->paginate(10);
+        $role = auth()->user();
+        $users = user::with('role')->where('role_id', '>', $role)->orderBy('id', 'DESC')->paginate(10);
         return view('admin.users.index')->with(compact('users'));
     }
 
@@ -31,7 +34,8 @@ class adminUsersController extends Controller
     public function edit($id)
     {
         $users = user::find($id);
-        return view('admin.users.edit')->with(compact('users'));
+        $roles = role::get()->where('id', '>', auth()->user()->role_id);
+        return view('admin.users.edit')->with(compact('users', 'roles'));
     }
 
     /**
@@ -55,6 +59,7 @@ class adminUsersController extends Controller
         $user->last_name = $request->last_name;
         $user->address = $request->address;
         $user->phone = $request->phone;
+        $user->role_id = $request->role;
         $user->save();
         return redirect()->route('admin.users.index')->with('success', 'You edit user ' . $user->email . ' success');
     }
@@ -89,13 +94,19 @@ class adminUsersController extends Controller
     public function ban($id)
     {
         $users = user::find($id);
-        return view('admin.users.banned')->with(compact('users'));
+        $reasons = ban_reasons::get();
+        return view('admin.users.banned')->with(compact('users', 'reasons'));
     }
 
-    public function banned($id)
+    public function banned(Request $request, $id)
     {
         $user = user::find($id);
+        $end_day = strtotime(date("Y-m-d") . $request['ban_day']);
+        $end_day = strftime("%Y-%m-%d", $end_day);
+
         $user->status_id = 2;
+        $user->end_ban = $end_day;
+        $user->ban_reason_id = $request->reason;
         $user->save();
         return redirect()->route('admin.users.index')->with('success', 'You banned user ' . $user->email . ' success');
     }
@@ -103,7 +114,13 @@ class adminUsersController extends Controller
     public function unban($id)
     {
         $users = user::find($id);
-        return view('admin.users.unban')->with(compact('users'));
+        $reason = ban_reasons::where('id', $users->ban_reason_id)->first();
+
+        $now = time();
+        $user_date = strtotime($users->end_ban);
+        $day = abs($user_date - $now);
+        $ban_day = round($day / (60 * 60 * 24));
+        return view('admin.users.unban')->with(compact('users', 'reason', 'ban_day'));
     }
 
     public function unbanned($id)

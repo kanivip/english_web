@@ -72,7 +72,19 @@
                                 </div>
                                 Are you sure banned this account?
                                 <br>
-                                <span><input class="btn btn-primary" type="submit" value="Yes">
+                                <span>
+                                    <select name="ban_day" class="custom-select" style="width: 10%;">
+                                        <option value="+7 day"> 7 Days </option>
+                                        <option value="+30 day"> 30 Days </option>
+                                        <option value="+365 day"> 365 Days </option>
+                                        <option value="+36520 day"> Forever </option>
+                                    </select>
+                                    <select name="reason" class="custom-select" style="width: 50%;">
+                                    @foreach($reasons as $reason)
+                                        <option value="{{$reason->id}}"> {{$reason->name}} </option>
+                                    @endforeach
+                                    </select>
+                                        <input class="btn btn-primary" type="submit" value="Yes">
                             </form>
                                 <a><input class="btn btn-primary" type="submit" value="No"></a></span>
                         </div>

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class CheckBanned
 {
@@ -17,15 +18,19 @@ class CheckBanned
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->check() && (Auth::user()->status_id == 2)){
+        if (auth()->check() && (Auth::user()->status_id == 2)) {
+            $user = User::with('reason')->find(Auth::user()->id);
+            $error = "Reason: " . $user->reason->name . " && DayEnd Ban: " . $user->end_ban;
+
             Auth::logout();
 
             $request->session()->invalidate();
 
             $request->session()->regenerateToken();
 
-            return redirect()->route('login')->with('error', 'Your account has been banned, please contact administrator for assistance!');
 
+
+            return redirect()->route('login')->with(compact('error'));
         }
         return $next($request);
     }

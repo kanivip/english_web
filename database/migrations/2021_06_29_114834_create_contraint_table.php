@@ -16,6 +16,7 @@ class CreateContraintTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('status_id')->references('id')->on('status');
+            $table->foreign('ban_reason_id')->references('id')->on('ban_reasons');
         });
         Schema::table('vips', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
@@ -57,6 +58,7 @@ class CreateContraintTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign(['role_id']);
             $table->dropForeign(['status_id']);
+            $table->dropForeign(['ban_reason_id']);
         });
         Schema::table('vips', function (Blueprint $table) {
             $table->dropForeign(['user_id']);

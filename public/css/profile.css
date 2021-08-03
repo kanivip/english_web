@@ -1,0 +1,395 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
+body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+.details {
+    text-align: center;
+    padding-top: 130px;
+}
+
+.profile-pic {
+    height: 6rem;
+    width: 6rem;
+    object-fit: center;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.location p {
+    display: inline-block;
+}
+
+.location svg {
+    vertical-align: middle;
+}
+
+.stats {
+    display: flex;
+}
+
+.stats .col-4 {
+    width: 10rem;
+    text-align: center;
+}
+
+.heading {
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin: 1rem 0;
+}
+
+#background {
+    background: linear-gradient(to right, #ec2F4B, #009FFF);
+}
+
+.fas.fa-coins {
+    color: #ff0;
+}
+
+.fas.fa-gem {
+    color: #f00;
+}
+
+.fas.fa-book {
+    color: #00f;
+}
+
+.stats {
+    background: #f8fafc;
+}
+
+@media (min-width: 1024px) {
+    .css-od2ibp-Container {
+        max-width: 100%;
+        padding-bottom: 30px;
+    }
+    .css-15dzmog-PriceContainer {
+        height: 139px;
+        flex-direction: column;
+        display: flex;
+    }
+    .css-4kdkqr-FeatureList {
+        height: auto;
+    }
+    .css-17hbhb5-FeatureList {
+        height: auto;
+    }
+    .css-1pclwzr-ItemHeader h3 {
+        font-size: 32px;
+    }
+}
+
+
+@media (max-width: 1024px) {
+    .benefits .css-4kdkqr-FeatureList ul li,
+    .benefits .css-17hbhb5-FeatureList ul li {
+        padding: 0;
+        font-size: 0.9em;
+    }
+    .css-15dzmog-PriceContainer div.price-text p {
+        font-size: 1.7em !important;
+    }
+    
+}
+
+@media (max-width: 1366px) {
+.benefits .css-4kdkqr-FeatureList ul li,
+    .benefits .css-17hbhb5-FeatureList ul li {
+        padding: 0;
+        font-size: 0.8em;
+    }
+}
+
+@media (min-width: 768px) {
+    .css-od2ibp-Container {
+        display: flex;
+        flex-wrap: wrap;
+        -webkit-box-pack: center;
+        justify-content: center;
+    }
+    .css-ww32ah-ItemTop {
+        height: auto;
+    }
+}
+
+.css-od2ibp-Container {
+    margin: 45px auto 0px;
+    text-align: center;
+}
+
+.css-tpqd6g-ItemOuterContainer {
+    display: inline-block;
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+.css-ww32ah-ItemTop {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+}
+
+.css-tpqd6g-ItemOuterContainer>a {
+    text-decoration: none;
+}
+
+.css-rl1cnm {
+    cursor: pointer;
+    display: block;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+}
+
+.css-1xqsvmv-ItemFooter {
+    color: white;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 8px;
+    text-transform: uppercase;
+}
+
+.css-1pclwzr-ItemHeader {
+    background-color: rgb(26, 26, 26);
+    color: white;
+    border: none;
+    padding: 25px 0px 20px;
+    white-space: nowrap;
+}
+
+.css-1pclwzr-ItemHeader h3,
+.css-vww6o0-ItemHeader h3 {
+    color: #fff;
+}
+
+.css-e2tnif-ItemBody {
+    border-right: 1px solid rgb(41, 41, 41);
+    border-bottom: 1px solid rgb(41, 41, 41);
+    border-left: 1px solid rgb(41, 41, 41);
+    border-image: initial;
+    border-top: none;
+    background: rgb(41, 41, 41);
+    padding: 25px 30px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.css-15dzmog-PriceContainer {
+    position: relative;
+}
+
+.css-g8zt6o-PriceSeparator {
+    border-width: 1px 0px 0px;
+    border-right-style: initial;
+    border-bottom-style: initial;
+    border-left-style: initial;
+    border-right-color: initial;
+    border-bottom-color: initial;
+    border-left-color: initial;
+    border-image: initial;
+    border-top-style: solid;
+    border-top-color: rgb(73, 73, 73);
+    margin: 20px 0px 0px;
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
+}
+
+.css-4kdkqr-FeatureList {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.css-4kdkqr-FeatureList ul {
+    padding: 0px;
+    margin: 0px;
+    align-self: center;
+    text-align: left;
+    flex: 1 1 auto;
+    font-weight: normal;
+    max-width: 100%;
+}
+
+.css-4kdkqr-FeatureList ul li {
+    line-height: 1.2;
+    list-style: none;
+    margin: 30px 0px;
+    position: relative;
+    padding-left: 40px;
+}
+
+.css-4kdkqr-FeatureList ul li img {
+    max-width: 18px;
+    position: absolute;
+    left: 12px;
+    top: 1px;
+}
+
+.css-4kdkqr-FeatureList ul li .dim {
+    color: rgb(204, 204, 204);
+}
+
+.css-13re8s3-ButtonContainer {
+    min-height: 40px;
+}
+
+.css-13re8s3-ButtonContainer button {
+    margin-top: 10px;
+}
+
+element.style {
+    min-width: 230px;
+}
+
+.css-13re8s3-ButtonContainer button {
+    margin-top: 10px;
+}
+
+.css-9yh3l2 {
+    background: none;
+    color: rgb(118, 185, 0);
+    border-color: rgb(118, 185, 0);
+    border-style: solid;
+    border-width: 3px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 12px 8px;
+    outline: none;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.css-vww6o0-ItemHeader {
+    background-color: rgb(118, 185, 0);
+    color: white;
+    border: none;
+    padding: 25px 0px 20px;
+    white-space: nowrap;
+}
+
+.css-vww6o0-ItemHeader h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0px;
+    text-transform: uppercase;
+    padding: 0px !important;
+}
+
+.css-17hbhb5-FeatureList {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.css-17hbhb5-FeatureList ul {
+    padding: 0px;
+    margin: 0px;
+    align-self: center;
+    text-align: left;
+    flex: 1 1 auto;
+    font-weight: bold;
+    max-width: 100%;
+}
+
+.css-17hbhb5-FeatureList ul li {
+    line-height: 1.2;
+    list-style: none;
+    margin: 30px 0px;
+    position: relative;
+    padding-left: 40px;
+}
+
+.css-e2tnif-ItemBody p,
+.css-e2tnif-ItemBody li {
+    color: white;
+}
+
+.css-17hbhb5-FeatureList ul li img {
+    max-width: 18px;
+    position: absolute;
+    left: 12px;
+    top: 1px;
+}
+
+.css-1831f4k {
+    background: rgb(118, 185, 0);
+    color: white;
+    border-color: rgb(118, 185, 0);
+    border-style: solid;
+    border-width: 3px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 12px 8px;
+    outline: none;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.css-tpqd6g-ItemOuterContainer>a {
+    text-decoration: none;
+}
+
+.css-tpqd6g-ItemOuterContainer a:hover {
+    text-decoration: none;
+}
+
+.css-1dr4zdp {
+    text-align: center;
+}
+
+.css-1pclwzr-ItemHeader h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0px;
+    text-transform: uppercase;
+    padding: 0px !important;
+}
+
+.css-15dzmog-PriceContainer div.price-text p {
+    color: white;
+    display: inline;
+    font-size: 27px;
+    font-weight: lighter;
+    line-height: 1.2;
+    margin: 0px;
+}
+
+.sectionenhanced .general-container p {
+    padding: 10px 0;
+}
+
+.css-15dzmog-PriceContainer div.price-text {
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 100%;
+    margin: 15px 0px 0px;
+}
+
+.benefits {
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+}
+
+.red {
+    color: red;
+}
