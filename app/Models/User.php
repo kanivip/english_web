@@ -69,4 +69,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(history::class);
     }
+
+    public function vip()
+    {
+        return $this->hasOne(vip::class);
+    }
+
+    public function reason()
+    {
+        return $this->belongsTo(reason::class);
+    }
 }

@@ -74,6 +74,14 @@
                                         class="form-control @error('phone') is-invalid @enderror">
                                 </div>
 
+                                <select name="role" class="custom-select" style="width: 50%;">
+                                @if(auth()->user()->role_id == 1)
+                                @foreach($roles as $role)
+                                        <option value="{{$role->id}}"> {{$role->name}} </option>
+                                    @endforeach
+                                @endif
+                                </select>
+
                                 <input class="btn btn-primary" type="submit" value="Save">
                             </form>
                         </div>

@@ -27,6 +27,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->date('daily_reward')->nullable();
+            $table->foreignId('ban_reason_id')->nullable();
+            $table->date('end_ban')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

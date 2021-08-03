@@ -368,3 +368,7 @@ element.style {
     flex-direction: column;
     height: 350px;
 }
+
+.red {
+    color: red;
+}

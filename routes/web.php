@@ -37,6 +37,7 @@ Route::get('/vocabulary/searchVocabulary', [vocabulariesController::class, 'sear
 Route::get('/vocabulary/searchVocabularyById', [vocabulariesController::class, 'searchVocabularyById'])->name('searchVocabularyById');
 Route::post('/questions/getQuestionsByLesson', [QuestionsController::class, 'getQuestionByLesson'])->name('getQuestionsByLesson');
 Route::get('/questions/getAndCheckQuestion', [QuestionsController::class, 'getAndCheckQuestion'])->name('getAndCheckQuestion');
+Route::get('/profile/{id}', [profileController::class, 'index'])->name('profile');
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -46,10 +47,6 @@ Route::group(['middleware' => 'auth'], function () {
         //using for ajax
         Route::get('/checkcoinlesson', [lessonsController::class, 'checkCoinLesson'])->name('checkCoinLesson');
         Route::get('/loadMore', [lessonsController::class, 'loadMore'])->name('loadMore');
-    });
-
-    Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
-        Route::get('/index/{id}', [profileController::class, 'index'])->name('index');
     });
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
