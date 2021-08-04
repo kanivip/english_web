@@ -15,6 +15,7 @@ use App\Http\Controllers\eventsController;
 use App\Http\Controllers\lessonsController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\vipsController;
+use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -49,6 +50,11 @@ Route::get('lessons/loadUserComment', [lessonsController::class, 'loadUserCommen
 Route::get('/profile/{id}', [profileController::class, 'index'])->name('profile');
 
 Route::group(['middleware' => 'auth'], function () {
+
+    Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+        Route::get('/changepassword', [userController::class, 'changePassword'])->name('changePassword');
+        Route::post('/storechangepassword', [userController::class, 'storeChangePassword'])->name('storeChangePassword');
+    });
 
     Route::group(['prefix' => 'lessons', 'as' => 'lessons.'], function () {
         Route::get('/index', [lessonsController::class, 'index'])->name('index');

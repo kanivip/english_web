@@ -99,10 +99,11 @@
                                 <ul class="lang_list">
                                     <li class="hassubs">
                                         <a href="{{route('profile',Auth::user()->id)}}">
-                                        @if(!empty(Auth::user()->vip) && Auth::user()->vip->end_day >= date('Y-m-d'))
-                                        <i class="fas fa-gem"></i> 
-                                        @endif
-                                        {{ Auth::user()->first_name.' '.Auth::user()->last_name }}<i
+                                            @if(!empty(Auth::user()->vip) && Auth::user()->vip->end_day >=
+                                            date('Y-m-d'))
+                                            <i class="fas fa-gem"></i>
+                                            @endif
+                                            {{ Auth::user()->first_name.' '.Auth::user()->last_name }}<i
                                                 class="fa fa-angle-down" aria-hidden="true"></i></a>
                                         <ul>
                                             <li>{{Auth::user()->point}} <span style="color: yellow;"><i
@@ -110,7 +111,8 @@
                                             @if(Auth::user()->role_id==1)
                                             <li><a href="{{route('admin.dashbroad')}}">Admin</a></li>
                                             @endif
-
+                                            <li> <a style="padding:0;" href="{{route('user.changePassword')}}">
+                                                    Change Password</a></li>
                                             <li>
                                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
