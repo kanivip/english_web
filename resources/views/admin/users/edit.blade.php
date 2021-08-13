@@ -77,7 +77,11 @@
                                 <select name="role" class="custom-select" style="width: 50%;">
                                 @if(auth()->user()->role_id == 1)
                                 @foreach($roles as $role)
+                                    @if($users->role == $role)
+                                        <option value="{{$role->id}}" selected> {{$role->name}} </option>
+                                    @else
                                         <option value="{{$role->id}}"> {{$role->name}} </option>
+                                    @endif
                                     @endforeach
                                 @endif
                                 </select>

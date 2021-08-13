@@ -127,6 +127,8 @@ class adminUsersController extends Controller
     {
         $user = user::find($id);
         $user->status_id = 1;
+        $user->end_ban = NULL;
+        $user->ban_reason_id = NULL;
         $user->save();
         return redirect()->route('admin.users.index')->with('success', 'You unbanned user ' . $user->email . ' success');
     }

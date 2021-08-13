@@ -38,14 +38,14 @@
 
                                 @if (Cache::has('user-is-online-' . $user->id))
                                 <td style="color: #00f">Online</td>
-                                @elseif ($user->status_id == 2)
+                                @elseif (!empty($user->end_ban) && $user->end_ban > date('Y-m-d'))
                                 <td style="color: #f00">{{$user->status->name}}</td>
                                 @else
                                 <td>Offline</td>
                                 @endif
 
                                 <td><a href="{{route('admin.users.edit',$user->id)}}"><i class="fas fa-edit"></i></a>
-                                    @if($user->status_id == 2)
+                                    @if(!empty($user->end_ban) && $user->end_ban > date('Y-m-d'))
                                     <a href="{{route('admin.users.unban',$user->id)}}"><i class="fas fa-check"></i></a>
                                     @else
                                     <a href="{{route('admin.users.ban',$user->id)}}"><i class="fas fa-ban"></i></a>

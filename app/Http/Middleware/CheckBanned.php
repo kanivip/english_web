@@ -20,17 +20,19 @@ class CheckBanned
     {
         if (auth()->check() && (Auth::user()->status_id == 2)) {
             $user = User::with('reason')->find(Auth::user()->id);
-            $error = "Reason: " . $user->reason->name . " && DayEnd Ban: " . $user->end_ban;
+            if ($user->end_ban > date('Y-m-d')) {
 
-            Auth::logout();
+                $error = "Your account has been banned for " . $user->reason->name . ", will be unban on: " . $user->end_ban;
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect()->route('login')->with(compact('error'));
+            }
 
-            $request->session()->invalidate();
+            $user->status_id = 1;
+            $user->save();
 
-            $request->session()->regenerateToken();
-
-
-
-            return redirect()->route('login')->with(compact('error'));
+            
         }
         return $next($request);
     }
