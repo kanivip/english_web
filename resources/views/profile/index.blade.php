@@ -35,8 +35,8 @@
         </div>
         @endif
         <div class="col-4">
-            <h4>100</h4>
-            <h4><i class="fas fa-book"></i> Leaned </h4>
+            <h4>{{ $user->learneds_count }}</h4>
+            <h4><i class="fas fa-book"></i> Learned </h4>
         </div>
     </div>
 </div>

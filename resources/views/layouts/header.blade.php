@@ -98,7 +98,7 @@
 
                                 <ul class="lang_list">
                                     <li class="hassubs">
-                                        <a href="{{route('profile',Auth::user()->id)}}">
+                                        <a href="#">
                                             @if(!empty(Auth::user()->vip) && Auth::user()->vip->end_day >=
                                             date('Y-m-d'))
                                             <i class="fas fa-gem"></i>
@@ -106,6 +106,7 @@
                                             {{ Auth::user()->first_name.' '.Auth::user()->last_name }}<i
                                                 class="fa fa-angle-down" aria-hidden="true"></i></a>
                                         <ul>
+                                            <li><a href="{{route('profile',Auth::user()->id)}}">Profile</a></li>
                                             <li>{{Auth::user()->point}} <span style="color: yellow;"><i
                                                         class="fas fa-coins"></i></span></li>
                                             @if(Auth::user()->role_id==1)

@@ -42,7 +42,7 @@
                             <a href="#a">
                                 @if($lesson->status_learned==1)
                                 Learned
-                                @elseif($lesson->status_buy==1 || $lesson->point_required == 0)
+                                @elseif($lesson->status_buy==1 || $lesson->point_required == 0 || $vip)
                                 Free
                                 @else
                                 {{$lesson->point_required}}

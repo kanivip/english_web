@@ -6,6 +6,7 @@ use App\Models\lesson;
 use App\Models\level;
 use App\Models\User;
 use Closure;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,11 @@ class checkStuding
      */
     public function handle(Request $request, Closure $next)
     {
+        // check vip
+        if (isset(Auth::user()->load('vip')->vip->end_day))
+            $vip = Auth::user()->load('vip')->vip->end_day >= Carbon::now()->format('Y-m-d');
+        else
+            $vip = false;
         \DB::statement("SET SQL_MODE=''");
         $lesson_id = $request->route()->parameter('id');
         $lesson = lesson::find($lesson_id);
@@ -35,9 +41,20 @@ class checkStuding
                 ->groupBy('level_id')
                 ->get();
         }])->find(Auth::user()->id);
+        $userLearnedToday = User::with(['lessons' => function ($q) {
+            $q->wherePivot('status_learned', '=', 1)
+                ->whereDate('learneds.updated_at', '=', Carbon::now()->format('Y-m-d'))
+                ->get();
+        }])->find(Auth::user()->id);
+        if ($userLearnedToday->lessons->count() > 3 && $vip == false) {
+            return redirect()->route('lessons.index')->with('message', 'Your limit lesson is 3.Become VIP to have more benefit');
+        }
         // check lesson bought
         if ($user->lessons->count() <= 0) {
-            return redirect()->route('lessons.index')->with('message', 'You need buy this Lesson ' . $lesson_id);;
+            if ($vip == true) {
+                return $next($request);
+            }
+            return redirect()->route('lessons.index')->with('message', 'You need buy this Lesson ' . $lesson_id);
         } else {
             //check user
             if ($lesson->level_id == 1) {

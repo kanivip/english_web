@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\lesson;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -35,7 +36,11 @@ class lessonsController extends Controller
             ->orderBy('id')
             ->take(6)
             ->get();
-        return view('lessons.index')->with(compact('lessons', 'comment'));
+        if (isset(Auth::user()->load('vip')->vip->end_day))
+            $vip = Auth::user()->load('vip')->vip->end_day >= Carbon::now()->format('Y-m-d');
+        else
+            $vip = false;
+        return view('lessons.index')->with(compact('lessons', 'comment', 'vip'));
     }
 
     public function study($id, Request $request)
@@ -71,13 +76,22 @@ class lessonsController extends Controller
             ->skip(($request->page - 1) * 6)
             ->take(6)
             ->get();
-        return response()->json(['view' => View::make('lessons.loadMoreData', compact('lessons', 'comment'))->render()]);
+        if (isset(Auth::user()->load('vip')->vip->end_day))
+            $vip = Auth::user()->load('vip')->vip->end_day >= Carbon::now()->format('Y-m-d');
+        else
+            $vip = false;
+        return response()->json(['view' => View::make('lessons.loadMoreData', compact('lessons', 'comment', 'vip'))->render()]);
     }
 
     public function checkCoinLesson(Request $request)
     {
         $flag = false;
         $message = '';
+        // check vip
+        if (isset(Auth::user()->load('vip')->vip->end_day))
+            $vip = Auth::user()->load('vip')->vip->end_day >= Carbon::now()->format('Y-m-d');
+        else
+            $vip = false;
         $lesson_id = $request->id;
         if (Auth::check() == false) {
             $flag = 'no user';
@@ -92,8 +106,14 @@ class lessonsController extends Controller
         $user = user::with(array('lessons' => function ($query) use ($lesson_id) {
             $query->where('lessons.id', '=', $lesson_id);
         }))->find($user->id);
+        // buy lesson
         if ($user->lessons->count() <= 0) {
-            if ($lesson->point_required <= $user->point) {
+            if ($lesson->point_required == 0 || $vip) {
+                $flag = true;
+                $message = route('lessons.study', [$lesson_id]);
+            } else if ($lesson->point_required > $user->point) {
+                $message = 'Your coin not enough.';
+            } else if ($lesson->point_required <= $user->point) {
                 $user->point -= $lesson->point_required;
                 $user->save();
                 $history = new history([
@@ -104,11 +124,6 @@ class lessonsController extends Controller
                 $user->lessons()->attach($lesson_id, [
                     'status_buy' => true,
                 ]);
-                $flag = true;
-                $message = route('lessons.study', [$lesson_id]);
-            } else if ($lesson->point_required > $user->point) {
-                $message = 'Your coin not enough.';
-            } else if ($lesson->point_required == 0) {
                 $flag = true;
                 $message = route('lessons.study', [$lesson_id]);
             } else {

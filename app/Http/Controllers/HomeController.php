@@ -33,18 +33,16 @@ class HomeController extends Controller
                 $query->where('users.id', Auth::user()->id)
                     ->where('learneds.status_buy', '=', 1)
                     ->where('learneds.status_learned', '=', 0);
-            })->take(3)->get();
+            })->withCount('comments')->take(3)->get();
 
             if ($lessons->isEmpty()) {
-                $lessons = lesson::with('level')->where('level_id', '=', '1')->take(3)->get();
+                $lessons = lesson::with('level')->withCount('comments')->where('level_id', '=', '1')->take(3)->get();
             } else {
                 $nextLesson = $lessons[0];
             }
         } else {
-            $lessons = lesson::with('level')->where('level_id', '=', '1')->take(3)->get();
+            $lessons = lesson::with('level')->withCount('comments')->where('level_id', '=', '1')->take(3)->get();
         }
-
-        $lessons->load('users');
         return view('home')->with(compact('lessons', 'nextLesson'));
     }
 }
