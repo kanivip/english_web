@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\VocabulariesExport;
 use Illuminate\Http\Request;
 use App\Models\vocabulary;
 use App\Helper\Helper;
+use App\Imports\VocabulariesImport;
+use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 use Storage;
 
 class adminVocabulariesController extends Controller
@@ -124,5 +128,28 @@ class adminVocabulariesController extends Controller
         Storage::disk('google')->delete($vocabulary->image);
         $vocabulary->delete();
         return redirect()->back()->with('success', 'You delete id=' . $id . ' success');
+    }
+    public function export()
+    {
+        return Excel::download(new Vocabulariesexport, 'vocabularies.xlsx');
+    }
+
+    public function showImport()
+    {
+        return view('admin.vocabularies.import');
+    }
+
+    public function import(Request $request)
+    {
+        $validated = $request->validate([
+            'file' => 'required|mimes:csv,xlsx,xls|max:2048'
+        ]);
+        $import = new VocabulariesImport;
+        $import->import($request->file);
+        if ($import->failures()->isNotEmpty()) {
+            return redirect()->route('admin.vocabularies.showImport')->with('error', $import->failures());
+        }
+
+        return redirect()->route('admin.vocabularies.showImport');
     }
 }

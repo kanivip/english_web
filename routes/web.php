@@ -90,6 +90,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/edit/{id}', [adminVocabulariesController::class, 'edit'])->name('edit');
             Route::post('/update/{id}', [adminVocabulariesController::class, 'update'])->name('update');
             Route::get('/destroy/{id}', [adminVocabulariesController::class, 'destroy'])->name('destroy');
+            Route::get('/export', [adminVocabulariesController::class, 'export'])->name('export');
+            Route::get('/showImport', [adminVocabulariesController::class, 'showImport'])->name('showImport');
+            Route::post('/Import', [adminVocabulariesController::class, 'import'])->name('import');
         });
 
         Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
