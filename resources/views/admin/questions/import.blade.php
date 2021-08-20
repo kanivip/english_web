@@ -24,7 +24,7 @@
         <!-- ============================================================== -->
         <!-- end pageheader  -->
         <!-- ============================================================== -->
-        <form class="form-inline" method="POST" action="{{route('admin.vocabularies.import')}}"
+        <form class="form-inline" method="POST" action="{{route('admin.questions.import')}}"
             enctype="multipart/form-data">
             @csrf
 
@@ -39,11 +39,6 @@
                 <div class="mt-2">
                     <button class="btn btn-primary" type="submit">Submit</button>
                 </div>
-                @if(session()->has('message'))
-                <div class="alert alert-warning alert-danger fade show">
-                    <strong>{{ session()->get('message') }}</strong>
-                </div>
-                @endif
                 @if(session()->has('error'))
                 <table class="table">
                     <thead>

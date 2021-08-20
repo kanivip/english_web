@@ -99,6 +99,14 @@
                         {{ session('success') }}
                     </div>
                     @endif
+                    <div class="p-2">
+                        <a href="{{route('admin.questions.export')}}">
+                            <button id="export-questions" type="button" class="btn btn-primary">Export</button>
+                        </a>
+                        <a href="{{route('admin.questions.showImport')}}">
+                            <button id="import-questions" type="button" class="btn btn-primary">Import</button>
+                        </a>
+                    </div>
                     <div class="card">
                         <h5 class="card-header">Recent Orders</h5>
                         <div class="card-body p-0">

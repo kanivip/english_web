@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\QuestionsExport;
 use Illuminate\Http\Request;
 use App\Models\question;
 use App\Models\category;
+use App\Exports\MultiplechoiceQuestionSheet;
+use App\Imports\QuestionsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class questionsAdminController extends Controller
 {
@@ -272,5 +276,29 @@ class questionsAdminController extends Controller
                 return redirect()->route('admin.questions.index')->with('success', 'You need delete data have this question ');
             }
         }
+    }
+
+    public function export()
+    {
+        return Excel::download(new QuestionsExport, 'Questions.xlsx');
+    }
+
+    public function showImport()
+    {
+        return view('admin.questions.import');
+    }
+
+    public function import(Request $request)
+    {
+        $validated = $request->validate([
+            'file' => 'required|mimes:csv,xlsx,xls|max:2048'
+        ]);
+        $import = new QuestionsImport;
+        $import->import($request->file);
+        if ($import->failures()->isNotEmpty()) {
+            return redirect()->route('admin.questions.showImport')->with('error', $import->failures());
+        }
+
+        return redirect()->route('admin.questions.showImport');
     }
 }

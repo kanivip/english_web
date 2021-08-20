@@ -11,13 +11,15 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 class VocabulariesImport implements
     ToModel,
     WithHeadingRow,
     SkipsOnError,
     SkipsOnFailure,
-    WithValidation
+    WithValidation,
+    WithChunkReading
 {
     use Importable, SkipsErrors, SkipsFailures;
     /**
@@ -40,5 +42,10 @@ class VocabulariesImport implements
             'name' => 'required|unique:vocabularies,name|max:50',
             'meaning' => 'required|unique:vocabularies,meaning|max:50',
         ];
+    }
+
+    public function chunkSize(): int
+    {
+        return 100;
     }
 }

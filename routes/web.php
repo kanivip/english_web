@@ -124,6 +124,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/edit/{id}', [questionsAdminController::class, 'edit'])->name('edit');
             Route::post('/update/{id}', [questionsAdminController::class, 'update'])->name('update');
             Route::get('/destroy/{id}', [questionsAdminController::class, 'destroy'])->name('destroy');
+            Route::get('/export', [questionsAdminController::class, 'export'])->name('export');
+            Route::get('/showImport', [questionsAdminController::class, 'showImport'])->name('showImport');
+            Route::post('/Import', [questionsAdminController::class, 'import'])->name('import');
         });
 
         Route::group(['prefix' => 'lessons', 'as' => 'lessons.'], function () {

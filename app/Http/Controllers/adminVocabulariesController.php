@@ -150,6 +150,6 @@ class adminVocabulariesController extends Controller
             return redirect()->route('admin.vocabularies.showImport')->with('error', $import->failures());
         }
 
-        return redirect()->route('admin.vocabularies.showImport');
+        return redirect()->route('admin.vocabularies.showImport')->with('message', 'Success');
     }
 }
