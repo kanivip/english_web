@@ -633,10 +633,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
             success: function (data) {
                 let arrMonth = [];
                 let arrDataTotalUser = ["new user"];
+                let yearNow = new Date().getFullYear();
                 data.forEach(element => {
+                    if(yearNow==element.year){
                     arrMonth.push(element.month+"-"+element.year);
                     arrDataTotalUser.push(element.total_month);
+                    }
                 });
+                
                 var chartUser = c3.generate({
                     bindto: '#chart-user',
                     data: {
@@ -653,6 +657,40 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 });
             },
         });
+
+        $('#select-chart-user').on('change',function(){
+            let year = $('#select-chart-user').val();
+            $.ajax({
+                type: 'GET',
+                url: '/api/users/getDataResultMonth',
+                dataType: 'json',
+                success: function (data) {
+                    let arrMonth = [];
+                    let arrDataTotalUser = ["new user"];
+                    data.forEach(element => {
+                        if(year==element.year){
+                        arrMonth.push(element.month+"-"+element.year);
+                        arrDataTotalUser.push(element.total_month);
+                        }
+                    });
+                    
+                    var chartUser = c3.generate({
+                        bindto: '#chart-user',
+                        data: {
+                          columns: [
+                            arrDataTotalUser,
+                          ],
+                        },
+                        axis: {
+                            x: {
+                                type: 'category',
+                                categories: arrMonth,
+                            }
+                        }
+                    });
+                },
+            });
+        })
 
     }   
     //end chart

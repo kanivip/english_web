@@ -1,7 +1,13 @@
 @extends('admin.layout')
 @section('content')
+
 <div class="dashboard-ecommerce">
     <div class="container-fluid dashboard-content ">
+        <select id="select-chart-user" class="custom-select col-3 float-right">
+            @foreach($users as $user)
+            <option value="{{$user->year}}" {{$user->year == now()->year ? 'selected' : ''}}>{{$user->year}}</option>
+            @endforeach
+        </select>
         <!-- ============================================================== -->
         <!-- pageheader  -->
         <!-- ============================================================== -->

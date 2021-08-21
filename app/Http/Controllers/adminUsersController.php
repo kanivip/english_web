@@ -136,7 +136,6 @@ class adminUsersController extends Controller
     {
         $user = user::select(DB::raw('count(id) as `total_month`'), DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
             ->groupBy('year', 'month')
-            ->having('year', '=', date('Y'))
             ->get();
         return response()->json($user, 200);
     }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class homeAdminController extends Controller
 {
@@ -13,6 +15,9 @@ class homeAdminController extends Controller
 
     public function dashbroad()
     {
-        return view('admin.dashbroad');
+        $users = User::select(DB::raw('YEAR(created_at) year'))
+            ->groupBy('year')
+            ->get();
+        return view('admin.dashbroad')->with(compact('users'));
     }
 }

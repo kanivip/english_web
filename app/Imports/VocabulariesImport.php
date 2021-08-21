@@ -10,8 +10,10 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
 
 class VocabulariesImport implements
     ToModel,
@@ -19,7 +21,9 @@ class VocabulariesImport implements
     SkipsOnError,
     SkipsOnFailure,
     WithValidation,
-    WithChunkReading
+    WithChunkReading,
+    WithBatchInserts,
+    ShouldQueue
 {
     use Importable, SkipsErrors, SkipsFailures;
     /**
@@ -46,6 +50,11 @@ class VocabulariesImport implements
 
     public function chunkSize(): int
     {
-        return 100;
+        return 500;
+    }
+
+    public function batchSize(): int
+    {
+        return 500;
     }
 }
