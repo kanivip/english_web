@@ -61,7 +61,8 @@
                                     @endforeach
                                 </ul>
                             </td>
-                            <td>{{ $error->values()[$error->attribute()] }}</td>
+                            <td>{{ isset($error->values()[$error->attribute()]) ? $error->values()[$error->attribute()] : ''  }}
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -6,7 +6,6 @@ use App\Exports\QuestionsExport;
 use Illuminate\Http\Request;
 use App\Models\question;
 use App\Models\category;
-use App\Exports\MultiplechoiceQuestionSheet;
 use App\Imports\QuestionsImport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -298,7 +297,6 @@ class questionsAdminController extends Controller
         if ($import->failures()->isNotEmpty()) {
             return redirect()->route('admin.questions.showImport')->with('error', $import->failures());
         }
-
         return redirect()->route('admin.questions.showImport');
     }
 }

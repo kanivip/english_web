@@ -29,6 +29,7 @@ class QuestionsImport implements
      */
     public function model(array $row)
     {
+
         return new Question([
             'category_id' => category::where('name', $row['category'])->first()->id,
             'vocabulary_id' => vocabulary::where('name', $row['vocabulary'])->first()->id,
@@ -42,7 +43,6 @@ class QuestionsImport implements
     }
     public function rules(): array
     {
-
         return [
             'vocabulary' => 'required|exists:vocabularies,name',
             'category' => 'required|exists:categories,name',
