@@ -20,4 +20,4 @@
 <li>	Quản lý câu hỏi	</li>
 <li>	Quản lý bài học	</li>
 </ul>
-<p>Tài khoản admin: Database/Seeders/UserSeeder /p>
+<p>Tài khoản admin: Database/Seeders/UserSeeder </p>
